@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>我的第一篇Blog</title>
+      <link href="/project/2022/09/27/test-blog/"/>
+      <url>/project/2022/09/27/test-blog/</url>
+      
+        <content type="html"><![CDATA[<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h2 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h2><p>这是一篇测试Blog</p><p>我们的法力随青春逝去， 之后就是一个普通人了， 谁还在乎我们会否受伤， 有无喜乐， 现在我们活在一个真实的世界里， 做错事要承受后果， 我们已经成年， 被贬落凡间在红尘中打滚。 –亦舒 《阿修罗》</p><hr><h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>我们的法力随青春逝去， 之后就是一个普通人了， 谁还在乎我们会否受伤， 有无喜乐， 现在我们活在一个真实的世界里， 做错事要承受后果， 我们已经成年， 被贬落凡间在红尘中打滚。 –亦舒 《阿修罗》</p><hr><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>我们的法力随青春逝去， 之后就是一个普通人了， 谁还在乎我们会否受伤， 有无喜乐， 现在我们活在一个真实的世界里， 做错事要承受后果， 我们已经成年， 被贬落凡间在红尘中打滚。 –亦舒 《阿修罗》</p><hr><p>我们的法力随青春逝去， 之后就是一个普通人了， 谁还在乎我们会否受伤， 有无喜乐， 现在我们活在一个真实的世界里， 做错事要承受后果， 我们已经成年， 被贬落凡间在红尘中打滚。 –亦舒 《阿修罗》</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> test </category>
+          
+          <category> frist </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 测试 </tag>
+            
+            <tag> 第一 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/project/2022/09/27/hello-world/"/>
+      <url>/project/2022/09/27/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我的建站分享</title>
+      <link href="/project/2022/09/07/jian-zhan-fen-xiang/"/>
+      <url>/project/2022/09/07/jian-zhan-fen-xiang/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 建站 </tag>
+            
+            <tag> Markdown </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>

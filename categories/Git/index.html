@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="标签, Blog">
+    <meta name="keywords" content="分类: Git, Blog">
     <meta name="description" content="PB">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>标签 | 平荒尽处是春山</title>
+    <title>分类: Git | 平荒尽处是春山</title>
     <link rel="icon" type="image/png" href="/project/favicon.png">
     
 
@@ -384,91 +384,120 @@
 
     
 
-<div id="tags" class="container chip-container">
+<div id="category-cloud" class="container chip-container">
     <div class="card">
         <div class="card-content">
             <div class="tag-title center-align">
-                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
             </div>
             <div class="tag-chips">
                 
                 
-                <a href="/project/tags/%E6%B5%8B%E8%AF%95/" title="测试: 1">
+                
+                <a href="/project/categories/test/" title="test: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="测试" style="background-color: #F9EBEA;">测试
+                            style="background-color: #F9EBEA;">test
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/project/tags/%E7%AC%AC%E4%B8%80/" title="第一: 1">
+                <a href="/project/categories/test/frist/" title="frist: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="第一" style="background-color: #F5EEF8;">第一
+                            style="background-color: #F5EEF8;">frist
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/project/tags/%E5%BB%BA%E7%AB%99/" title="建站: 1">
+                <a href="/project/categories/Git/" title="Git: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="建站" style="background-color: #D5F5E3;">建站
+                             chip-active "
+                            style="background-color: #D5F5E3;">Git
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/project/tags/Markdown/" title="Markdown: 1">
+                <a href="/project/categories/Git/%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/" title="右键菜单: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Markdown" style="background-color: #E8F8F5;">Markdown
+                            style="background-color: #E8F8F5;">右键菜单
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
-                
-                <a href="/project/tags/Git/" title="Git: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Git" style="background-color: #FEF9E7;">Git
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
                 
             </div>
         </div>
     </div>
 </div>
 
-    
-    <link rel="stylesheet" type="text/css" href="/project/libs/jqcloud/jqcloud.css">
-<style type="text/css">
-    #tag-wordcloud {
-        width: 100%;
-        height: 300px;
-    }
-</style>
-
-<div class="container" data-aos="fade-up">
-    <div class="card">
-        <div id="tag-wordcloud" class="card-content"></div>
-    </div>
-</div>
-
-<script type="text/javascript" src="/project/libs/jqcloud/jqcloud-1.0.4.min.js"></script>
-<script type="text/javascript">
-    
-
-    $('#tag-wordcloud').jQCloud([{"text":"测试","weight":1,"link":"/project/tags/测试/"},{"text":"第一","weight":1,"link":"/project/tags/第一/"},{"text":"建站","weight":1,"link":"/project/tags/建站/"},{"text":"Markdown","weight":1,"link":"/project/tags/Markdown/"},{"text":"Git","weight":1,"link":"/project/tags/Git/"}], {
-        autoResize: true
-    });
-</script>
 
     
 
+    <article id="articles" class="container articles">
+        <div class="row tags-posts">
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/project/2022/09/27/tian-jia-git-bash-here/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/project/medias/featureimages/4.jpg" class="responsive-img" alt="手动添加Git到右键菜单">
+                            
+                            <span class="card-title">手动添加Git到右键菜单</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                由于不知原因，右键没有了Git Bash Here，没有这个右键菜单导致获取Git仓库中的代码很不方便，所以决定通过注册表的方式将这个菜单加出来。
+1、win + R，输入“regedit”，回车打开注册表；
+2、找到 [HKEY_CLAS
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-27
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/project/categories/Git/" class="post-category">
+                                    Git
+                                </a>
+                                
+                                <a href="/project/categories/Git/%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/" class="post-category">
+                                    右键菜单
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/project/tags/Git/">
+                            <span class="chip bg-color">Git</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </article>
 </main>
+
+
 
 
     <footer class="page-footer bg-color">

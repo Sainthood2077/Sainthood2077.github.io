@@ -5,8 +5,8 @@
     
     <entry>
       <title>Django_Project</title>
-      <link href="/BlogFile/2022/10/04/django-project/"/>
-      <url>/BlogFile/2022/10/04/django-project/</url>
+      <link href="/2022/10/04/django-project/"/>
+      <url>/2022/10/04/django-project/</url>
       
         <content type="html"><![CDATA[<p>今天开始学习Django，再此记录一下学习过程以便过后复习查看</p><h2 id="一、安装Django"><a href="#一、安装Django" class="headerlink" title="一、安装Django"></a>一、安装Django</h2><pre class=" language-python"><code class="language-python">pip install django</code></pre><h2 id="二、生成Django"><a href="#二、生成Django" class="headerlink" title="二、生成Django"></a>二、生成Django</h2><p>首先尽量没有中文路径的Django</p><pre class=" language-python"><code class="language-python"><span class="token string">"D:\Ananconda3\Anaconda\Scripts\django-admin.exe"</span> startproject 项目名称<span class="token comment" spellcheck="true"># 如果"D:\Ananconda3\Anaconda\Scripts\"已经加入环境变量</span>django<span class="token operator">-</span>admin<span class="token punctuation">.</span>exe startporject 项目名称</code></pre><p>创建成功截图：</p><p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221005000620128.png" alt="image-20221005000620128"></p>]]></content>
       
@@ -24,8 +24,8 @@
     
     <entry>
       <title>我的第一篇Blog</title>
-      <link href="/BlogFile/2022/09/27/test-blog/"/>
-      <url>/BlogFile/2022/09/27/test-blog/</url>
+      <link href="/2022/09/27/test-blog/"/>
+      <url>/2022/09/27/test-blog/</url>
       
         <content type="html"><![CDATA[<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h2 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h2><p>这是一篇测试Blog</p><p>我们的法力随青春逝去， 之后就是一个普通人了， 谁还在乎我们会否受伤， 有无喜乐， 现在我们活在一个真实的世界里， 做错事要承受后果， 我们已经成年， 被贬落凡间在红尘中打滚。 –亦舒 《阿修罗》</p><hr><h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>我们的法力随青春逝去， 之后就是一个普通人了， 谁还在乎我们会否受伤， 有无喜乐， 现在我们活在一个真实的世界里， 做错事要承受后果， 我们已经成年， 被贬落凡间在红尘中打滚。 –亦舒 《阿修罗》</p><hr><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>我们的法力随青春逝去， 之后就是一个普通人了， 谁还在乎我们会否受伤， 有无喜乐， 现在我们活在一个真实的世界里， 做错事要承受后果， 我们已经成年， 被贬落凡间在红尘中打滚。 –亦舒 《阿修罗》</p><hr><p>我们的法力随青春逝去， 之后就是一个普通人了， 谁还在乎我们会否受伤， 有无喜乐， 现在我们活在一个真实的世界里， 做错事要承受后果， 我们已经成年， 被贬落凡间在红尘中打滚。 –亦舒 《阿修罗》</p><hr>]]></content>
       
@@ -53,8 +53,8 @@
     
     <entry>
       <title>手动添加Git到右键菜单</title>
-      <link href="/BlogFile/2022/09/27/tian-jia-git-bash-here/"/>
-      <url>/BlogFile/2022/09/27/tian-jia-git-bash-here/</url>
+      <link href="/2022/09/27/tian-jia-git-bash-here/"/>
+      <url>/2022/09/27/tian-jia-git-bash-here/</url>
       
         <content type="html"><![CDATA[<p>由于不知原因，右键没有了Git Bash Here，没有这个右键菜单导致获取Git仓库中的代码很不方便，所以决定通过注册表的方式将这个菜单加出来。</p><p>1、win + R，输入“regedit”，回车打开注册表；</p><p>2、找到 [HKEY_CLASSES_ROOT\Directory\Background]；</p><p>3、在 [Background] 下如果没有 [shell]，则右键-新建项 [shell]；</p><p>4、在 [shell] 下右键-新建项[Git Bash Here]，此为右键菜单显示名称；</p><p>5、在 [Git Bash Here] 下右键-新建-字符串值[Icon],双击编辑，其值为“D:\Git\mingw64\share\git\git-for-windows.ico”。此为菜单加图标，“D:\Git”为安装路径。</p><p>6、在 [Git Bash Here] 下右键-新建-项[command],其值为 “D:\Git\git-bash.exe”。</p><p>然后就能在鼠标右键（win11要打开更多选项）就有显示</p><p><img src="C:\Users\dell\AppData\Roaming\Typora\typora-user-images\1664449361346.png" alt="1664449361346"></p><p>原创链接：<a href="https://www.cnblogs.com/rnckty/p/7607445.html">手动添加 Git bash 到鼠标右键 - 贱书生 - 博客园 (cnblogs.com)</a></p>]]></content>
       
@@ -80,8 +80,8 @@
     
     <entry>
       <title>Hello World</title>
-      <link href="/BlogFile/2022/09/27/hello-world/"/>
-      <url>/BlogFile/2022/09/27/hello-world/</url>
+      <link href="/2022/09/27/hello-world/"/>
+      <url>/2022/09/27/hello-world/</url>
       
         <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
       
@@ -93,8 +93,8 @@
     
     <entry>
       <title>我的建站分享</title>
-      <link href="/BlogFile/2022/09/07/jian-zhan-fen-xiang/"/>
-      <url>/BlogFile/2022/09/07/jian-zhan-fen-xiang/</url>
+      <link href="/2022/09/07/jian-zhan-fen-xiang/"/>
+      <url>/2022/09/07/jian-zhan-fen-xiang/</url>
       
         <content type="html"><![CDATA[]]></content>
       

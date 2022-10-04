@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Django_Project</title>
+      <link href="/project/2022/10/04/django-project/"/>
+      <url>/project/2022/10/04/django-project/</url>
+      
+        <content type="html"><![CDATA[<p>今天开始学习Django，再此记录一下学习过程以便过后复习查看</p><h2 id="一、安装Django"><a href="#一、安装Django" class="headerlink" title="一、安装Django"></a>一、安装Django</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install django</span><br></pre></td></tr></tbody></table></figure><h2 id="二、生成Django"><a href="#二、生成Django" class="headerlink" title="二、生成Django"></a>二、生成Django</h2><p>首先尽量没有中文路径的Django</p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"D:\Ananconda3\Anaconda\Scripts\django-admin.exe"</span> startproject 项目名称</span><br><span class="line"><span class="comment"># 如果"D:\Ananconda3\Anaconda\Scripts\"已经加入环境变量</span></span><br><span class="line">django-admin.exe startporject 项目名称</span><br></pre></td></tr></tbody></table></figure><p>创建成功截图：</p><p><img src="https://cdn.jsdelivr.net/gh/sainthood2077/CloudImg@main/image-20221004230220896.png" alt="image-20221004230220896"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Django </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>我的第一篇Blog</title>
       <link href="/project/2022/09/27/test-blog/"/>
       <url>/project/2022/09/27/test-blog/</url>
@@ -37,7 +56,7 @@
       <link href="/project/2022/09/27/tian-jia-git-bash-here/"/>
       <url>/project/2022/09/27/tian-jia-git-bash-here/</url>
       
-        <content type="html"><![CDATA[<p>由于不知原因，右键没有了Git Bash Here，没有这个右键菜单导致获取Git仓库中的代码很不方便，所以决定通过注册表的方式将这个菜单加出来。</p><p>1、win + R，输入“regedit”，回车打开注册表；</p><p>2、找到 [HKEY_CLASSES_ROOT\Directory\Background]；</p><p>3、在 [Background] 下如果没有 [shell]，则右键-新建项 [shell]；</p><p>4、在 [shell] 下右键-新建项[Git Bash Here]，此为右键菜单显示名称；</p><p>5、在 [Git Bash Here] 下右键-新建-字符串值[Icon],双击编辑，其值为“D:\Git\mingw64\share\git\git-for-windows.ico”。此为菜单加图标，“D:\Git”为安装路径。</p><p>6、在 [Git Bash Here] 下右键-新建-项[command],其值为 “D:\Git\git-bash.exe”。</p><p>然后就能在鼠标右键（win11要打开更多选项）就有显示</p><p><img src="/project/project/2022/09/27/tian-jia-git-bash-here/Users\dell\AppData\Roaming\Typora\typora-user-images\1664449361346.png" alt="1664449361346"></p><p>原创链接：<a href="https://www.cnblogs.com/rnckty/p/7607445.html">手动添加 Git bash 到鼠标右键 - 贱书生 - 博客园 (cnblogs.com)</a></p>]]></content>
+        <content type="html"><![CDATA[<p>由于不知原因，右键没有了Git Bash Here，没有这个右键菜单导致获取Git仓库中的代码很不方便，所以决定通过注册表的方式将这个菜单加出来。</p><p>1、win + R，输入“regedit”，回车打开注册表；</p><p>2、找到 [HKEY_CLASSES_ROOT\Directory\Background]；</p><p>3、在 [Background] 下如果没有 [shell]，则右键-新建项 [shell]；</p><p>4、在 [shell] 下右键-新建项[Git Bash Here]，此为右键菜单显示名称；</p><p>5、在 [Git Bash Here] 下右键-新建-字符串值[Icon],双击编辑，其值为“D:\Git\mingw64\share\git\git-for-windows.ico”。此为菜单加图标，“D:\Git”为安装路径。</p><p>6、在 [Git Bash Here] 下右键-新建-项[command],其值为 “D:\Git\git-bash.exe”。</p><p>然后就能在鼠标右键（win11要打开更多选项）就有显示</p><p><img src="C:\Users\dell\AppData\Roaming\Typora\typora-user-images\1664449361346.png" alt="1664449361346"></p><p>原创链接：<a href="https://www.cnblogs.com/rnckty/p/7607445.html">手动添加 Git bash 到鼠标右键 - 贱书生 - 博客园 (cnblogs.com)</a></p>]]></content>
       
       
       <categories>

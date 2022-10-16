@@ -429,30 +429,30 @@ django<span class="token operator">-</span>admin<span class="token punctuation">
 </code></pre>
 <p>创建成功截图：</p>
 <p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221005000620128.png" alt="image-20221005000620128"></p>
-<h2 id="三、文件说明"><a href="#三、文件说明" class="headerlink" title="三、文件说明"></a>三、文件说明</h2><pre><code>WMS
- │─manage.py           [项目的管理、启动、创建APP][无需修改，经常使用]
+<h2 id="三、文件说明"><a href="#三、文件说明" class="headerlink" title="三、文件说明"></a>三、文件说明</h2><pre class=" language-python"><code class="language-python">WMS
+ │─manage<span class="token punctuation">.</span>py           <span class="token punctuation">[</span>项目的管理、启动、创建APP<span class="token punctuation">]</span><span class="token punctuation">[</span>无需修改，经常使用<span class="token punctuation">]</span>
  │
- └─WMS                 [项目名同名文件夹]
-      │─asgi.py        [接受网络请求][无需修改]
-      │─settings.py    [配置文件][数据库配置，时区，安装的APP，中间件，日志配置，以及一些基本的目录配置]
-      │─urls.py           [包含一个urlpatterns变量，其实它就是一个URLDispacher（URL分派器）,用于在URL和实际的view之间建立一个映射]
-      │─wsgi.py           [接受网络请求][无需修改]
-      └─__init__.py    [说明内部的WMS目录是一个python模块]
+ └─WMS                 <span class="token punctuation">[</span>项目名同名文件夹<span class="token punctuation">]</span>
+      │─asgi<span class="token punctuation">.</span>py        <span class="token punctuation">[</span>接受网络请求<span class="token punctuation">]</span><span class="token punctuation">[</span>无需修改<span class="token punctuation">]</span>
+      │─settings<span class="token punctuation">.</span>py    <span class="token punctuation">[</span>配置文件<span class="token punctuation">]</span><span class="token punctuation">[</span>数据库配置，时区，安装的APP，中间件，日志配置，以及一些基本的目录配置<span class="token punctuation">]</span>
+      │─urls<span class="token punctuation">.</span>py           <span class="token punctuation">[</span>包含一个urlpatterns变量，其实它就是一个URLDispacher（URL分派器）<span class="token punctuation">,</span>用于在URL和实际的view之间建立一个映射<span class="token punctuation">]</span>
+      │─wsgi<span class="token punctuation">.</span>py           <span class="token punctuation">[</span>接受网络请求<span class="token punctuation">]</span><span class="token punctuation">[</span>无需修改<span class="token punctuation">]</span>
+      └─__init__<span class="token punctuation">.</span>py    <span class="token punctuation">[</span>说明内部的WMS目录是一个python模块<span class="token punctuation">]</span>
 </code></pre>
 <h2 id="四、APP概念"><a href="#四、APP概念" class="headerlink" title="四、APP概念"></a>四、APP概念</h2><h4 id="1、作用"><a href="#1、作用" class="headerlink" title="1、作用"></a>1、作用</h4><p>APP相当于一个相对独立的功能模块，其遵循的设计理念是MVT（类似MVC）；在一个大型的Project中，可以包含很多APP，而且每个APP可以在不同的Project中复用，这也符合Django的编程理念，即：不要做重复的事情。</p>
 <p>并且每个APP都有独立的表结构、函数、HTML模板、CSS</p>
 <h3 id="2、创建"><a href="#2、创建" class="headerlink" title="2、创建"></a>2、创建</h3><pre class=" language-python"><code class="language-python">python manage<span class="token punctuation">.</span>py startapp app名称
 </code></pre>
-<h3 id="3、APP目录结构"><a href="#3、APP目录结构" class="headerlink" title="3、APP目录结构"></a>3、APP目录结构</h3><pre><code>wmsapp
-    │  admin.py          [无需修改][默认提供的admin后台]
-    │  apps.py           [无需修改]
-    │  models.py         [操作数据库，ORM]
-    │  tests.py          [无需修改][单元测试]
-    │  views.py          [URL Dispacher即将URL请求映射到这个文件中的函数或类方法上]
-    │  __init__.py       [说明polls目录是一个python模块]
+<h3 id="3、APP目录结构"><a href="#3、APP目录结构" class="headerlink" title="3、APP目录结构"></a>3、APP目录结构</h3><pre class=" language-python"><code class="language-python">wmsapp
+    │  admin<span class="token punctuation">.</span>py          <span class="token punctuation">[</span>无需修改<span class="token punctuation">]</span><span class="token punctuation">[</span>默认提供的admin后台<span class="token punctuation">]</span>
+    │  apps<span class="token punctuation">.</span>py           <span class="token punctuation">[</span>无需修改<span class="token punctuation">]</span>
+    │  models<span class="token punctuation">.</span>py         <span class="token punctuation">[</span>操作数据库，ORM<span class="token punctuation">]</span>
+    │  tests<span class="token punctuation">.</span>py          <span class="token punctuation">[</span>无需修改<span class="token punctuation">]</span><span class="token punctuation">[</span>单元测试<span class="token punctuation">]</span>
+    │  views<span class="token punctuation">.</span>py          <span class="token punctuation">[</span>URL Dispacher即将URL请求映射到这个文件中的函数或类方法上<span class="token punctuation">]</span>
+    │  __init__<span class="token punctuation">.</span>py       <span class="token punctuation">[</span>说明polls目录是一个python模块<span class="token punctuation">]</span>
     │
-    └─migrations        [记录数据库变更]
-            __init__.py
+    └─migrations        <span class="token punctuation">[</span>记录数据库变更<span class="token punctuation">]</span>
+            __init__<span class="token punctuation">.</span>py
 </code></pre>
 <h2 id="五、项目部署"><a href="#五、项目部署" class="headerlink" title="五、项目部署"></a>五、项目部署</h2><h3 id="1-注册APP"><a href="#1-注册APP" class="headerlink" title="1.注册APP"></a>1.注册APP</h3><p>/WMS/settings.py</p>
 <pre class=" language-python"><code class="language-python">INSTALLED_APPS <span class="token operator">=</span> <span class="token punctuation">[</span>

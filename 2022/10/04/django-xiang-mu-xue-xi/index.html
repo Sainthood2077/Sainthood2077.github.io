@@ -392,14 +392,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    901
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    7 分
                 </div>
                 
 
@@ -428,7 +428,7 @@
 django<span class="token operator">-</span>admin<span class="token punctuation">.</span>exe startporject 项目名称
 </code></pre>
 <p>创建成功截图：</p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221005000620128.png" alt="image-20221005000620128"></p>
+<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221005000620128.png" alt="文件目录"></p>
 <h2 id="三、文件说明"><a href="#三、文件说明" class="headerlink" title="三、文件说明"></a>三、文件说明</h2><pre class=" language-python"><code class="language-python">WMS
  │─manage<span class="token punctuation">.</span>py           <span class="token punctuation">[</span>项目的管理、启动、创建APP<span class="token punctuation">]</span><span class="token punctuation">[</span>无需修改，经常使用<span class="token punctuation">]</span>
  │
@@ -482,15 +482,15 @@ urlpatterns <span class="token operator">=</span> <span class="token punctuation
 </code></pre>
 <h3 id="4-启动Django"><a href="#4-启动Django" class="headerlink" title="4.启动Django"></a>4.启动Django</h3><h4 id="1、代码启动"><a href="#1、代码启动" class="headerlink" title="1、代码启动"></a>1、代码启动</h4><pre class=" language-python"><code class="language-python">python manage<span class="token punctuation">.</span>py runserver
 </code></pre>
-<h4 id="2、项目启动"><a href="#2、项目启动" class="headerlink" title="2、项目启动"></a>2、项目启动</h4><p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221007100945752.png" alt="image-20221007100945752"></p>
+<h4 id="2、项目启动"><a href="#2、项目启动" class="headerlink" title="2、项目启动"></a>2、项目启动</h4><p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221007100945752.png" alt="启动位置"></p>
 <p>运行成功</p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221007100900404.png" alt="image-20221007100900404"></p>
+<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221007100900404.png" alt="成功界面"></p>
 <h3 id="5、创建页面"><a href="#5、创建页面" class="headerlink" title="5、创建页面"></a>5、创建页面</h3><p>wmsapp/  新建templates文件夹</p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221007102243886.png" alt="image-20221007102243886"></p>
+<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221007102243886.png" alt="urls.py和views.py对应关系"></p>
 <p>根据app的注册顺序，注意搜索他们templates下的文件</p>
 <h3 id="6、静态文件"><a href="#6、静态文件" class="headerlink" title="6、静态文件"></a>6、静态文件</h3><p>wasapp/ 新建static文件夹，下存放CSS、js、图片</p>
 <p>引入：</p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221007104813123.png" alt="image-20221007104813123"></p>
+<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221007104813123.png" alt="Django的特殊引入方式"></p>
 <h2 id="六、模板语法"><a href="#六、模板语法" class="headerlink" title="六、模板语法"></a>六、模板语法</h2><p>views.py</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">user_list</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
     n1 <span class="token operator">=</span> <span class="token string">"lisi"</span>
@@ -527,7 +527,7 @@ urlpatterns <span class="token operator">=</span> <span class="token punctuation
     <span class="token punctuation">{</span><span class="token operator">%</span> endif <span class="token operator">%</span><span class="token punctuation">}</span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
 </code></pre>
-<h2 id="七、ORM数据库操作"><a href="#七、ORM数据库操作" class="headerlink" title="七、ORM数据库操作"></a>七、ORM数据库操作</h2><p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221007154916296.png" alt="image-20221007154916296"></p>
+<h2 id="七、ORM数据库操作"><a href="#七、ORM数据库操作" class="headerlink" title="七、ORM数据库操作"></a>七、ORM数据库操作</h2><p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221007154916296.png" alt="ORM运行机制解释"></p>
 <h3 id="1-安装mysqlclient"><a href="#1-安装mysqlclient" class="headerlink" title="1.安装mysqlclient"></a>1.安装mysqlclient</h3><pre class=" language-python"><code class="language-python">pip install mysqlclient
 </code></pre>
 <p>windows系统安装错误的可以进入mysqlclient下载安装包安装</p>
@@ -548,7 +548,7 @@ urlpatterns <span class="token operator">=</span> <span class="token punctuation
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="4-创建表"><a href="#4-创建表" class="headerlink" title="4.创建表"></a>4.创建表</h3><p>wmsapp/Models.py</p>
+<h3 id="4-ORM编辑表"><a href="#4-ORM编辑表" class="headerlink" title="4.ORM编辑表"></a>4.ORM编辑表</h3><h4 id="1-创建表"><a href="#1-创建表" class="headerlink" title="1.创建表"></a>1.创建表</h4><p>wmsapp/Models.py</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">UserInfo</span><span class="token punctuation">(</span>models<span class="token punctuation">.</span>Model<span class="token punctuation">)</span><span class="token punctuation">:</span>
     name <span class="token operator">=</span> models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>max_length<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">)</span>
     password<span class="token operator">=</span>models<span class="token punctuation">.</span>CharField<span class="token punctuation">(</span>max_length<span class="token operator">=</span><span class="token number">64</span><span class="token punctuation">)</span>
@@ -556,7 +556,7 @@ urlpatterns <span class="token operator">=</span> <span class="token punctuation
 </code></pre>
 <p>如上代码等同于在数据库里执行：</p>
 <pre class=" language-sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> app01 userinfo<span class="token punctuation">(</span>
-    id <span class="token keyword">bigint</span> <span class="token keyword">auto_increment</span> <span class="token keyword">primary</span> <span class="token keyword">key</span>
+    id <span class="token keyword">bigint</span> <span class="token keyword">auto_increment</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
     name <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     password <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">64</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     age <span class="token keyword">int</span><span class="token punctuation">,</span>
@@ -565,6 +565,119 @@ urlpatterns <span class="token operator">=</span> <span class="token punctuation
 <pre class=" language-python"><code class="language-python">python manage<span class="token punctuation">.</span>py makemigrations
 python manage<span class="token punctuation">.</span>py migrate
 </code></pre>
+<h4 id="2-删除表"><a href="#2-删除表" class="headerlink" title="2.删除表"></a>2.删除表</h4><p>注释不需要的字段或表，并执行&gt; python manage.py makemigrations &gt; python manage.py migrate 命令，即删除表</p>
+<h4 id="3-修改表"><a href="#3-修改表" class="headerlink" title="3.修改表"></a>3.修改表</h4><p>在&lt;现有的&gt;表中添加新的字段，执行命令会提示：</p>
+<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221019195444497.png" alt="提示截图"></p>
+<blockquote>
+<p>在没有指定默认值的情况下，不可能向goodsinfo添加不可为空的字段“size”。这是因为数据库需要一些东西来填充现有的行。 请选择一个修复: </p>
+<p>1)现在提供一次性默认值（将在所有现有行上设置，并且此列为空值）</p>
+<p>2)退出并在models.py中手动定义一个默认值。 </p>
+<p>选择一个选项:</p>
+</blockquote>
+<ul>
+<li>选择1：</li>
+</ul>
+<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221019200032147.png" alt="（1）"></p>
+<p>会有求&gt;&gt;&gt;输入一个值，作为默认值（这里我输入的是0）</p>
+<ul>
+<li>选择2：</li>
+</ul>
+<p>会直接退出，可以手动为其添加一个默认值</p>
+<pre class=" language-python"><code class="language-python">size <span class="token operator">=</span> models<span class="token punctuation">.</span>IntegerField<span class="token punctuation">(</span>default<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+log <span class="token operator">=</span> models<span class="token punctuation">.</span>IntegerField<span class="token punctuation">(</span>null<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>blank<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 默认为空</span>
+</code></pre>
+<h3 id="5-ORM字段介绍"><a href="#5-ORM字段介绍" class="headerlink" title="5.ORM字段介绍"></a>5.ORM字段介绍</h3><p>Djan提供了很多字段类型，比如URL/Email/IP/ 但是mysql数据没有这些类型，这类型存储到数据库上本质是字符串数据类型,其主要目的是为了封装底层SQL语句；</p>
+<ul>
+<li><p>字符串类（以下都是在数据库中本质都是字符串数据类型，此类字段只是在Django自带的admin中生效）</p>
+<pre class=" language-python"><code class="language-python">EmailField<span class="token punctuation">(</span>CharField<span class="token punctuation">)</span>：
+IPAddressField<span class="token punctuation">(</span>Field<span class="token punctuation">)</span>
+URLField<span class="token punctuation">(</span>CharField<span class="token punctuation">)</span>
+SlugField<span class="token punctuation">(</span>CharField<span class="token punctuation">)</span>
+UUIDField<span class="token punctuation">(</span>Field<span class="token punctuation">)</span>
+FilePathField<span class="token punctuation">(</span>Field<span class="token punctuation">)</span>
+FileField<span class="token punctuation">(</span>Field<span class="token punctuation">)</span>
+ImageField<span class="token punctuation">(</span>FileField<span class="token punctuation">)</span>
+CommaSeparatedIntegerField<span class="token punctuation">(</span>CharField<span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>提示：models.CharField  对应的是MySQL的varchar数据类型</p>
+<p><strong>char 和 varchar的区别</strong> :</p>
+<p>char和varchar的共同点是存储数据的长度，不能 超过max_length限制，</p>
+<p>不同点是varchar根据数据实际长度存储，char按指定max_length（）存储数据；所有前者更节省硬盘空间；</p>
+</blockquote>
+<ul>
+<li><p>时间字段</p>
+<pre class=" language-py"><code class="language-py">models.DateTimeField(null=True)
+date=models.DateField()
+</code></pre>
+</li>
+<li><p>数字字段</p>
+<pre class=" language-python"><code class="language-python"><span class="token punctuation">(</span>max_digits<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">,</span>decimal_places<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>总长度<span class="token number">30</span>小数位 <span class="token number">10</span>位）
+
+num <span class="token operator">=</span> models<span class="token punctuation">.</span>IntegerField<span class="token punctuation">(</span><span class="token punctuation">)</span>
+num <span class="token operator">=</span> models<span class="token punctuation">.</span>FloatField<span class="token punctuation">(</span><span class="token punctuation">)</span> 浮点
+price<span class="token operator">=</span>models<span class="token punctuation">.</span>DecimalField<span class="token punctuation">(</span>max_digits<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">,</span>decimal_places<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span> 精确浮点
+</code></pre>
+</li>
+<li><p>枚举字段</p>
+<pre class=" language-python"><code class="language-python"> choice<span class="token operator">=</span><span class="token punctuation">(</span>
+        <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'男人'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'女人'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'其他'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+lover<span class="token operator">=</span>models<span class="token punctuation">.</span>IntegerField<span class="token punctuation">(</span>choices<span class="token operator">=</span>choice<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#枚举类型</span>
+</code></pre>
+<p><strong>扩展</strong></p>
+<p>在数据库存储枚举类型，比外键有什么优势？</p>
+<p>1、无需连表查询性能低，省硬盘空间(选项不固定时用外键)<br>2、在modle文件里不能动态增加（选项一成不变用Django的choice）</p>
+</li>
+<li><p>其他字段</p>
+<pre class=" language-python"><code class="language-python">db_index <span class="token operator">=</span> <span class="token boolean">True</span> 表示设置索引
+unique<span class="token punctuation">(</span>唯一的意思<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token boolean">True</span> 设置唯一索引
+</code></pre>
+</li>
+</ul>
+<h3 id="6-ORM编辑字段"><a href="#6-ORM编辑字段" class="headerlink" title="6.ORM编辑字段"></a>6.ORM编辑字段</h3><p>wmsapp/views.py</p>
+<p>首先导入类</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> wmsapp <span class="token keyword">import</span> models
+</code></pre>
+<ul>
+<li><p>添加字段</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">index</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>create<span class="token punctuation">(</span>
+        name<span class="token operator">=</span><span class="token string">'wangwu'</span><span class="token punctuation">,</span>
+        mobile<span class="token operator">=</span><span class="token string">'19927343821'</span><span class="token punctuation">,</span>
+        password<span class="token operator">=</span><span class="token string">'82737373'</span><span class="token punctuation">,</span>
+        authority<span class="token operator">=</span><span class="token string">'manager'</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">return</span> HttpResponse<span class="token punctuation">(</span><span class="token string">"欢迎使用Django！"</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+<li><p>删除字段</p>
+<pre class=" language-python"><code class="language-python">models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>filter<span class="token punctuation">(</span>id<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span>delete<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#  筛选指定行数据删除</span>
+models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>delete<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#  删除表内全部数据</span>
+</code></pre>
+</li>
+<li><p>获取字段</p>
+<pre class=" language-python"><code class="language-python">db_list <span class="token operator">=</span> models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 无论筛选一行还是获取全部，得到的都是queryset类型</span>
+    <span class="token keyword">for</span> obj <span class="token keyword">in</span> db_list<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span>name<span class="token punctuation">,</span>obj<span class="token punctuation">.</span>mobile<span class="token punctuation">,</span>obj<span class="token punctuation">.</span>password<span class="token punctuation">,</span>obj<span class="token punctuation">.</span>authority<span class="token punctuation">,</span>obj<span class="token punctuation">.</span>sign_time<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 必须要通过循环的形式输出字段信息</span>
+    row_obj <span class="token operator">=</span> models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>first<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span>name<span class="token punctuation">,</span>obj<span class="token punctuation">.</span>mobile<span class="token punctuation">,</span>obj<span class="token punctuation">.</span>password<span class="token punctuation">,</span>obj<span class="token punctuation">.</span>authority<span class="token punctuation">,</span>obj<span class="token punctuation">.</span>sign_time<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 因为只有第一行，可以直接打印第一行的字段信息</span>
+</code></pre>
+</li>
+<li><p>更新字段</p>
+<pre class=" language-python"><code class="language-python">models<span class="token punctuation">.</span>UserInfo<span class="token punctuation">.</span>objects<span class="token punctuation">.</span>all<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>update<span class="token punctuation">(</span>password<span class="token operator">=</span><span class="token string">'123012398'</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+</ul>
 
                 
             </div>
@@ -982,7 +1095,7 @@ python manage<span class="token punctuation">.</span>py migrate
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">1.9k</span>
+                        class="white-color">2.7k</span>
             
             
             

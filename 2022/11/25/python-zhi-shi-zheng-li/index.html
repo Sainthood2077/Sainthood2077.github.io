@@ -1,0 +1,2732 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Python知识整理, Blog">
+    <meta name="description" content="面试真题Python
+ 列举常见的内置函数
+
+
+
+
+
+
+内置函数
+
+
+
+
+
+abs()
+dict()
+help()
+min()
+setattr()
+
+
+all()
+dir()
+hex()
+next()
+slice()
+
+
+any()
+div">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="referrer" content="no-referrer" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Python知识整理 | 平荒尽处是春山</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<link rel="stylesheet" href="/js/prism/prism.css">
+
+<meta name="generator" content="Hexo 5.4.2">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">平荒尽处是春山</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments-o" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">平荒尽处是春山</div>
+        <div class="logo-desc">
+            
+            PB
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments-o"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Python知识整理</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/python/">
+                                <span class="chip bg-color">python</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-11-25
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    13.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    54 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="面试真题"><a href="#面试真题" class="headerlink" title="面试真题"></a>面试真题</h2><h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><ul>
+<li> 列举常见的内置函数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th><strong>内置函数</strong></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-number-abs.html">abs()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-dict.html">dict()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-help.html">help()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-number-min.html">min()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-setattr.html">setattr()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-all.html">all()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-dir.html">dir()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-hex.html">hex()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-next.html">next()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-slice.html">slice()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-any.html">any()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-divmod.html">divmod()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-id.html">id()</a></td>
+<td>object()</td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-sorted.html">sorted()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-ascii.html">ascii()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-enumerate.html">enumerate()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python3-func-input.html">input()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-oct.html">oct()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-staticmethod.html">staticmethod()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-bin.html">bin()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-eval.html">eval()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-int.html">int()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-open.html">open()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-str.html">str()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-bool.html">bool()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-exec.html">exec()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-isinstance.html">isinstance()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-ord.html">ord()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-sum.html">sum()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-bytearray.html">bytearray()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-filter.html">filter()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-issubclass.html">issubclass()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-number-pow.html">pow()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-super.html">super()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-bytes.html">bytes()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-float.html">float()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-iter.html">iter()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-print.html">print()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-tuple.html">tuple()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-callable.html">callable()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/att-string-format.html">format()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-string-len.html">len()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-property.html">property()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-type.html">type()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-chr.html">chr()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-frozenset.html">frozenset()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-att-list-list.html">list()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-range.html">range()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-vars.html">vars()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-classmethod.html">classmethod()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-getattr.html">getattr()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-locals.html">locals()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-repr.html">repr()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-zip.html">zip()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-compile.html">compile()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-globals.html">globals()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-map.html">map()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-reversed.html">reversed()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-__import__.html"><strong>import</strong>()</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-complex.html">complex()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-hasattr.html">hasattr()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-number-max.html">max()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python3/python3-func-number-round.html">round()</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-delattr.html">delattr()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-hash.html">hash()</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.runoob.com/python/python-func-memoryview.html">memoryview()</a></td>
+<td>set()</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>简述yield和yeild from关键字</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhuifeng-mayi/p/9248641.html">60、简述 yield和yield from关键字。-  追风的小蚂蚁-  博客园 (cnblogs.com)</a></p>
+<ul>
+<li>常用模块都有哪些，列举8个</li>
+</ul>
+<blockquote>
+<p>time模块datetime模块random 模块os 模块sys 模块json 和 pickle 模块hashlib和hmac 模块logging 模块numpy 模块pandas 模块matplotlib 模块re 模块typing 模块collections 模块pathlib 模块shutil 模块xml 模块subprocess 模块configparser模块math模块</p>
+</blockquote>
+<ul>
+<li>序列化与反序列化模块</li>
+</ul>
+<blockquote>
+<p>json模块和pickle模块是用来序列化和反序列化数据的模块。</p>
+<p>序列化指的是把内存的数据类型转换成一种特定的格式的内容，该格式的内容可用于存储或者传输给其他平台(其他编程语言)使用，反序列化就是将其他平台上的数据转换成python能够识别的数据格式。</p>
+<p>序列化：</p>
+<p>内存中的数据类型—-》序列化—-》特定的格式（json/pickle格式）</p>
+<p>反序列化：</p>
+<p>内存中的数据类型《—-反序列化《—-特定的格式（json/pickle格式）</p>
+<p>数据进行序列化有两种用途：</p>
+<p>其一，可以持久保存程序运行过程中产生的数据，将数据写到磁盘中。</p>
+<p>其二，序列化之后，不仅可以把序列化后的内容写入磁盘，还可以通过网络传输到别的机器上，如果收发的双方约定好使用一种序列化的格式，那么便打破了平台/语言差异化带来的限制，实现了跨平台数据交互。</p>
+<p>序列化和反序列化的操作可以借助json和pickle模块。</p>
+</blockquote>
+<ul>
+<li><p> 列举3条常见异常</p>
+</li>
+<li><p> 列举三条以上PEP8编码规范</p>
+</li>
+<li><p> json序列化时，可以处理的数据类型有哪些？如何保持原字典的顺序？</p>
+</li>
+<li><p> @classmethod,@staticmethod,@property含义及用法</p>
+</li>
+<li><p> 写一个可以给定出错重试次数的装饰器，用来处理HTTP超时等</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">getresponse</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    r<span class="token operator">=</span>resquests<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">[</span>www<span class="token punctuation">.</span>baidu<span class="token punctuation">.</span>com<span class="token punctuation">]</span><span class="token punctuation">(</span>http<span class="token punctuation">:</span><span class="token operator">//</span>www<span class="token punctuation">.</span>baidu<span class="token punctuation">.</span>com<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">return</span> r<span class="token punctuation">.</span>content
+</code></pre>
+<ul>
+<li><p> 简述python的垃圾回收机制</p>
+</li>
+<li><p> HTTP协议中，Cookie和Session的区别是什么？GET和POST分别是做什么，你还知道其他的方法吗</p>
+</li>
+<li><p> Python中有哪些方法可以实现并行，他们分别适用于什么场景？如果Django的web服务器想要提高并发性能，有哪些方法？</p>
+</li>
+<li><p> Python中的装饰器是什么？@classmethod,@staticmethod,@property这些装饰器的用途分别是什么？请实现一个简单的装饰器，实现运行函数的过程中打印出函数执行时间</p>
+</li>
+<li><p> 简要描述数组、链表、队列、堆栈的区别。如果我已经利用Python实现了一个堆栈的类Stack，是否可以以此为基础实现一个队列？请写一段代码实现</p>
+</li>
+<li><p> 写出你知道的排序算法，并使用Python实现一种排序算法，对0-100的整数列表进行排序</p>
+</li>
+<li><p> 什么是可变于不可变类型</p>
+</li>
+<li><p> 浅拷贝和深拷贝的实现方式、区别：</p>
+</li>
+<li><p> <strong>new</strong>()与__init__()的区别：</p>
+</li>
+<li><p> 你知道几种设计模式</p>
+</li>
+<li><p> 编码和解码你了解过么</p>
+</li>
+<li><p> 什么是装饰器：如果想在函数之后进行装饰，应该怎么做</p>
+</li>
+<li><p> 手写个使用装饰器实现的单例模式</p>
+</li>
+<li><p> 手写正则邮箱地址</p>
+</li>
+<li><p> 进程通信的方式有几种</p>
+</li>
+<li><p> range和xrange的区别</p>
+</li>
+<li><p> 手写，用一行python写出1+2+3+…+10**8</p>
+</li>
+<li><p> TCP/IP分别在模型的哪一层</p>
+</li>
+<li><p> socket长连接是什么意思</p>
+</li>
+<li><p> http一次连接的全过程：你来说下从用户发起的request——到用户的response</p>
+</li>
+<li><p> 线程和进程的联系与区别</p>
+</li>
+<li><p> 死锁的条件有哪些</p>
+</li>
+<li><p> list和tuple区别有哪些</p>
+</li>
+<li><p> set类的特点有哪些</p>
+</li>
+<li><p> GIL是什么？它对于Python多线程编程有什么影响</p>
+</li>
+<li><p> 函数参数*args和**kwargs分别是什么意思</p>
+</li>
+<li><p> numbers是一个列表，元素都是整型，请写出代码求numbers中的所有值的和</p>
+</li>
+<li><p> 请为这个函数写一个装饰器，使用之后，在函数调用前和后分别输出log到stderr（简单的print log即可）</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> foo（）：
+
+<span class="token keyword">print</span> （“Function foo”）
+</code></pre>
+<ul>
+<li><p> 函数bar()可能会抛出一个自定义的异常CustomError，请写代码实现如下功能：如果bar()抛出了CustomError,打印“custom error”；否则打印“success”</p>
+</li>
+<li><p> 在定义类的时候，@property装饰器的作用是什么？</p>
+</li>
+<li><p> 请描述一下mock库（python2.7单独提供），或者unittest.mock库（python3.3开始加入标准库）的作用</p>
+</li>
+<li><p> 如果你使用过以下几个工具，请描述一下他们的作用：pip，virtualenv，tox</p>
+</li>
+<li><p>函数bisect_left（a，x）的功能如下，参数a是一个按照升序排列的list（list中的元素类型是整型）参数x是一个整型，函数bisect_left（a，x）返回函数x在a中的最左侧的插入位置，插入x之后，数组a保持有序。请基于bisect_left（a，x）函数，实现index（a，x）函数，该函数返回x在a中的最小的索引，如果x在a中不存在，请抛出valueError异常</p>
+<p>def index（a，x）：</p>
+</li>
+<li><p> 浮点数比较，double a，b；a=0.1*3；b=0.1+0.1+0.1，a==b吗？为什么？如何比较浮点数的大小？</p>
+</li>
+<li><p> 你知道汉字的编码方式有几种？在HTTP GET请求中，一般如何像后端服务器传递汉字信息比较好？</p>
+</li>
+<li><p> 简单描述几种你熟悉的设计模式，以及适用的场景</p>
+</li>
+<li><p> 数字序列3，5，37，121，n，2037中，n该为什么，为什么？</p>
+</li>
+<li><p> 用自己熟悉的语言编程实现：给定一个存放整数的数组，重新排列数组使得数组左边为奇数，右边为偶数</p>
+</li>
+<li><p> 用自己熟悉的语言编程实现：给定一个字符串，满足正则表达式[a-zA-Z]+，打印这个字符串的全排列，结果顺序不限，例如，输入为abc，输出为abc acb bac bca cba cab</p>
+</li>
+<li><p> 无需编码，说明需求：犹豫上述题目中的字符串可能含有重复的字符，你能否想出尽量省时间和空间的方式，让输出的全排列没有重复？</p>
+</li>
+<li><p>编程：输入一个字符串，输出该字符串中字符的所有组合</p>
+<p>例如：输入字符串“123”，则输出为1、2、3、12、23、13、123（不考虑顺序12、21等价）</p>
+</li>
+<li><p> 谈谈你知道的python web框架</p>
+</li>
+<li><p> 编程：使用python实现数据库的student表中提取的数据写入db.txt</p>
+</li>
+<li><p> 实现斐波那契数列（使用递归）</p>
+</li>
+<li><p> 简述left join和right join的区别</p>
+</li>
+<li><p> 描述一下MVC开发模式</p>
+</li>
+<li><p> L.简述HTTP协议下，一个HTTP请求的数据结构。简述HTTP与HTTPS协议的差异。</p>
+</li>
+<li><p> Python2和Python3的区别。</p>
+</li>
+<li><p> 影响服务器请求QBS的核心问题有哪些？</p>
+</li>
+<li><p> Python如何处理一秒钟500次的日志写操作？</p>
+</li>
+<li><p> 一张mysql数据表，每天300万左右的数据增长量，怎么保证一年后表查询的稳定？</p>
+</li>
+<li><p> 简述Python import的执行流程。</p>
+</li>
+<li><p> 列表[1,2,3,4,5]，请使用map（）图数输出[1,4,9,16,25]，并使用列表推导式提取出大于10的数，最终输出[16,25]</p>
+</li>
+<li><p> 正则匹配不是以4和7结尾的手机号</p>
+</li>
+<li><p> 列出几种魔法方法并简要介绍用途</p>
+</li>
+<li><p> 举例说明异常模块中try except else finally的相关意义</p>
+</li>
+<li><p> 如何用Python别除一个文件？：</p>
+</li>
+<li><p>获取a和b的交集与差集：</p>
+</li>
+</ul>
+<p>a=[21,22,55]</p>
+<p>B=[21,55.77]</p>
+<ul>
+<li><p>python如何捕获异常（输出异常）：</p>
+</li>
+<li><p>写一段代码用json数据的处理方式获取{“person”:[{“name”:”yu”,”age”:”23”),{“name”:”zhang”,”age”:”34”}]}这一段json中第一个人的名字</p>
+</li>
+<li><p>用正则匹配h5内的img标签内src内容：</p>
+</li>
+</ul>
+<pre class=" language-html"><code class="language-html">h5="<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span><span class="token punctuation">&gt;</span></span>name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://baidu.com/sss/aaa.ipg<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>"
+</code></pre>
+<ul>
+<li><p> 创建两个线程，其中一个输出1-52，另外一个输出A-Z.输出格式要求：12A 34B 56C 78D</p>
+</li>
+<li><p> 一只青蛙一次可以跳上1级台阶，也可以跳上2级，一共10级台阶，一共有多少种跳法</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Chen-K/p/11623084.html">Python算法题（一）——青蛙跳台阶-  陈康、-  博客园 (cnblogs.com)</a></p>
+<ul>
+<li><p>简述python异步调用的原理或过程，或写出示例代码</p>
+</li>
+<li><p>python中的某个变量值为None,如果存储到mysql数据库中会是什么结果？</p>
+</li>
+<li><p>实现一个装饰器，打印函数的参数</p>
+</li>
+<li><p>打印目录（包括子目录）下面的所有文件的绝对路径</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">print_dir_contents</span><span class="token punctuation">(</span>filepath<span class="token punctuation">)</span><span class="token punctuation">:</span>
+</code></pre>
+<ul>
+<li><p> 写代码去除html文件中的标签</p>
+</li>
+<li><p>  给你一个字符串，比如”abc’,请打印出该字符串的所有排列组台；以“abc”为例，输出的结果应该是：abc,acb,bac,bca,cab,cba,实际的字将串长度超过100个字符。</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> itertools
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+
+  <span class="token keyword">def</span> <span class="token function">Permutation</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> ss<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> ss <span class="token operator">==</span> <span class="token string">""</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    lit <span class="token operator">=</span> list<span class="token punctuation">(</span>itertools<span class="token punctuation">.</span>permutations<span class="token punctuation">(</span>list<span class="token punctuation">(</span>ss<span class="token punctuation">)</span><span class="token punctuation">,</span> len<span class="token punctuation">(</span>ss<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#第一个参数是列表的形式，是将列表的元素排列，第二个参数是将排列的数几个一组分好。最后的list是将小列表组成一个大列表，小列表作为大列表的元素</span>
+    <span class="token keyword">for</span> elem <span class="token keyword">in</span> lit<span class="token punctuation">:</span>
+        x <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>elem<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> x <span class="token operator">not</span> <span class="token keyword">in</span> result<span class="token punctuation">:</span>
+            result<span class="token punctuation">.</span>append<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> result
+</code></pre>
+<ul>
+<li> 写出下面代码的输结果</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">func</span><span class="token punctuation">(</span>t<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  t<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string">'x'</span><span class="token punctuation">)</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span>
+<span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  func<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+func<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#结果：</span>
+<span class="token comment" spellcheck="true">#['x']</span>
+<span class="token comment" spellcheck="true">#['x', 'x']</span>
+<span class="token comment" spellcheck="true">#['x', 'x', 'x']</span>
+<span class="token comment" spellcheck="true">#['x']</span>
+<span class="token comment" spellcheck="true">#['x']</span>
+<span class="token comment" spellcheck="true">#['x']</span>
+</code></pre>
+<ul>
+<li><p> 列举http协议头部字段，并说明每个字段的主要作用</p>
+</li>
+<li><p> 解释堆内存和栈内存的区别</p>
+</li>
+<li><p> 请用最简洁的代码，实现如下功能：将元素类型均为it的某个list里面数值大于100的元素输出到另外一个list,同时，这些元素在新的ist里面从大到小排序</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python">List <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">101</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">130</span><span class="token punctuation">,</span> <span class="token number">422</span><span class="token punctuation">]</span>
+new <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> List<span class="token punctuation">:</span>
+
+  <span class="token keyword">if</span> i <span class="token operator">&gt;</span> <span class="token number">100</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+    new<span class="token punctuation">.</span>append<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+new<span class="token punctuation">.</span>sort<span class="token punctuation">(</span>reverse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>new<span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li> Python不使用int()函数把字符串转换为数字</li>
+</ul>
+<p>[Python不使用int()函数把字符串转换为数字-  枫飞飞-  博客园 (cnblogs.com)](<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fengff/p/10483737.html#:~:text=Python%E4%B8%8D%E4%BD%BF%E7%94%A8int">https://www.cnblogs.com/fengff/p/10483737.html#:~:text=Python不使用int</a> ()函数把字符串转换为数字 1 方法一：利用str函数 2,方法二：利用ord函数 3 方法三：利用eval函数 4 例题如下：)</p>
+<ul>
+<li><p> List=[-2,1,3,-6],如何实现以绝对值大小从小到大将List中内容排序。</p>
+</li>
+<li><p> 列表的sort方法和sorted的区别是什么？</p>
+</li>
+<li><p>有一段英文文章保存在a.txt中，请用python实现统计这个篇文章中每个单词的出现频率，并返回出现频率最高的前10个单词及其出现的次数（只考虑空格，标点符号可忽略）</p>
+<p>追加需求，引号内元素算作一个单词，如何实现？</p>
+</li>
+<li><p> python中的变量作用域（变量查找顺序）</p>
+</li>
+<li><p> 描述Python GIL的概念，以及它对python多线程的影响？编写一个多线程抓取网页的程序，并阐明多线程抓取程序是否可比单线程性能有提升，并解释原因。</p>
+</li>
+<li><p>  Python中如何动态获取和设置对象的属性</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Parens</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  x <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token keyword">class</span> <span class="token class-name">Children1</span><span class="token punctuation">(</span>Parens<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">pass</span>
+<span class="token keyword">class</span> <span class="token class-name">Children2</span><span class="token punctuation">(</span>Parens<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+  <span class="token keyword">pass</span>
+
+ 
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>Parens<span class="token punctuation">.</span>x<span class="token punctuation">,</span> Children1<span class="token punctuation">.</span>x<span class="token punctuation">,</span> Children2<span class="token punctuation">.</span>x<span class="token punctuation">)</span>
+
+Children1<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">2</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>Parens<span class="token punctuation">.</span>x<span class="token punctuation">,</span> Children1<span class="token punctuation">.</span>x<span class="token punctuation">,</span> Children2<span class="token punctuation">.</span>x<span class="token punctuation">)</span>
+
+Children2<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">2</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>Parens<span class="token punctuation">.</span>x<span class="token punctuation">,</span> Children1<span class="token punctuation">.</span>x<span class="token punctuation">,</span> Children2<span class="token punctuation">.</span>x<span class="token punctuation">)</span>
+
+Parens<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">3</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>Parens<span class="token punctuation">.</span>x<span class="token punctuation">,</span> Children1<span class="token punctuation">.</span>x<span class="token punctuation">,</span> Children2<span class="token punctuation">.</span>x<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#结果是：</span>
+<span class="token comment" spellcheck="true">#1 1 1</span>
+<span class="token comment" spellcheck="true">#1 2 1</span>
+<span class="token comment" spellcheck="true">#1 2 2</span>
+<span class="token comment" spellcheck="true">#3 2 3</span>
+</code></pre>
+<ul>
+<li><pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">multipliers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span>i<span class="token operator">*</span>x <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">[</span>m<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">for</span> m <span class="token keyword">in</span> multipliers<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+</li>
+<li><p> 列表去重（不迪用set,用基本的方法实现）：set=9,4,2,5,8,4,5,3)</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python">li<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span>
+
+<span class="token keyword">from</span> collections <span class="token keyword">import</span> Counter
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>list<span class="token punctuation">(</span>Counter<span class="token punctuation">(</span>li<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li><p> 单例模式实现</p>
+</li>
+<li><p> is和=的区别</p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li><p>is比较的是两个实例对象是不是完全相同，它们是不是同一个对象，占用的内存地址是否相同。莱布尼茨说过：“世界上没有两片完全相同的叶子”，这个$正是这样的比较，比较是不是同一片叶子（即比较的id是否相同，这id类似于人的身份证标识）。</p>
+</li>
+<li><p>==比较的是两个对象的内容是否相等，即内存地址可以不一样，内容一样就可以了。这里比较的并非是同一片叶子，可能叶子的种类或者脉络相同就可以了。默认会调用对象的__eq__()方法。</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p> 什么是lambda函数？它有什么好处？</p>
+</li>
+<li><p> 用过的标准包以及第三方包(os以及SyS)</p>
+</li>
+<li><p> range以及xrange有什么区别；</p>
+</li>
+<li><p> re中的match以及search有什么区别；</p>
+</li>
+<li><p> 分别写-个或多个关于filter()、reduce()、map()的使用实例</p>
+</li>
+<li><p> Python里面如何实现tuple和list的转换？</p>
+</li>
+</ul>
+<p>请写出一段Python代码实现删除一个list里面的重复元素</p>
+<p>Python中pass语句的作用是什么？</p>
+<ul>
+<li><p> re模块中的split(),sub(),subn()如何使用？</p>
+</li>
+<li><p> python中如何产生随机数</p>
+</li>
+<li><p> 如何写python的单元测试？请给出具体的例子</p>
+</li>
+<li><p> repr() 方法可以将读取到的格式字符，比如换行符、制表符，转化为其相应的转义字符</p>
+</li>
+<li><p> sort 与 sorted 区别：</p>
+</li>
+</ul>
+<p>sort 是应用在 list 上的方法，sorted 可以对所有可迭代的对象进行排序操作。</p>
+<p>list 的 sort 方法返回的是对已经存在的列表进行操作，无返回值，而内建函数 sorted 方法返回的是一个新的 list，而不是在原来的基础上进行的操作。</p>
+<ul>
+<li><p>把”<a target="_blank" rel="noopener" href="http://www.baidu.com&amp;/#39;,%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2moc.udiab.www%E3%80%82">www.baidu.com',反转字符串moc.udiab.www。</a></p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">reservestr</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> x<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+</code></pre>
+</li>
+<li><p> 写一个函数单链表查找链表中间节点。</p>
+</li>
+<li><p> 日志脚本获取题目</p>
+</li>
+</ul>
+<p>假如日志文件有5种类型(error、debug、info、exception、er),怎么样写一个脚本让他们归类统计错误类型的次数？</p>
+<p>提示：日志文件是一个效文件，里面成千上万行数据。里面内容如下：</p>
+<p>Error:abd…</p>
+<p>Debug:gfgfggggggg</p>
+<p>…</p>
+<p>Info:134445dkddkk</p>
+<p>提示：方法有很多，关键地方是怎么样转化字符流，读取，判断、统计带上面五种类型的日</p>
+<p>志信息条数。</p>
+<ul>
+<li><p> 如何判断字符串A里面是否包含字符串B里面所有的字符</p>
+</li>
+<li><p> 给一个字符串和一个偏移量，让这个字符串按照偏移量的值把最后几个字符依次移到最前面</p>
+</li>
+<li><p> 判断一个数字字符串是否是IP地址，以及有哪几种可能的组合</p>
+</li>
+<li><p> Python2和Python3的区别</p>
+</li>
+<li><p> 如果把一个项目从Python2迁移到Python3</p>
+</li>
+<li><p> Python 中的__new__和__init__的区别</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shenxiaolin/p/9307496.html">Python 中的__new__和__init__的区别-  CuriousZero-  博客园 (cnblogs.com)</a></p>
+<ul>
+<li>  合并两个有序的数组，数组都是非递减的，合并后的数组依然有序</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+
+<span class="token keyword">def</span> <span class="token function">merge</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>nums1<span class="token punctuation">,</span>m<span class="token punctuation">,</span>nums2<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+‘’’
+
+<span class="token punctuation">:</span>type nums1<span class="token punctuation">:</span>List<span class="token punctuation">[</span>int<span class="token punctuation">]</span>
+
+<span class="token punctuation">:</span>type m<span class="token punctuation">:</span>int
+
+type nums2<span class="token punctuation">:</span>List<span class="token punctuation">[</span>int<span class="token punctuation">]</span>
+
+<span class="token punctuation">:</span>type n<span class="token punctuation">:</span>int
+
+rtype<span class="token punctuation">:</span>void Do <span class="token operator">not</span> <span class="token keyword">return</span> anything<span class="token punctuation">,</span>modify nums1 <span class="token keyword">in</span><span class="token operator">-</span>place instead<span class="token punctuation">.</span>
+
+‘’’
+</code></pre>
+<ul>
+<li> 求n阶乘结果末尾连续0的个数，如5！=120，0的个数为1</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+
+<span class="token keyword">def</span> <span class="token function">trailingZeroes</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+‘’’
+
+<span class="token punctuation">:</span>type n<span class="token punctuation">:</span>int
+
+<span class="token punctuation">:</span>rtype<span class="token punctuation">:</span>int
+
+‘’’
+</code></pre>
+<ul>
+<li> 反转数字，例子：输入123，输出321；输入-123，输出-321；输入1032100，输出12301</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+
+<span class="token keyword">def</span> <span class="token function">reverse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+‘’‘
+
+<span class="token punctuation">:</span>type x<span class="token punctuation">:</span>int
+
+<span class="token punctuation">:</span>rtype<span class="token punctuation">:</span>int
+
+‘‘’
+</code></pre>
+<ul>
+<li> 求股票最大收益，给出一个数组，每个元素代表股票价格。设计一个算法，你可以多次买入和多次卖出，使得你的收益最大。算出最大收益。</li>
+</ul>
+<p>class Solution:</p>
+<p>​    def maxProfit(self,prices):</p>
+<blockquote>
+<ul>
+<li>垃圾回收</li>
+</ul>
+<p>Python的GC模块主要运用了引用计数来跟踪和回收垃圾。在引用计数的基础上，还可以通过“标记一清除”解决容器对象可能产生的循环引用的问题。通过分代回收以空间换取时间进一步提高垃圾回收的效率。</p>
+<ul>
+<li>引用计数</li>
+</ul>
+<p>原理：当一个对象的引用被创建或者复制时，对象的引用计数加1；当一个对象的引用被销毁时，对象的引用计数减1，当对象的引用计数减少为0时，就意味着对象已经再没有被使用了，可以将其内存释放掉。</p>
+<p>优点：引用计数有一个很大的优点，即实时性，任何内存，一旦没有指向它的引用，就会被立即回收，而其他的垃圾收集技术必须在某种特殊条件下才能进行无效内存的回收。</p>
+</blockquote>
+<blockquote>
+<p>首先介绍你做过的项目</p>
+<p>1、d模块批量导入数据时，数据量很大，超过10M怎么处理？有看过导入后的数据吗？</p>
+<p>(回答不会)</p>
+<p>2、什么情况下需要用到缓存？你在什么地方用到过？+</p>
+<p>3、你用过什么设计模式？</p>
+<p>4、路飞中用的是什么视图(CVB)？说说在什么情况下用类或煮面向对象？</p>
+<p>5、你在django中用原生sg还是ORM？’</p>
+<p>6、</p>
+<pre class=" language-python"><code class="language-python">users<span class="token operator">=</span>User<span class="token punctuation">.</span>obiects<span class="token punctuation">.</span>a11<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> user <span class="token keyword">in</span> users<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>user<span class="token punctuation">.</span>info<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#info和user表是一对一</span>
+<span class="token comment" spellcheck="true">#如何进行优化查询？</span>
+</code></pre>
+<p>7、通过什么方式自学的？遇到问题怎么办？有和产品经理对接过吗？</p>
+<p>8、权限按钮级别是如何实现的？考虑下如何实现到单条信息级别？：</p>
+<p>9、有在github上面看过源码和文档吗？看过django文档吗（傻不拉几的我说没有)</p>
+<p>10、最近在学什么新技术？</p>
+<p>11、如何提高数据库查询效率？</p>
+<p>12、什么情况下使用消息队列？</p>
+<p>13、路飞项目过程中是如何和前端配合的？</p>
+<p>14、项目是自己的独立开发的吗？</p>
+</blockquote>
+<ul>
+<li><p> 请列举你所用过的Pyon代码检测工具</p>
+</li>
+<li><p> 简述Python垃圾回收机制及如何解决循环引用</p>
+</li>
+<li><p> 简述Python2中什么样的情况下会触发UnicodeDscodeError</p>
+</li>
+<li><p> 请简述标准库中functoo1s,partial的实现思路</p>
+</li>
+<li><p> 请简述标准库中funtools.wraps的作用</p>
+</li>
+<li><p> 简述Python上下文管理器的原理，并用上下文管理器简单实现将“hello world”写入文件的功能</p>
+</li>
+<li><p> 简述MyISM和InnoDB的特点</p>
+</li>
+<li><p> 简述一致性哈希原理和它要解决的问题</p>
+</li>
+<li><p> 简述C10K问题和解决方案</p>
+</li>
+<li><p> 什么是GIL</p>
+</li>
+<li><p> serch（）和mathch（）的区别</p>
+</li>
+<li><p> 简述迭代器和生成器以及它们之间的区别</p>
+</li>
+<li><p> 什么是协程？py的协程是如何实现的</p>
+</li>
+<li><p> 什么是装饰器？请用装饰器实现singleton</p>
+</li>
+<li><p> 请使用python实现快速排序</p>
+</li>
+<li><p>简述select和epo11的原理和区别</p>
+</li>
+<li><p>简达python的垃圾回收机制</p>
+</li>
+<li><p> 写一个简单的Python socket编程</p>
+</li>
+<li><p> 有这样一个文本文件，他的路径为baseDir,.他的名字test.txt,要求用with方式进行打开，并打印每一行文本，并要求文件路径的考虑跨平台问题</p>
+</li>
+<li><p> 用最简洁的方式初始化一个变量foo=[4，16，36，64，100]</p>
+</li>
+<li><p> 使用生成器编写fib函数，函数声名为fib（max）传入一个参数max值，使得该函数可以这样调用</p>
+</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">for</span> I <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0.100</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> fib<span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#并产生如下结果（斐波那契(Fibonacc)数列），1，1，2，3，5，8，13，21……</span>
+</code></pre>
+<ul>
+<li><p> 手写s=【1，2，3】w=[4,5,6] z=[(1,4),(2,5),{3,6}] 这个实现</p>
+</li>
+<li><p> 手写socket服务客户端与客户</p>
+</li>
+<li><p> 手写sql 分组计数</p>
+</li>
+<li><p> 如何进行缓存 我有1kw的数据，想在redis里面缓存了最火的20w条数据</p>
+</li>
+<li><p> 多线程与多进程的应用场景  </p>
+</li>
+<li><p> 有了全局锁(GIL)为什么还要LOCK？</p>
+</li>
+<li><p> 牵涉了粘包问题你怎么实现的 8.基本的linux命令</p>
+</li>
+<li><p> git的基本命令 10.你用python的哪些框架</p>
+</li>
+<li><p> int，flood，str，tuple，list，set，dict，前面这些类型哪些可以做dict的key，哪些可以做value</p>
+</li>
+<li><p> 写出结果[1，4，9，16，25，…，100]的列表推导式</p>
+</li>
+<li><p> 使用python实现快排</p>
+</li>
+<li><p> 广度优先，深度优先，遍历二叉树</p>
+</li>
+<li><p> 实现一段代码，功能是将这段代码打印出来</p>
+</li>
+</ul>
+<blockquote>
+<p>最开始问的项目</p>
+<p>  然后主要问了redis,项目中怎么用redis的,Django-redis和redis你用哪种,区别</p>
+<p>  怎么处理高并发</p>
+<p>  怎么解决沾包</p>
+<p>  TCP和udp的区别,简单说一下HTTP</p>
+<p>  输入一个url到看到页面经历了啥</p>
+<p>  RestfulAPI的规范,说完叫我说了一下常见的状态码</p>
+<p>  看过Django源码吗？我跟他说了session 和admin的源码</p>
+<p>  你了解服务器吗 Nginx和Apache,你选哪一个,区别</p>
+<p>  我们发送get请求如何不使用缓存,从数据库里面取东西</p>
+<p>  什么是二叉树，完全二叉树</p>
+<p>  hash表的去重</p>
+<p>  你平时遇到bug是怎么解决的,喜欢看什么技术网站,我想不起来,我说了restframework和RbbitMq和falsk的英文文档</p>
+<p>  数据库的优化</p>
+<p>  用过爬虫吗,怎么爬取谷歌浏览器上的数据,我回道的不太好,他跟我说怎么不考虑vpn因为中国上不了谷歌</p>
+<p>  问了docker,我说我不会,面完以后叫我手写代码</p>
+<p>  1.给了一个需求,原材料,菜谱和菜，叫我实现Django的models设计,然后在views中写出他提供的要求,返回数据</p>
+<p>  2.给定一个随机数组,随便输入一个数K,找出这个数组中低k大的数</p>
+<p>   我用快排写了以后,他说时间复杂度高了,重新考虑一下时间复杂度为n的,</p>
+<p>   letcode <a target="_blank" rel="noopener" href="https://leetcode.com/problems/kth-largest-element-in-an-array/description/">https://leetcode.com/problems/kth-largest-element-in-an-array/description/</a></p>
+<p>  3.不好描述 是letcode91题<a target="_blank" rel="noopener" href="https://leetcode.com/problems/decode-ways/description/">https://leetcode.com/problems/decode-ways/description/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/skiler/category/1008825.html">http://www.cnblogs.com/skiler/category/1008825.html</a></p>
+<ul>
+<li> “””以a、b为实验对象，求a、b的交集”””</li>
+</ul>
+<p>a = [5, 6, 7, 8, 9]</p>
+<p>b = [4, 6, 7, 8, 10]</p>
+<p>print(set(a).intersection(set(b)))</p>
+<p>a = {5, 6, 7, 8, 9}</p>
+<p>b = {4, 6, 7, 8, 10}</p>
+<p>print(a.intersection(b))</p>
+<p>“””以a、b、c为实验对象，求a、b、c的并集”””</p>
+<p>a = [0,1,2,3,4]</p>
+<p>b = [0,2,6]</p>
+<p>c = [-1,2,5,8]</p>
+<p>r = list(set(a).union(b,c)) # 求多个list的并集</p>
+<p>print(‘r- -&gt;’, r)  # 输出：r- -&gt; [0, 1, 2, 3, 4, 5, 6, 8,- 1]”””</p>
+<p>“””以a、b、c为实验对象，求 a 中有，但 b 和 c 都没有的元素的并集”””</p>
+<p>a = [0,1,2,3,4]</p>
+<p>b = [0,2,6]</p>
+<p>c = [-1,2,5,8]</p>
+<p>r = list(set(a).difference(b,c)) # 求特定1个list(a)中有，其他list(b、c)都没有的元素”””</p>
+<p>print(‘r- -&gt;’, r)  # 输出：r- -&gt; [1, 3, 4]”””</p>
+<p>“””以a、b、c为实验对象，求在多个list中只出现过1次的元素组成的集合”””</p>
+<p>a = [0,1,2,3,4]</p>
+<p>b = [0,2,6]</p>
+<p>c = [-1,2,5,8]</p>
+<p>“””方法1:多次使用 symmetric_difference 方法-  不推荐使用，因为若涉及更多list，运算较复杂””” </p>
+<p>#即求a、b、c中元素只出现过1次的集合，结果应该为 [-1,1,2,3,4,5,6,8]</p>
+<p>#注意：symmetric_difference的参数只能有1个，因此可以多次使用该方法，得到结果</p>
+<p>u_abc = list(set(a).union(b,c)) # 求a、b、c的并集</p>
+<p>d_ab = list(set(a).intersection(b)) # 求a、b的交集</p>
+<p>d_bc = list(set(b).intersection(c)) # 求b、c的交集</p>
+<p>d_ac = list(set(a).intersection(c)) # 求a、c的交集</p>
+<p>r1 = list(set(u_abc).difference(d_ab,d_bc,d_ac)) # 求b中有而a中没有的元素</p>
+<p>print(‘r1- -&gt;’, r1)  # 输出：r1- -&gt; [1, 3, 4, 5, 6, 8,- 1]</p>
+<p>“””方法2：使用pandas的value_counts，获取只出现过1次的元素，即获取 values_counts == 1 的元素即可”””</p>
+<p>import pandas as pd</p>
+<p>import numpy as np</p>
+<p>df_np = np.array((a+b+c)) # 将3个list合并在一起，形成数组</p>
+<p>df_count = pd.Series(df_np).value_counts() # 获取每个元素出现的次数</p>
+<p>r2 = list(df_count[df_count == 1].index) # 获取在3个list中只出现过1次的元素</p>
+<p>r2.sort(reverse=False) # 对r2进行排序，方便观察结果</p>
+<p>print(‘r2- -&gt;’, r2) # 输出：r2- -&gt; [-1, 1, 3, 4, 5, 6, 8]</p>
+</blockquote>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> os  <span class="token comment" spellcheck="true"># 第一种深度优先，即先遍历当前目录下的第一个目录里面的第一个目录，以此类推，然后再逐层向上遍历。代码如下d</span>
+ef gci<span class="token punctuation">(</span>filepath<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<span class="token comment" spellcheck="true">#遍历filepath下所有文件，包括子目录 </span>
+    files <span class="token operator">=</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>filepath<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> fi <span class="token keyword">in</span> files<span class="token punctuation">:</span>
+        fi_d <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>filepath<span class="token punctuation">,</span>fi<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isdir<span class="token punctuation">(</span>fi_d<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>filepath<span class="token punctuation">,</span> fi_d<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            gci<span class="token punctuation">(</span>fi_d<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>filepath<span class="token punctuation">,</span>fi_d<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">#递归遍历/root目录下所有文件</span>
+gci<span class="token punctuation">(</span><span class="token string">'f:\\test'</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 第二种广度优先，是先把当前目录下的所有文件文件夹打印出来，再分别进每一个文件夹打印相应的文件文件夹，再一次类推，逐层往下。代码如下</span>
+<span class="token keyword">import</span> os<span class="token punctuation">.</span>path
+
+rootdir <span class="token operator">=</span> <span class="token string">'f:\\test'</span>  <span class="token comment" spellcheck="true"># 指明被遍历的文件夹</span>
+
+
+<span class="token keyword">def</span> <span class="token function">gci</span><span class="token punctuation">(</span>rootdir<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> parent<span class="token punctuation">,</span> dirnames<span class="token punctuation">,</span> filenames <span class="token keyword">in</span> os<span class="token punctuation">.</span>walk<span class="token punctuation">(</span>rootdir<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 三个参数：分别返回1.父目录 2.所有文件夹名字（不含路径） 3.所有文件名字</span>
+        <span class="token keyword">for</span> dirname <span class="token keyword">in</span> dirnames<span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 输出文件夹信息</span>
+            <span class="token comment" spellcheck="true"># print("parent is:" + parent)</span>
+            <span class="token comment" spellcheck="true"># print("dirname is:" + dirname)</span>
+            <span class="token comment" spellcheck="true"># print("the full name of the file is:" + os.path.join(parent, dirname)) # 输出文件夹路径信息</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>parent<span class="token punctuation">,</span> dirname<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 输出文件夹路径信息</span>
+
+    <span class="token keyword">for</span> filename <span class="token keyword">in</span> filenames<span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 输出文件信息</span>
+        <span class="token comment" spellcheck="true"># print("parent is:" + parent)</span>
+        <span class="token comment" spellcheck="true"># print("filename is:" + filename)</span>
+        <span class="token comment" spellcheck="true"># print("the full name of the file is:" + os.path.join(parent, filename)) # 输出文件路径信息</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>parent<span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 输出文件路径信息</span>
+
+gci<span class="token punctuation">(</span>rootdir<span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li><p> 什么是lamdba函数？她有什么好处</p>
+</li>
+<li><p> 一轮技术面：</p>
+</li>
+<li><p>一个文件读取内部文件，拿到频率前十，不区分大小写.</p>
+</li>
+<li><p>建立一个django.项目，读取一个py文件，去掉注释和每一行右侧的空格，然后在前端显示出来（要保证左侧空格在页面显示)</p>
+</li>
+</ul>
+<p>二轮技术面or三轮技术面：</p>
+<ul>
+<li><p>一个业务场景，每天发贴量比较大，怎么存储在数据库</p>
+</li>
+<li><p>mysql inner join和left join的区别</p>
+</li>
+<li><p>A leftjoin B where B.mark=True与A innerjoin B where B.mark=True的区别</p>
+</li>
+<li><p>同时多个请求来操作数据库，怎么弄？</p>
+</li>
+<li><p>rest怎么做用户认证？</p>
+</li>
+<li><p>MongoDB有索引么？</p>
+</li>
+<li><p>消息队列在你项目的应用场景是啥？</p>
+</li>
+<li><p>SVN用过么，还是只用过Git</p>
+</li>
+<li><p>爬虫搞得怎么样？#简单看过</p>
+</li>
+<li><p>我看你看过flask源码，Django源码看过么？说只看过session相关的源码</p>
+</li>
+<li><p> 网络协议</p>
+</li>
+</ul>
+<p>。TCP三个握手细节1</p>
+<p>。HTTP状态码(200,200.)3</p>
+<p>数据库</p>
+<p>。Redis有那些数据结构？3</p>
+<ul>
+<li>利用Redis实现一个分布式锁？O</li>
+</ul>
+<p>。假如Rdis里面有1亿个key,其中有10w个ky是以某个固定的已知的前缀开头的，如果将它们全部找出来？0</p>
+<ul>
+<li>Redis如何做持久化的？O</li>
+</ul>
+<p>数据结构</p>
+<ul>
+<li><p>hashtable的低层实现？1</p>
+</li>
+<li><p>CSRF的原理？1</p>
+</li>
+<li><p>一个链表的长度为L(L&gt;N&gt;M),反转M和N之间的节点0</p>
+</li>
+</ul>
+<p>。合并两个已排序的数组？1</p>
+<p>其他</p>
+<ul>
+<li><p>是否使用VPN,VPN的底层原理？O</p>
+</li>
+<li><p>RPC的通用缺点是什么？O</p>
+</li>
+</ul>
+<p>Python的深拷贝和浅拷贝的区别？O</p>
+<ul>
+<li> 有一个多层嵌套列表A=[1,2,[3，4，[“434”,[…]]]]请写一段代码遍 历A 中的每一个元素并打印出来。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">A <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token keyword">def</span> <span class="token function">fan</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">for</span> i <span class="token keyword">in</span> c<span class="token punctuation">:</span>
+    <span class="token keyword">if</span> type<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> list<span class="token punctuation">:</span>
+        fan<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+fan<span class="token punctuation">(</span>A<span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">flat</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> nums<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> isinstance<span class="token punctuation">(</span>i<span class="token punctuation">,</span> list<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            res<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>flat<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            res<span class="token punctuation">.</span>append<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> res
+
+alist<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">14</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">16</span><span class="token punctuation">]</span>
+a<span class="token operator">=</span>flat<span class="token punctuation">(</span>alist<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>深浅拷贝都是对源对象的复制，占用不同的内存空间。</p>
+<p>不可变类型的对象，对于深浅拷贝室无影响，最终的地址值和值都是相等的。</p>
+<p>可变类型：</p>
+<p>=浅拷贝：值相等，地址相等</p>
+<p>copy浅拷贝：值相等，地址不相等</p>
+<p>deepcopyi深拷贝：值相等，地址不相等</p>
+</blockquote>
+<ul>
+<li><p> 请简单写一个Python的闭包</p>
+</li>
+<li><p> 关于Python字典中键和值的类型</p>
+</li>
+</ul>
+<p>字典，就是一种通过名字引用值的数据结构。这种结构类型是映射类型。它是一种key-value结构的键值对。键可以是数字、字符串、元组。就像英汉词典一样，可以通过查找某个特定的词语（键），从而找到它的定义（值）。</p>
+<p>键必须是唯一的，但值则不必。值可以取任何数据类型，但键必须是不可变的，如字符串，数字或元组</p>
+<ul>
+<li> python可hash类型和不可hash类型</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44871977/article/details/106535536">(65条消息) python可hash类型和不可hash类型_Lifelrving的博客-CSDN博客</a></p>
+<ul>
+<li> python序列类型包括哪三种</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Python_cresss/article/details/104986839">(65条消息) python序列类型包括哪三种_Python_cresss的博客-CSDN博客</a></p>
+<ul>
+<li> python中地板除是什么意思_解析python 中/ 和 % 和 //（地板除）</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39984963/article/details/110504836">(65条消息) python中地板除是什么意思_解析python 中/ 和 % 和 //（地板除）_weixin_39984963的博客-CSDN博客</a></p>
+<ul>
+<li><p> 解释Python脚本程序的“_name”变量及其作用。</p>
+</li>
+<li><p>简单解释Python的字符串驻留机制。</p>
+</li>
+<li><p>简述什么是浏览器事件流。</p>
+</li>
+<li><p>解释下HTTP常见响应状态码</p>
+</li>
+<li><p>Python是如何进行内存管理的？</p>
+</li>
+</ul>
+<blockquote>
+<ol>
+<li><p>说一下python的GIL锁</p>
+</li>
+<li><p>Linux熟悉吗？</p>
+</li>
+<li><p>Git熟练嘛？<code>git add a.txt</code>的时候，都干了什么？</p>
+</li>
+<li><p>你是怎么使用Docker的？</p>
+</li>
+<li><p>说说我们这个职位对应的业务？docker在里面起到什么作用？</p>
+</li>
+<li><p>MySQL高可用知道吗？</p>
+</li>
+<li><p>XSS攻击说一下</p>
+</li>
+<li><p>Tornado用过没？他与其它Web框架的区别？</p>
+</li>
+<li><p>说一下快排如何实现</p>
+</li>
+<li><p>你在学这些技术的过程中，觉得哪里亮点高？</p>
+</li>
+<li><p>Linux中你开一个进程，在里面打开了一个文件，那么当你创建一个子进程的时候，这个文件状态是什么样子的？</p>
+</li>
+<li><p>后来发现这是个坑，回答完之后，他又问我：“那如果我现在在一个进程中创建一个网络连接，通过这个进程创建一个子进程，子进程中有这个网络连接吗？如果没有，为什么？如果有，如何实现通信的？”</p>
+</li>
+<li><p>有没有看过什么源码？</p>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li></li>
+</ul>
+<blockquote>
+<p>介绍性能分析器</p>
+<p>profiler是一个程序，用来描述运行时的程序性能，并且从不同方面提供统计数据加以表述。Python中含有3个模块提供这样的功能，分别是cProfile,profile和pstats。.这些分析器提供的是对Python程序的确定性分析。同时也提供一系列的报表生成工具，允许用户快速地检查分析结果。</p>
+<p>Python标准库提供了3个不同的性能分析器：</p>
+<ol>
+<li><p>cProfile,推荐给大部分的用户，是C的一个扩展应用，因为其合理的运行开销，所以适合分析运行时间较长的。是基于Isprof</p>
+</li>
+<li><p>profile,一个纯python模块，它的接口和cProfile-一致。在分析程序时，增加了很大的运行开销。如果你想扩展profiler的功能，可以试着继承这个模块</p>
+</li>
+<li><p>hotshot,一个试验性的c模块，关注减少分析时的运行开销，但是是以需要更长的数据后处理的次数为代价。不过这个模块不再被维护，也有可能在新的python版本中被弃用。</p>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li> Python：*args 和 **kargs 的作用、用法和区别</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2ad2837321ef">Python：*args 和 **kargs 的作用、用法和区别-  简书 (jianshu.com)</a></p>
+<pre class=" language-python"><code class="language-python">h<span class="token operator">=</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span>
+k<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">)</span>
+d<span class="token operator">=</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'a':7,'b':8,'c':9&amp;#125;</span>
+<span class="token keyword">def</span> <span class="token function">f2</span><span class="token punctuation">(</span>arg1<span class="token punctuation">,</span>arg2<span class="token punctuation">,</span><span class="token operator">*</span>args<span class="token punctuation">,</span><span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>arg1<span class="token punctuation">,</span>arg2<span class="token punctuation">,</span>args<span class="token punctuation">,</span>kwargs<span class="token punctuation">)</span>
+f2<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span>a<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>b<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span>c<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span>
+f2<span class="token punctuation">(</span><span class="token operator">*</span>h<span class="token punctuation">,</span><span class="token operator">*</span>k<span class="token punctuation">,</span><span class="token operator">*</span>d<span class="token punctuation">)</span>
+f2<span class="token punctuation">(</span>h<span class="token punctuation">,</span>k<span class="token punctuation">,</span><span class="token operator">*</span>d<span class="token punctuation">)</span>
+f2<span class="token punctuation">(</span>h<span class="token punctuation">,</span>k<span class="token punctuation">,</span>d<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#运行结果：</span>
+<span class="token comment" spellcheck="true">#1 2 (3,) &amp;#123;'a': 1, 'b': 2, 'c': 3&amp;#125;</span>
+<span class="token comment" spellcheck="true">#1 2 (3, 4, 5, 6, 'a', 'b', 'c') &amp;#123;&amp;#125;</span>
+<span class="token comment" spellcheck="true">#[1, 2, 3] (4, 5, 6) ('a', 'b', 'c') &amp;#123;&amp;#125;</span>
+<span class="token comment" spellcheck="true">#[1, 2, 3] (4, 5, 6) (&amp;#123;'a': 7, 'b': 8, 'c': 9&amp;#125;,) &amp;#123;&amp;#125;</span>
+</code></pre>
+<ul>
+<li><pre class=" language-python"><code class="language-python">s<span class="token operator">=</span><span class="token punctuation">(</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+str<span class="token operator">=</span><span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>type<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">,</span>s<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>type<span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">,</span>str<span class="token punctuation">)</span>
+
+运行结果：
+<span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'generator'</span><span class="token operator">&gt;</span> <span class="token operator">&lt;</span>generator object <span class="token operator">&lt;</span>genexpr<span class="token operator">&gt;</span> at <span class="token number">0x000001EB1BB953C0</span><span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'list'</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>
+</code></pre>
+</li>
+<li><p> 将函数f2封装到f2.py文件中，请说明python-m cProfile f2.py执行目的，并列举其输出项和含义.</p>
+</li>
+</ul>
+<p>Python基础(11) 性能测试工具 cProfile</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/irving512/article/details/109446870">(65条消息) Python基础(11) 性能测试工具 cProfile_清欢守护者的博客-CSDN博客</a></p>
+<ul>
+<li><p> 解释一下Python中的继承</p>
+</li>
+<li><p> 怎样获取字典中所有键的列表</p>
+</li>
+<li><p> 用python统计日志中IP的数量</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1567140">用python统计日志中IP的数量-  腾讯云开发者社区-腾讯云 (tencent.com)</a></p>
+<ul>
+<li><p>  python基础数据类型</p>
+</li>
+<li><p>lambda表达式</p>
+</li>
+<li><p>map,filter,reduce是什么</p>
+</li>
+<li><p>写一个排序</p>
+</li>
+<li><p>贪婪匹配和非贪婪匹配</p>
+</li>
+<li><p>常用的编辑器以及快捷键</p>
+</li>
+<li><p> 如果让你设计api接口，你怎么设计安全性？</p>
+</li>
+<li><p>  Python高并发解决方案</p>
+</li>
+<li><p>  [python]正则表达式实战，提取txt文档的指定内容</p>
+</li>
+<li><p> 在Python中怎么有效读取一个20GB大小的文件？</p>
+</li>
+</ul>
+<p>使用Python实现一个stack。(可以写试卷背面)</p>
+<ul>
+<li><p>  Pythonic指python代码风格，</p>
+</li>
+<li><p> python——魔术方法</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53893431/article/details/123979718">(65条消息) python——魔术方法_影中人lx的博客-CSDN博客_python魔术方法</a></p>
+<ul>
+<li> python多进程实现数据共享</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38312411/article/details/127279257">(65条消息) python多进程实现数据共享_木瓜星灵的博客-CSDN博客_python进程共享数据</a></p>
+<ul>
+<li><p> 常用的l/O多路复用(l/O multiplexing)技术有哪几种？请阐明它们各自的特点及优点</p>
+</li>
+<li><p> 1.请用python代码实现生产者-消费者模型(Producer-consumer problem)(仅限使用python standard library提供的组件，勿使用第三方库)</p>
+</li>
+<li><p> 2.请编写一个开平方函数，其输入为一个double类型非负值，输出为输入值开方的结果，要求保留小数点后6位</p>
+</li>
+<li><p> 现有不数的面就分的1元5元10元，2动元，50元，100的元货币，如果要用这些货币组合成×元，求一共有多少种组合方式？请说出这类问题在算法中被称为什么问题并用代码实现</p>
+</li>
+<li><p> <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/de7f04e65618">Tornado异步原理详析-  简书 (jianshu.com)</a></p>
+</li>
+<li><p> 5.请说一说lambda函数的作用，请用ambda和reduce实现1到100的累加</p>
+</li>
+<li><p> 4,请实现一个装饰器，限制该函数被调用的频率，如10秒一次</p>
+</li>
+<li><p> a=[1,2,3,4]</p>
+</li>
+</ul>
+<p>print(id(a[:]))</p>
+<p>print(id(a))</p>
+<p>答案：</p>
+<p>2731666792704</p>
+<p>2731666783104</p>
+<ul>
+<li> 题目描述  输入：</li>
+</ul>
+<p>wo men 123 shi zu guo de 32144 hua guo,</p>
+<p>wo men 34523 shi zu guo de 3256144 hua guo,</p>
+<p>wo men 4234 shi zu guo de 44345 hua guo,</p>
+<p>wo men 12345433 shi zu guo de 4323125 hua guo,</p>
+<p>输出：</p>
+<p>wo men afanti shi zu guo de afanti hua guo,</p>
+<p>wo men afanti shi zu guo de afanti hua guo,</p>
+<p>wo men afanti shi zu guo de afanti hua guo,</p>
+<p>wo men afanti shi zu guo de afanti hua guo,</p>
+<p>代码：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> re
+s <span class="token operator">=</span> <span class="token triple-quoted-string string">'''wo men 123 shi zu guo de 32144 hua guo,
+wo men 34523 shi zu guo de 3256144 hua guo,
+wo men 4234 shi zu guo de 44345 hua guo,
+wo men 12345433 shi zu guo de 4323125 hua guo,'''</span>
+ret <span class="token operator">=</span> re<span class="token punctuation">.</span>sub<span class="token punctuation">(</span><span class="token string">'\d+'</span><span class="token punctuation">,</span> <span class="token string">"afanti"</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>ret<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#结果:</span>
+<span class="token comment" spellcheck="true">#wo men afanti shi zu guo de afanti hua guo,</span>
+<span class="token comment" spellcheck="true">#wo men afanti shi zu guo de afanti hua guo,</span>
+<span class="token comment" spellcheck="true">#wo men afanti shi zu guo de afanti hua guo,</span>
+<span class="token comment" spellcheck="true">#wo men afanti shi zu guo de afanti hua guo,</span>
+</code></pre>
+<ul>
+<li> 深拷贝和浅拷贝</li>
+</ul>
+<p>浅拷贝：语法：copy.copy()，浅拷贝是创建了一个和原对象一样的类型，但是其内容是对原对象元素的引用。</p>
+<p>深拷贝：语法：copy.deepcopy(),在内存中将所有的数据重新建立一份。</p>
+<blockquote>
+<p>不可变数据（3 个）：Number（数字）、String（字符串）、Tuple（元组）；</p>
+<p>可变数据（3 个）：List（列表）、Dictionary（字典）、Set（集合）。</p>
+</blockquote>
+<blockquote>
+<p>Python中可迭代对象(Iterable)并不是指某种具体的数据类型，它是指存储了元素的一个容器对象，且容器中的元素可以通过__iter__( )方法或__getitem__( )方法访问。iter__ 方法的作用是让对象可以用for … in循环遍历，getitem( )方法是让对象可以通过“实例名[index]”的方式访问实例中的元素。老猿认为这两个方法的目的是Python实现一个通用的外部可以访问可迭代对象内部数据的接口.一个可迭代对象是不能独立进行迭代的，Python中，迭代是通过for … in来完成的。凡是可迭代对象都可以直接用for… in…循环访问，这个语句其实做了两件事：第一件事是调用iter()获得一个可迭代器，第二件事是循环调用next__()。</p>
+<p>常见的可迭代对象包括：</p>
+<ul>
+<li><p>集合数据类型，如list、tuple、dict、set、str等；</p>
+</li>
+<li><p>生成器(generator)，包括生成器和带yield的生成器函数(generator function) </p>
+</li>
+<li><p>如何判断一个对象是可迭代对象呢？可以通过collections模块的Iterable类型判断，具体判断方法如下：from collections import Iterable #导入Iterable 模块isinstance(变量, Iterable) #判断一个变量是否为可迭代对象返回True表明是可迭代对象</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li> 列表推导式：列表(list)推导式字典(dict)推导式集合(set)推导式元组(tuple)推导式</li>
+</ul>
+<pre class=" language-python"><code class="language-python">a <span class="token operator">=</span> range<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+b <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span>i<span class="token punctuation">,</span> i <span class="token operator">*</span> i<span class="token punctuation">]</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> a<span class="token punctuation">]</span>
+c <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;i: i * i for i in a&amp;#125;</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#[[0, 0], [1, 1], [2, 4], [3, 9], [4, 16], [5, 25], [6, 36], [7, 49], [8, 64], [9, 81]]</span>
+<span class="token comment" spellcheck="true">#&amp;#123;0: 0, 1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36, 7: 49, 8: 64, 9: 81&amp;#125;</span>
+</code></pre>
+<ul>
+<li><p> 现有字典d={‘a‘:26,’g’:20,‘e’:22,’c’:24,‘d’:23,‘f’:21,’b‘:25}请按照字段中的value字段进行排序</p>
+</li>
+<li><p> 用正则表达式实现匹配手机号（包含手机号码前带86或是+86的情况）</p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>  项目相关：</li>
+</ul>
+<p>​      rbac是个什么东西</p>
+<p>​      rbac的实现逻辑，怎么做到限制到按钮级别的（忘记了，没回答好）</p>
+<p>​      CMDB是做什么的（我写了这个项目，不过具体实现我并不知道，我回答的时候做了一下作用，具体实现说忘记了）</p>
+<ul>
+<li>python相关：</li>
+</ul>
+<p>​      classmethod和staticmethod的调用方式</p>
+<p>​      djang的请求流程</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>引用计数机制：在Python中，整数和短小的字符，Python都会缓存这些对象，以便重复使用。赋值语句，只是创造了新的引用，而不是对象本身。长的字符串和其它对象可以有多个相同的对象，可以使用赋值语句创建出新的对象。每个对象都有存有指向该对象的引用总数，即引用计数(reference count)。:</li>
+<li>垃圾回收机制：引用计数也是一种垃圾收集机制，而且也是一种最直观，最简单的垃圾收集技术。当Python的某个对象的引用计数降为0时，说明没有任何引用指向该对象，该对象就成为要被回收的垃圾了。</li>
+<li>内存池机制：Python的内存机制呈现金字塔形状，-1，-2层主要有操作系统进行操作；第0层是C中的malloc,free等内存分配和释放函数进行操作；第1层和第2层是内存池，有Python的接口函数PyMem_Malloc函数实现，当对象小于256K时有该层直接分配内存；第3层是最上层，也就是我们对Python对象的直接操作；</li>
+</ul>
+</blockquote>
+<ul>
+<li><p> 描述对super、pass、yield、lambda关键字修饰的理解。</p>
+</li>
+<li><p> 请大致描述一下python的GL机制，以及python中多线程和多进程的区别.。</p>
+</li>
+<li><p> python是如何进行内存管理的，以及大致描述一下python的GC机制，</p>
+</li>
+<li><p> 请分别描述一下类装饰器和函数修饰器的实现过程及应用场景。</p>
+</li>
+<li><p> 请用两个队列来实现一个栈（给出伪代码即可）。</p>
+</li>
+<li><p>实现一个Singleton单例类。要求遵循基本语言编程规范</p>
+</li>
+<li><p>请实现一个简单的socket编程。要求：</p>
+</li>
+</ul>
+<p>实现server端的功能即可</p>
+<p>遵循基本语言编程规范</p>
+<ul>
+<li> 请为掌阅设计一个并发处理KEY-VALUE引擎，要求每条请求的数据小于16k,数据总量为1T,QPS为50要求：</li>
+</ul>
+<p>1),请给出该系统需要配备多少资源，服务器数量，服务器内存大小及硬盘空间等</p>
+<p>2),要求系统平滑可扩展，高可用</p>
+<p>3),尽可能的降低系统复杂度</p>
+<ul>
+<li> Python collections模块之deque()详解</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chl183/article/details/106958004">(65条消息) Python collections模块之deque()详解_chl183的博客-CSDN博客_deque()</a></p>
+<ul>
+<li> 下面的写法，哪些会出销，为什么？</li>
+</ul>
+<pre class=" language-python"><code class="language-python">a<span class="token operator">=</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;&amp;#125;</span>
+a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">1</span>
+a<span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">2</span>
+a<span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'a'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">3</span>
+a<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token number">4</span>
+</code></pre>
+<ul>
+<li><p> 简述多线程同步服务器和单线程异步服务器的区别、以及优缺点</p>
+</li>
+<li><p> 查找当前目录以及子目录下所有的*.pyc文件，并删除。</p>
+</li>
+<li><p> 考察基本数据结构，简述Hash的实现原理，并列举2种解决冲突的方法。</p>
+</li>
+<li><p> 简述python中多线程与多进程之间的区别及各自试用场景</p>
+</li>
+<li><p> 简单描述下快运排序法的原理</p>
+</li>
+<li><p> 如求二进制中1的个数</p>
+</li>
+<li><p> 一个文本文件，大的有一万行，每行一个词，要求统计出其中最频繁出现的前10个词，请给出思想</p>
+</li>
+<li><p> 12个大小一样的球，其中一个的重量与其他的不一样，如何只称3次我出这只球？</p>
+</li>
+<li><p> 电梯运行算法设计</p>
+</li>
+<li><p> 如何用Python米进行查询和替换一个文本字符串？</p>
+</li>
+<li><p> 10.举例说明异常模块中try except else finally的相关意义</p>
+</li>
+<li><p> 简述python.异步调用的原理或过程，或写出示例代码</p>
+</li>
+</ul>
+<blockquote>
+<p>一.项目问题：</p>
+<p>你写爬虫的时候都遇到过什么反爬虫措施，你是怎样解决的</p>
+<p>用的什么框架。为什么选择这个框架</p>
+<p>二.框架问题：</p>
+<p>scrapy的基本结构（五个部分都是什么，请求发出去的整个流程）</p>
+<p>scrapy的去重原理（指纹去重到底是什么原理）</p>
+<p>scrapy中间件有几种类，你用过哪些中间件</p>
+<p>scrapy中间件在哪里起的作业（面向切片编程）</p>
+<p>三.代理问题：</p>
+<p>为什么会用到代理</p>
+<p>代理怎么使用（具体代码， 请求在什么时候添加的代理）</p>
+<p>代理失效了怎么处理</p>
+<p>四.验证码处理：</p>
+<p>登陆验证码处理</p>
+<p>爬取速度过快出现的验证码处理</p>
+<p>如何用机器识别验证码</p>
+<p>五.模拟登陆问题：</p>
+<p>模拟登陆流程</p>
+<p>cookie如何处理</p>
+<p>如何处理网站传参加密的情况</p>
+<p>六.分布式：</p>
+<p>分布式原理</p>
+<p>分布式如何判断爬虫已经停止了</p>
+<p>分布式的去重原理</p>
+<p>七.数据存储和数据库问题：</p>
+<p>关系型数据库和非关系型数据库的区别</p>
+<p>爬下来数据你会选择什么存储方式，为什么</p>
+<p>各种数据库支持的数据类型，和特点</p>
+<p>是否支持事务…</p>
+<p>八.Python基础问题：</p>
+<p>基础问题非常多，但是因为爬虫性质，还是有些问的比较多的，下面总结：</p>
+<p>Python2和Python3的区别，如何实现python2代码迁移到Python3环境</p>
+<p>Python2和Python3的编码方式有什么差别</p>
+<p>迭代器，生成器，装饰器</p>
+<p>Python的数据类型</p>
+<p>九.协议问题：</p>
+<p>http协议，请求由什么组成，每个字段分别有什么用，https和http有什么差距</p>
+<p>证书问题</p>
+<p>TCP，UDP各种相关问题</p>
+<p>十.数据提取问题：</p>
+<p>主要使用什么样的结构化数据提取方式，可能会写一两个例子</p>
+<p>正则的使用</p>
+<p>动态加载的数据如何提取</p>
+<p>json数据如何提取</p>
+<p>十一.算法问题：</p>
+<p>算法：你们要善用Python的数据类型，对Python的数据结构深入了解</p>
+<p>Python WEB面试常见问题</p>
+<p>一. python语法以及其他基础部分：</p>
+<p>可变与不可变类型</p>
+<p>浅拷贝与深拷贝的实现方式、区别；deepcopy如果你来设计，如何实现</p>
+<p>new() 与 init()的区别</p>
+<p>你知道几种设计模式</p>
+<p>编码和解码你了解过么</p>
+<p>列表推导list comprehension和生成器的优劣</p>
+<p>什么是装饰器；如果想在函数之后进行装饰，应该怎么做</p>
+<p>手写个使用装饰器实现的单例模式</p>
+<p>使用装饰器的单例和使用其他方法的单例，在后续使用中，有何区别</p>
+<p>手写：正则邮箱地址</p>
+<p>介绍下垃圾回收：引用计数/分代回收/孤立引用环</p>
+<p>多进程与多线程的区别,CPU密集型适合用什么</p>
+<p>进程通信的方式有几种</p>
+<p>介绍下协程，为何比线程还快</p>
+<p>range和xrange的区别</p>
+<p>二. 算法排序部分：</p>
+<p>手写快排；堆排；几种常用排序的算法复杂度是多少；快排平均复杂度多少，最坏情况如何优化</p>
+<p>手写：已知一个长度n的无序列表，元素均是数字，要求把所有间隔为d的组合找出来，你写的解法算法复杂度多少</p>
+<p>手写：一个列表A=[A1，A2，…,An]，要求把列表中所有的组合情况打印出来；</p>
+<p>手写：用一行python写出1+2+3+…+10**8</p>
+<p>手写python：用递归的方式判断字符串是否为回文</p>
+<p>单向链表长度未知，如何判断其中是否有环</p>
+<p>单向链表如何使用快速排序算法进行排序</p>
+<p>手写：一个长度n的无序数字元素列表，如何求中位数，如何尽快的估算中位数，9).你的算法复杂度是多少；</p>
+<p>如何遍历一个内部未知的文件夹（两种树的优先遍历方式）</p>
+<p>三. 网络基础部分：</p>
+<p>TCP/IP分别在模型的哪一层</p>
+<p>socket长连接是什么意思</p>
+<p>select和epoll你了解么，区别在哪</p>
+<p>TCP UDP区别；三次握手四次挥手讲一下</p>
+<p>TIME_WAIT过多是因为什么</p>
+<p>http一次连接的全过程：你来说下从用户发起request——到用户接收到 response</p>
+<p>http连接方式。get和post的区别，你还了解其他的方式么</p>
+<p>restful你知道么</p>
+<p>状态码你知道多少，比如200/403/404/504等等</p>
+<p>四. 数据库部分：</p>
+<p>MySQL锁有几种；死锁是怎么产生的； 为何，以及如何分区、分表；</p>
+<p>MySQL的char varchar text的区别:</p>
+<p>了解join么,有几种有何区别，A LEFT JOIN B，查询的结果中，B没有的那部分是如何显示的(NULL)</p>
+<p>索引类型有几种，BTree索引和hash索引的区别</p>
+<p>手写：如何对查询命令进行优化</p>
+<p>NoSQL了解么，和关系数据库的区别,redis有几种常用存储类型</p>
+<p>五. Linux部分：</p>
+<p>讲一下你常用的Linux/git命令和作用；</p>
+<p>查看当前进程是用什么命令，除了文件相关的操作外，你平时还有什么操作命令；</p>
+<p>六. Django项目部分:</p>
+<p>都是让简单的介绍下你在公司的项目，不管是不是后端相关的，主要是要体现出你干了什么</p>
+<p>你在项目中遇到最难的部分是什么，你是怎么解决的； 你看过django的admin源码么</p>
+<p>看过flask的源码么,你如何理解开源</p>
+<p>MVC / MTV, 缓存怎么用, 中间件是干嘛的</p>
+<p>CSRF是什么，django是如何避免的,XSS</p>
+<p>如果你来设计login，简单的说一下思路</p>
+<p>session和cookie的联系与区别,session为什么说是安全的</p>
+<p>uWSGI和Nginx的作用；</p>
+</blockquote>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><ul>
+<li><p>在GNU Linux操作系统中，如何查找文件名为newton.py的文件。</p>
+</li>
+<li><p>请简述GNU Linux环境变量的用途</p>
+</li>
+<li><p>在GNU Linux中如何查询当前主机的内存使用情况。</p>
+</li>
+<li><p>在GNU Linux中如何查询当前主机的防火墙设置。</p>
+</li>
+<li><p>在Git中如何使用master、.branch、TAG?</p>
+</li>
+<li><p>编写一个脚本，5分钟检查一次日志，发现有暴力SS破解现象的，提取此类P地址，并去重，并技降序排序，要求：同一个P暴力破解超过10次，自动屏蔽1P地址，指定办公室P地址(192.168.100.100)为可信任P地址，不受屏蔽规则限制，以下为日志格日志样板如下：</p>
+</li>
+</ul>
+<p>May 4 03:43:07 tz-monitor sshd[14003]:Failed password for root from 124.232.135.84 port 25251ssh2</p>
+<p>May 4 03:43:07 tz-monitor sshd[14082]:Invalid user postgres from 124.232.135.84</p>
+<ul>
+<li><p>画出TCP三次握手，四次握手断开示意图</p>
+</li>
+<li><p>业务服务器192.168.1.2访问192.168.1.3数据接口，无法正常返回数据，请根据以上给出信息写出排查思路</p>
+</li>
+<li><p>python中如下一个字典，请按照key进行排序</p>
+</li>
+</ul>
+<p>ct_tmp =[‘carry’:’17,’bob’:’21,’matty’:23jack’:’33’,’tom’:’16’,’alex’:’23’</p>
+<ul>
+<li>tables识考察，根据要求写出防火墙规则？<ul>
+<li>屏蔽192.168.1.5访问本机dns服务端口：</li>
+<li>允许10.1.1.0/24访问本机的udp 8888 9999端口</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/daocaokafei/article/details/115091313">(65条消息) Linux iptables命令详解_一口Linux的博客-CSDN博客_iptable命令</a></p>
+<h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><ul>
+<li><p>叙述MySQL半同步复制原理</p>
+</li>
+<li><p>存储引擎、索引原理、事务原理、锁机制等和优化能力</p>
+</li>
+<li><p>请列举常见的MySQL存储引擎</p>
+</li>
+<li><p>InnoDB有哪些特性</p>
+</li>
+<li><p>请列出一些MySQL数据库查询优化的技巧</p>
+</li>
+<li><p>请简述SQL注入的攻击原理及如何在代码层面防止SOL注入</p>
+</li>
+<li><p>请简述MySQL查询时如何关联多张表</p>
+</li>
+<li><p>假设mysql中表A存储着某次考试中每个学生每道题的得分，含有三列：student id(学生)、question_id(题目)、score(得分)，请用sql查询出每个学生的总分。</p>
+</li>
+<li><p>关系型数据库中，表与表之间有左连接、内连接、外连接。分别解释下他们的含义及区别？</p>
+</li>
+<li><p>mysql中表A有三列a,b,c。索引为a,ab,unique a_b._c。sql语句：select*from table1 where a=10;,会命中哪个索引？</p>
+</li>
+<li><p>给定的有序整数列表L,使用二分法查找整数在L中的位置，如果未找到返回None。(本页写不完可以写在背面)</p>
+</li>
+<li><p>存储引擎哪几种/有什么区别</p>
+</li>
+<li><p>索引(有哪几种索引，索引之间的区别，索引的作用，什么情况下不适合建索引，组合索引的命中规则</p>
+</li>
+<li><p>inner join/left join/right jion的区别</p>
+</li>
+</ul>
+<h3 id="Data-structure"><a href="#Data-structure" class="headerlink" title="Data structure"></a>Data structure</h3><ul>
+<li>队列与栈的定义：<ul>
+<li>队列（Queue）：是限定只能在表的一端进行插入和在另一端进行删除操作的线性表；</li>
+<li>栈（Stack）：是限定只能在表的一端进行插入和删除操作的线性表。</li>
+</ul>
+</li>
+<li>队列与栈的区</li>
+</ul>
+<p>队列和栈是两种不同的数据结构。它们有以下区别：</p>
+<p>（1）操作的名称不同。</p>
+<p>队列的插入称为入队，队列的删除称为出队。栈的插入称为进栈，栈的删除称为出栈。</p>
+<p>（2）操作的限定不同。</p>
+<p>队列是在队尾入队，队头出队，即两边都可操作。而栈的进栈和出栈都是在栈顶进行的，无法对栈底直接进行操作。</p>
+<p>（3）操作的规则不同。</p>
+<p>队列是先进先出（FIFO），即队列的修改是依先进先出的原则进行的。新来的成员总是加入队尾（不能从中间插入），每次离开的成员总是队列头上（不允许中途离队）。而栈为后进先出（LIFO）,即每次删除（出栈）的总是当前栈中最新的元素，即最后插入（进栈）的元素，而最先插入的被放在栈的底部，要到最后才能删除。</p>
+<p>（4）遍历数据速度不同。</p>
+<p>队列是基于地址指针进行遍历，而且可以从头部或者尾部进行遍历，但不能同时遍历，无需开辟空间，因为在遍历的过程中不影响数据结构，所以遍历速度要快。栈是只能从顶部取数据，也就是说最先进入栈底的，需要遍历整个栈才能取出来，而且在遍历数据的同时需要为数据开辟临时空间，保持数据在遍历前的一致性。</p>
+<ul>
+<li><p>编写快速排序或者冒泡排序</p>
+</li>
+<li><p> 连表的冒泡排序</p>
+</li>
+<li><p>树的顺序遍历</p>
+</li>
+<li><p>顺序表的快速排序</p>
+</li>
+</ul>
+<h3 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h3><ul>
+<li><p>请列举经常访问的技术网站或博客</p>
+</li>
+<li><p>请列举最近关注的一些技术</p>
+</li>
+<li><p>请列举你认为不错的一些技术书籍和你最近在看的书籍（不限于技术）</p>
+</li>
+<li><p>请列举你阅读过源码的一些项目</p>
+</li>
+<li><p>请给出你对这份笔试题的看法 </p>
+</li>
+<li><p>简述Django对HTTP请求的执行流程</p>
+</li>
+<li><p>简述Django下的（内建的）缓存机制</p>
+</li>
+<li><p>Django里queryset的get和fliter方法的区别</p>
+</li>
+<li><p>Django中Model的slugfield类型的字段的用途是什么</p>
+</li>
+<li><p>Django中如何加载初始化数据 </p>
+</li>
+<li><p>MYSQL有哪些存储引擎，优化MYSQL数据库的方法有哪些？</p>
+</li>
+<li><p>WEB开发中session与cookie的作用与区别？</p>
+</li>
+<li><p>WEB开发中有哪些技术手段防止SQL注入？</p>
+</li>
+<li><p>请列举常见的HTTP头及其作用</p>
+</li>
+<li><p>请列举常见的HTTP状态响应码及其意义</p>
+</li>
+<li><p>请简述对RESTful API设计规范的理解</p>
+</li>
+<li><p>请简述HTTP缓存机制</p>
+</li>
+<li><p>请简述Cookie和Session之间的关系</p>
+</li>
+<li><p>OSI七层参考模型详解</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Ggggggggggu/article/details/124158378">(65条消息) OSI七层参考模型详解（简单通俗易懂）_Ggggggggggu的博客-CSDN博客_osi参考模型</a></p>
+<ul>
+<li><p>如何查看http的并发请求数与其TCP连接状态</p>
+</li>
+<li><p>写出抓包查看到192.168.5.100服务器的8080端口的命令</p>
+</li>
+<li><p>ps aux中的VSZ代表什么意思，RSS代表什么意思？</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>函数</strong></th>
+<th><strong>返回值</strong> <strong>(</strong> <strong>描述</strong> <strong>)</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-abs.html">abs(x)</a></td>
+<td>返回数字的绝对值，如abs(-10) 返回 10</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-ceil.html">ceil(x)</a></td>
+<td>返回数字的上入整数，如math.ceil(4.1) 返回 5</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-exp.html">exp(x)</a></td>
+<td>返回e的x次幂(ex),如math.exp(1) 返回2.718281828459045</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-fabs.html">fabs(x)</a></td>
+<td>返回数字的绝对值，如math.fabs(-10) 返回10.0</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-floor.html">floor(x)</a></td>
+<td>返回数字的下舍整数，如math.floor(4.9)返回 4</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-log.html">log(x)</a></td>
+<td>如math.log(math.e)返回1.0,math.log(100,10)返回2.0</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-log10.html">log10(x)</a></td>
+<td>返回以10为基数的x的对数，如math.log10(100)返回 2.0</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-max.html">max(x1, x2,…)</a></td>
+<td>返回给定参数的最大值，参数可以为序列。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-min.html">min(x1, x2,…)</a></td>
+<td>返回给定参数的最小值，参数可以为序列。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-modf.html">modf(x)</a></td>
+<td>返回x的整数部分与小数部分，两部分的数值符号与x相同，整数部分以浮点型表示。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-pow.html">pow(x, y)</a></td>
+<td>x**y 运算后的值。</td>
+</tr>
+<tr>
+<td>[round(x <a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-round.html">,n])</a></td>
+<td>返回浮点数 x 的四舍五入值，如给出 n 值，则代表舍入到小数点后的位数。  <strong>其实准确的说是保留值将保留到离上一位更近的一端。</strong></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-func-number-sqrt.html">sqrt(x)</a></td>
+<td>返回数字x的平方根。</td>
+</tr>
+</tbody></table>
+<p>列表的成员方法</p>
+<table>
+<thead>
+<tr>
+<th><strong>方法</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>list.append(x)</td>
+<td>把一个元素添加到列表的结尾，相当于 a[len(a):] =  [x]。</td>
+</tr>
+<tr>
+<td>list.extend(L)</td>
+<td>通过添加指定列表的所有元素来扩充列表，相当于 a[len(a):] =  L。</td>
+</tr>
+<tr>
+<td>list.insert(i, x)</td>
+<td>在指定位置插入一个元素。第一个参数是准备插入到其前面的那个元素的索引，例如 a.insert(0,  x) 会插入到整个列表之前，而 a.insert(len(a), x) 相当于 a.append(x) 。</td>
+</tr>
+<tr>
+<td>list.remove(x)</td>
+<td>删除列表中值为 x 的第一个元素。如果没有这样的元素，就会返回一个错误。</td>
+</tr>
+<tr>
+<td>list.pop([i])</td>
+<td>从列表的指定位置移除元素，并将其返回。如果没有指定索引，a.pop()返回最后一个元素。元素随即从列表中被移除。（方法中 i 两边的方括号表示这个参数是可选的，而不是要求你输入一对方括号，你会经常在 Python 库参考手册中遇到这样的标记。）</td>
+</tr>
+<tr>
+<td>list.clear()</td>
+<td>移除列表中的所有项，等于del a[:]。</td>
+</tr>
+<tr>
+<td>list.index(x)</td>
+<td>返回列表中第一个值为 x 的元素的索引。如果没有匹配的元素就会返回一个错误。</td>
+</tr>
+<tr>
+<td>list.count(x)</td>
+<td>返回 x 在列表中出现的次数。</td>
+</tr>
+<tr>
+<td>list.sort()</td>
+<td>对列表中的元素进行排序。</td>
+</tr>
+<tr>
+<td>list.reverse()</td>
+<td>倒排列表中的元素。</td>
+</tr>
+<tr>
+<td>list.copy()</td>
+<td>返回列表的浅复制，等于a[:]。</td>
+</tr>
+</tbody></table>
+<h3 id="持续更新…"><a href="#持续更新…" class="headerlink" title="持续更新…"></a>持续更新…</h3>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Nico</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://sainthood2077.github.io/2022/11/25/python-zhi-shi-zheng-li/">https://sainthood2077.github.io/2022/11/25/python-zhi-shi-zheng-li/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Nico</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/python/">
+                                    <span class="chip bg-color">python</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/11/25/python-zhi-shi-zheng-li/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Python知识整理">
+                        
+                        <span class="card-title">Python知识整理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Nico
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/python/">
+                        <span class="chip bg-color">python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/11/20/datta-able-django-xue-xi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Datta Able Django学习">
+                        
+                        <span class="card-title">Datta Able Django学习</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Nico
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Django/">
+                        <span class="chip bg-color">Django</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 平荒尽处是春山<br />'
+            + '文章作者: Nico<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022</span>
+            
+            <a href="/about" target="_blank">Nico</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">21.2k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+    
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "09";
+                        var startDate = "27";
+                        var startHour = "18";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+    
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+    
+                    calcSiteTime();
+                </script>
+                <script src="/js/prism/prism.js" async></script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/sainthood2077" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2309050858@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

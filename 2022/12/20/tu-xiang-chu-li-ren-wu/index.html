@@ -4,11 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="经历回顾-221214, Blog">
-    <meta name="description" content="今天整理一下大学期间参与过的项目，算是在自己还没有参加工作之前记录一下。
-*按照参与程度排序
-一、OCR字符识别时间：大二下学期
-使用了easyocr、ocr.pytorch-master、tesseract_ocr_master等等，项目">
+    <meta name="keywords" content="图像处理任务, Blog">
+    <meta name="description" content="算法与优化具体任务步骤
+首先要评估一下这是什么图像处理任务（分类，检测，分割，识别等等），结合现有数据，看看该用什么样的算法（深度学习，传统机器学习，还是普通的图像处理就好）。指标提不上去，从源头上看，是不是任务定义的就有问题，比如，要对图">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>经历回顾-221214 | 平荒尽处是春山</title>
+    <title>图像处理任务 | 平荒尽处是春山</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -341,12 +339,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">经历回顾-221214</h1>
+                    <h1 class="description center-align post-title">图像处理任务</h1>
                 </div>
             </div>
         </div>
@@ -370,12 +368,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%9B%9E%E9%A1%BE/">
-                                <span class="chip bg-color">项目回顾</span>
+                            <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">
+                                <span class="chip bg-color">图像处理</span>
                             </a>
                         
-                            <a href="/tags/%E8%AE%B0%E5%BD%95%E6%88%90%E9%95%BF/">
-                                <span class="chip bg-color">记录成长</span>
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">算法</span>
                             </a>
                         
                     </div>
@@ -390,7 +388,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-12-14
+                    2022-12-20
                 </div>
                 
 
@@ -399,14 +397,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    402
+                    1.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    5 分
                 </div>
                 
 
@@ -426,37 +424,35 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>今天整理一下大学期间参与过的项目，算是在自己还没有参加工作之前记录一下。</p>
-<p>*按照参与程度排序</p>
-<h3 id="一、OCR字符识别"><a href="#一、OCR字符识别" class="headerlink" title="一、OCR字符识别"></a>一、OCR字符识别</h3><p>时间：大二下学期</p>
-<p>使用了easyocr、ocr.pytorch-master、tesseract_ocr_master等等，项目运行结果图已经找不到了。</p>
-<p>这个项目完全是我自己的一个想法，想去自己做一个ocr，经过深入的了解学习，发现要学习机器学习、深度学习，训练模型，觉得自己没有达到开一个模型的能力，于是采用的第三方库进行识别，效果一般。</p>
-<img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221214144756227.png" alt="项目文档" style="zoom: 80%;">
-
-<p>包括自己去看论文，这个项目虽然没有什么结果，没有去参加比赛，但是收获很大，毕竟是自己愿意去学习、去研究的方向。</p>
-<img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221214145518300.png" alt="image-20221214145518300" style="zoom:50%;">
-
-<p>在过程中也了解了很多ocr现有的字符识别模型，他们各自的优略</p>
-<img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/OCR%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9E%8B%E5%AF%B9%E6%AF%94.png" alt="OCR识别模型对比" style="zoom: 40%;">
-
-<p>更深入的了解了图像处理二值化、灰度化、图像降噪等等</p>
-<img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221214150509578.png" alt="项目策划书" style="zoom:50%;">
-
-<h3 id="二、基于Django的员工管理系统"><a href="#二、基于Django的员工管理系统" class="headerlink" title="二、基于Django的员工管理系统"></a>二、基于Django的员工管理系统</h3><p>时间：大四上学期</p>
-<p>说是员工管理系统，其实是为了做毕业设计而学习的一个demo，为了联系django语法，目前还在完善</p>
-<p>实现了基本的增删改查、分页、登陆注册，还需要完善中间件，实现Ajax请求</p>
-<p><video name="录屏演示" src="C:%5CUsers%5Cdell%5CVideos%5C20221214_153659.mp4"></video></p>
-<h3 id="三、Java-web的网上书城"><a href="#三、Java-web的网上书城" class="headerlink" title="三、Java web的网上书城"></a>三、Java web的网上书城</h3><p>时间：大一</p>
-<p>实现了登录、注册、找回密码、信息管理、订单管理等等功能。</p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221214154409524.png" alt="数据表"></p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221214154535536.png" alt="首页"></p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221214154735585.png" alt="商品浏览"></p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221214155442568.png" alt="订单管理-待发货"></p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221214155518964.png" alt="产品预览"></p>
-<h3 id="四、“中华筷箸”文化传承小程序的设计与实现"><a href="#四、“中华筷箸”文化传承小程序的设计与实现" class="headerlink" title="四、“中华筷箸”文化传承小程序的设计与实现"></a>四、“中华筷箸”文化传承小程序的设计与实现</h3><p>时间：大三上</p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/2048_164517_ci.png" alt="小程序截图1"></p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/2048_164537_ci.png" alt="小程序截图2"></p>
-<p><img src="C:%5CUsers%5Cdell%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20221214164915969.png" alt="后台管理"></p>
+                <h3 id="算法与优化具体任务步骤"><a href="#算法与优化具体任务步骤" class="headerlink" title="算法与优化具体任务步骤"></a>算法与优化具体任务步骤</h3><ol>
+<li><p>首先要评估一下这是什么图像处理任务（<strong>分类，检测，分割，识别</strong>等等），结合现有数据，看看该用什么样的算法（深度学习，传统机器学习，还是普通的图像处理就好）。指标提不上去，从源头上看，是不是任务定义的就有问题，比如，要对图片中的猫和狗进行识别，我们把它定义成一个简单的分类问题，但是如果有些图片中有猫又有狗，那整图分类就不好使了，定义成检测问题会不会更好。</p>
+</li>
+<li><p>任务定义好，采用的算法确定好了，就可以准备数据了。不管用深度学习还是传统机器学习，都需要大量的数据进行训练，这一步很重要，怎么强调都不为过，任务定义清楚以后，干净的数据集是整个任务能朝着既定方向行进的基础。</p>
+<p>一般算法工程师不太会直接标注数据，很多是通过外包或者专门的标注人员进行标注，而这些人或因为责任心问题，或因为对任务不了解，他们标注的数据大多不能直接使用，需要检查修正，如果算法工程师直接拿来就用，而正好这批数据标注的不干净，那么我们采用再先进的算法，效果也好不到哪里去。很多人可能关注不到这一点，但是实际工作中，很大比例指标上不去的情况是因为数据集不干净，所以题主也可以看看自己的数据集是不是有脏数据。</p>
+<p>原始数据准备好以后，即使这时候很干净，也不能保证后面结果就是好的，因为我们为了提升算法的鲁棒性，可能还需要做一些==数据扩增==，而我们的算法工程师如果对任务的了解不够透彻，数据增强也可能会使指标变差。比如我们关注一个物体的颜色信息，但是我们的[数据扩增]里面加了随机颜色变换，那后面的结果肯定会很奇怪。大家可能会感觉很奇怪，怎么可能会出现这种情况，但是不合适的数据增强导致指标差的情况，比比皆是。</p>
+</li>
+<li><p>任务定义好，数据准备好，也就可以出模型或者出算法了。如果选择深度学习，很多的训练技巧还需要去掌握，各种超参的调整，loss的选择，训练时间，训练显存占用的控制，推理计算量，推理时间的控制等等，都需要去考虑。如果是用传统机器学习或者传统图像处理，还需要去考虑手工选取特征，这些特征是不是具有普适性。</p>
+</li>
+<li><p>以上三点做好，基本出来的模型或者算法的指标就有个基本保证，baseline是有了，后面就是迭代优化了。当然怎么快速迭代，怎么加数据更有效也是一个很有技术含量的工作，是无脑添加，见到数据就加；还是有针对性的加，有目的的加，这些都值得仔细去考虑。如果使用传统图像处理算法，还得注意在迭代过程中遇到的新数据，老的特征能不能cover。</p>
+</li>
+</ol>
+<blockquote>
+<p>一个算法的落地就是从需求调研，制定baseline，采集数据，出baseline之后大优化，千万不要急着上头看SOTA论文，没用的。工业界优化最重要的就是：数据增强，中继监督（额外的监督信息），比如你检测任务如果有这个资源加上分割检测一定精度高，知识蒸馏，正负样本平衡的技巧，Multi_source多数据源优化特定badcase。模型转出来后上剪枝，量化。基本上一套下来只要你的模型不要太离谱，数据质量高些，基本上效果是没啥问题的。如果有问题的话，那就加数据。</p>
+</blockquote>
+<hr>
+<h3 id="图像处理的三大任务"><a href="#图像处理的三大任务" class="headerlink" title="图像处理的三大任务"></a>图像处理的三大任务</h3><p>人工智能大概分为两个方向:CV(图像处理)和NLP(自然语言处理)</p>
+<p>图像处理cv方向在图像处理中可分为三大任务,即图像分类,目标检测和图像分割</p>
+<h4 id="1-图像分类"><a href="#1-图像分类" class="headerlink" title="1.图像分类"></a><strong>1.图像分类</strong></h4><p>把多种图像分类识别出来</p>
+<p>最优的代表网络:resnet网络和VGG系列网络</p>
+<p>例如把猫狗进行二分类</p>
+<h4 id="2-目标检测"><a href="#2-目标检测" class="headerlink" title="2.目标检测"></a>2.目标检测</h4><p>把目标图像用回归框框出进行类别识别,对目标检测的网络可以分为两大派:==一次检测和两次检测==</p>
+<p>两次检测的最优的代表网络是faster rcnn系列网络,一次检测的代表网络是yolo系列网络</p>
+<p>一次检测在保证识别准确率的情况下,检测速度相对较快,因此yolo系列的网络用的较多</p>
+<h4 id="3-图像分割"><a href="#3-图像分割" class="headerlink" title="3.图像分割"></a>3.图像分割</h4><p>把目标图像的轮廓分割出来,分为语义分割,实例分割,全景分割</p>
+<h5 id="语义分割"><a href="#语义分割" class="headerlink" title="语义分割"></a>语义分割</h5><p>语义分割 就是需要区分到图中每一点像素点，而不仅仅是矩形框框住了。但是同一物体的不同实例不需要单独分割出来。</p>
+<h5 id="实例分割"><a href="#实例分割" class="headerlink" title="实例分割"></a>实例分割</h5><p>实例分割 就是目标检测和语义分割的结合。相对目标检测的边界框，实例分割可精确到物体的边缘；相对语义分割，实例分割需要标注出图上同一物体的不同个体</p>
+<p>代表网络是<em><strong>mask rcnn</strong></em>网络,既对图像进行目标检测又进行图像分割</p>
+<h5 id="全景分割"><a href="#全景分割" class="headerlink" title="全景分割"></a>全景分割</h5><p>全景分割是语义分割和实例分割的结合。跟实例分割不同的是：实例分割只对图像中的object进行检测，并对检测到的object进行分割，而全景分割是对图中的所有物体包括背景都要进行检测和分割。</p>
 
                 
             </div>
@@ -483,7 +479,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://sainthood2077.github.io/2022/12/14/jing-li-hui-gu-221214/">https://sainthood2077.github.io/2022/12/14/jing-li-hui-gu-221214/</a>
+                    <a href="https://sainthood2077.github.io/2022/12/20/tu-xiang-chu-li-ren-wu/">https://sainthood2077.github.io/2022/12/20/tu-xiang-chu-li-ren-wu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -521,12 +517,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%9B%9E%E9%A1%BE/">
-                                    <span class="chip bg-color">项目回顾</span>
+                                <a href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">
+                                    <span class="chip bg-color">图像处理</span>
                                 </a>
                             
-                                <a href="/tags/%E8%AE%B0%E5%BD%95%E6%88%90%E9%95%BF/">
-                                    <span class="chip bg-color">记录成长</span>
+                                <a href="/tags/%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">算法</span>
                                 </a>
                             
                         </div>
@@ -605,9 +601,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/12/20/tu-xiang-chu-li-ren-wu/">
                     <div class="card-image">
@@ -625,9 +622,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -636,6 +633,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -658,13 +656,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/11/25/mian-shi-zhen-ti/">
+                <a href="/2022/12/14/jing-li-hui-gu-221214/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="面试真题">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="经历回顾-221214">
                         
-                        <span class="card-title">面试真题</span>
+                        <span class="card-title">经历回顾-221214</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -675,7 +673,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-12-14
                             </span>
                         <span class="publish-author">
                             
@@ -688,28 +686,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/python/">
-                        <span class="chip bg-color">python</span>
+                    <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%9B%9E%E9%A1%BE/">
+                        <span class="chip bg-color">项目回顾</span>
                     </a>
                     
-                    <a href="/tags/Linxu/">
-                        <span class="chip bg-color">Linxu</span>
-                    </a>
-                    
-                    <a href="/tags/SQL/">
-                        <span class="chip bg-color">SQL</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                        <span class="chip bg-color">数据结构</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
-                        <span class="chip bg-color">网络</span>
-                    </a>
-                    
-                    <a href="/tags/%E8%BF%90%E7%BB%B4/">
-                        <span class="chip bg-color">运维</span>
+                    <a href="/tags/%E8%AE%B0%E5%BD%95%E6%88%90%E9%95%BF/">
+                        <span class="chip bg-color">记录成长</span>
                     </a>
                     
                 </div>

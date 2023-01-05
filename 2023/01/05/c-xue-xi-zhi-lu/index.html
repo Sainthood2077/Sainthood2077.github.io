@@ -28,7 +28,7 @@ main是一个程序的入口，有且仅有一个
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>C++学习之旅 | 平荒尽处是春山</title>
+    <title>C++学习之旅 | Da Vinci.</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -56,8 +56,6 @@ main是一个程序的入口，有且仅有一个
 
 
     
-        <link rel="stylesheet" type="text/css" href="/css/reward.css">
-    
 
 
 
@@ -78,7 +76,7 @@ main是一个程序的入口，有且仅有一个
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">平荒尽处是春山</span>
+                    <span class="logo-span">Da Vinci.</span>
                 </a>
             </div>
             
@@ -182,7 +180,7 @@ main是一个程序的入口，有且仅有一个
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">平荒尽处是春山</div>
+        <div class="logo-name">Da Vinci.</div>
         <div class="logo-desc">
             
             PB
@@ -430,6 +428,11 @@ main是一个程序的入口，有且仅有一个
         
 
         
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
 
         <div class="card-content article-card-content">
             <div id="articleContent">
@@ -590,7 +593,7 @@ flag = false; // 0
 <p>if 表达式1</p>
 <p>{表达式2}</p>
 <p>else {表达式3}</p>
-<h3 id="2、switch语句"><a href="#2、switch语句" class="headerlink" title="2、switch语句"></a>2、switch语句</h3><pre class=" language-c++"><code class="language-c++">switch (整型或者字符型)//不能像if一样判断一个区间
+<h4 id="2、switch语句"><a href="#2、switch语句" class="headerlink" title="2、switch语句"></a>2、switch语句</h4><pre class=" language-c++"><code class="language-c++">switch (整型或者字符型)//不能像if一样判断一个区间
     {
     case 结果1:表达式; break;
     case 结果2:表达式; break;
@@ -635,7 +638,7 @@ int main()
         cout << " " << endl;
     }
 </code></pre>
-<h3 id="3、跳转语句"><a href="#3、跳转语句" class="headerlink" title="3、跳转语句"></a>3、跳转语句</h3><p>break；continue；goto；</p>
+<h4 id="3、跳转语句"><a href="#3、跳转语句" class="headerlink" title="3、跳转语句"></a>3、跳转语句</h4><p>break；continue；goto；</p>
 <pre class=" language-c++"><code class="language-c++">//代码...，会执行
 goto FLAG;//在程序中不建议使用goto，了解即可，会导致程序混乱
 //代码...中间的都不会执行
@@ -2501,25 +2504,22 @@ int main()
 </ol>
 <h3 id="1、文本文件"><a href="#1、文本文件" class="headerlink" title="1、文本文件"></a>1、文本文件</h3><h4 id="1-写文件"><a href="#1-写文件" class="headerlink" title="1.写文件"></a>1.写文件</h4><p>写文件步骤如下：</p>
 <ol>
-<li>包含头文件</li>
-</ol>
+<li><p>包含头文件</p>
 <p>#include <fstream></fstream></p>
-<ol start="2">
-<li>创建流对象</li>
-</ol>
+</li>
+<li><p>创建流对象</p>
 <p>ofstream ofs;</p>
-<ol start="3">
-<li>打开文件</li>
-</ol>
+</li>
+<li><p>打开文件</p>
 <p>ofs.open(“文件路径”，打开方式)；</p>
-<ol start="4">
-<li>写数据</li>
-</ol>
+</li>
+<li><p>写数据</p>
 <p>of5&lt;&lt;”写入的数据”；</p>
-<ol start="5">
-<li>关闭文件</li>
-</ol>
+</li>
+<li><p>关闭文件</p>
 <p>ofs.close()；</p>
+</li>
+</ol>
 <table>
 <thead>
 <tr>
@@ -2566,25 +2566,22 @@ int main()
 <h4 id="2-读文件"><a href="#2-读文件" class="headerlink" title="2.读文件"></a>2.读文件</h4><p>读文件与写文件步骤相似，但是读取方式相对于比较多</p>
 <p>读文件步骤如下：</p>
 <ol>
-<li>包含头文件</li>
-</ol>
+<li><p>包含头文件</p>
 <p>#include <fstream></fstream></p>
-<ol start="2">
-<li>创建流对象</li>
-</ol>
+</li>
+<li><p>创建流对象</p>
 <p>ifstream ifs;</p>
-<ol start="3">
-<li>打开文件并判断文件是否打开成功</li>
-</ol>
+</li>
+<li><p>打开文件并判断文件是否打开成功</p>
 <p>ifs.open(“文件路径”打开方式)：</p>
-<ol start="4">
-<li>读数据</li>
-</ol>
+</li>
+<li><p>读数据</p>
 <p>四种方式读取</p>
-<ol start="5">
-<li>关闭文件</li>
-</ol>
+</li>
+<li><p>关闭文件</p>
 <p>ifs.close();</p>
+</li>
+</ol>
 <pre class=" language-c++"><code class="language-c++">#include <iostream>
 #include <string>
 #include <fstream>
@@ -2978,39 +2975,6 @@ std::cout << ++ref << "\n"; // error: increment of read-only reference ‘ref’
                 </div>
             </div>
             
-                <div id="reward">
-    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
-
-    <!-- Modal Structure -->
-    <div id="rewardModal" class="modal">
-        <div class="modal-content">
-            <a class="close modal-close"><i class="fas fa-times"></i></a>
-            <h4 class="reward-title">你的赏识是我前进的动力</h4>
-            <div class="reward-content">
-                <div class="reward-tabs">
-                    <ul class="tabs row">
-                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
-                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
-                    </ul>
-                    <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
-                    </div>
-                    <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(function () {
-        $('.tabs').tabs();
-    });
-</script>
-
-            
         </div>
     </div>
 
@@ -3166,10 +3130,10 @@ std::cout << ++ref << "\n"; // error: increment of read-only reference ‘ref’
 
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
-            + '来源: 平荒尽处是春山<br />'
+            + '来源: Da Vinci.<br />'
             + '文章作者: Nico<br />'
             + '文章链接: <a href="' + url + '">' + url + '</a><br />'
-            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+            + '本文章著作权归作者Nico所有，任何形式的转载都请注明出处。';
 
         selection.selectAllChildren(newdiv);
         window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
@@ -3389,10 +3353,6 @@ std::cout << ++ref << "\n"; // error: increment of read-only reference ‘ref’
 
 
 
-    <a href="mailto:2309050858@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
 
 
 
@@ -3608,6 +3568,8 @@ $(function () {
 
     
 
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

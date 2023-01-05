@@ -21,6 +21,15 @@
     <title>标签 | Da Vinci.</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
+    <style>
+        body{
+            background-image: url(https://gitee.com/sainthood2077/cloudimg/raw/main/images/4df5039ab58c494c964fe48902a26f46.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
 
 
     <!-- bg-cover style     -->
@@ -351,13 +360,13 @@
                     var typed = new Typed("#subtitle", {
                         strings: [ 
                             
-                                "从来没有真正的绝境, 只有心灵的迷途",
+                                "时间有巨大的贯通伤，文字在伤口里逃亡",
                             
-                                "Never really desperate, only the lost of the soul",
+                                "前面是母亲的哭声，后面是忘川水涨",
                             
                         ],
                         startDelay: 300,
-                        typeSpeed: 100,
+                        typeSpeed: 180,
                         loop: true,
                         backSpeed: 50,
                         showCursor: true
@@ -371,9 +380,7 @@
 
 
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+    $('.bg-cover').css('background-image', 'url(/medias/banner/0.jpg)');
 </script>
 
 
@@ -483,6 +490,24 @@
                 </a>
                 
                 
+                <a href="/tags/C/" title="C++: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="C++" style="background-color: #F8C471;">C++
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/C/" title="C: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="C" style="background-color: #F9E79F;">C
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/tags/python/" title="python: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
@@ -495,7 +520,7 @@
                 <a href="/tags/Linxu/" title="Linxu: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Linxu" style="background-color: #F9E79F;">Linxu
+                            data-tagname="Linxu" style="background-color: #D5F5E3;">Linxu
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -536,24 +561,6 @@
                     </span>
                 </a>
                 
-                
-                <a href="/tags/C/" title="C++: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="C++" style="background-color: #85C1E9;">C++
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/C/" title="C: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="C" style="background-color: #D5F5E3;">C
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
             </div>
         </div>
     </div>
@@ -578,7 +585,7 @@
 <script type="text/javascript">
     
 
-    $('#tag-wordcloud').jQCloud([{"text":"Django","weight":2,"link":"/tags/Django/"},{"text":"js","weight":1,"link":"/tags/js/"},{"text":"Django模型","weight":1,"link":"/tags/Django模型/"},{"text":"MVT","weight":1,"link":"/tags/MVT/"},{"text":"MVC","weight":1,"link":"/tags/MVC/"},{"text":"图像处理","weight":1,"link":"/tags/图像处理/"},{"text":"算法","weight":1,"link":"/tags/算法/"},{"text":"Git","weight":1,"link":"/tags/Git/"},{"text":"项目回顾","weight":1,"link":"/tags/项目回顾/"},{"text":"记录成长","weight":1,"link":"/tags/记录成长/"},{"text":"python","weight":1,"link":"/tags/python/"},{"text":"Linxu","weight":1,"link":"/tags/Linxu/"},{"text":"SQL","weight":1,"link":"/tags/SQL/"},{"text":"数据结构","weight":1,"link":"/tags/数据结构/"},{"text":"网络","weight":1,"link":"/tags/网络/"},{"text":"运维","weight":1,"link":"/tags/运维/"},{"text":"C++","weight":1,"link":"/tags/C/"},{"text":"C","weight":1,"link":"/tags/C/"}], {
+    $('#tag-wordcloud').jQCloud([{"text":"Django","weight":2,"link":"/tags/Django/"},{"text":"js","weight":1,"link":"/tags/js/"},{"text":"Django模型","weight":1,"link":"/tags/Django模型/"},{"text":"MVT","weight":1,"link":"/tags/MVT/"},{"text":"MVC","weight":1,"link":"/tags/MVC/"},{"text":"图像处理","weight":1,"link":"/tags/图像处理/"},{"text":"算法","weight":1,"link":"/tags/算法/"},{"text":"Git","weight":1,"link":"/tags/Git/"},{"text":"项目回顾","weight":1,"link":"/tags/项目回顾/"},{"text":"记录成长","weight":1,"link":"/tags/记录成长/"},{"text":"C++","weight":1,"link":"/tags/C/"},{"text":"C","weight":1,"link":"/tags/C/"},{"text":"python","weight":1,"link":"/tags/python/"},{"text":"Linxu","weight":1,"link":"/tags/Linxu/"},{"text":"SQL","weight":1,"link":"/tags/SQL/"},{"text":"数据结构","weight":1,"link":"/tags/数据结构/"},{"text":"网络","weight":1,"link":"/tags/网络/"},{"text":"运维","weight":1,"link":"/tags/运维/"}], {
         autoResize: true
     });
 </script>
@@ -903,11 +910,14 @@ $(function () {
     <!--腾讯兔小巢-->
     
     
-
+    <script type="text/javascript" color="0,0,0"
+        pointColor="0,0,0" opacity='0.7'
+        zIndex="-1" count="299"
+        src="/libs/background/canvas-nest.js"></script>
     
 
     
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+
     
 
     

@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>Ubuntu常用快捷键</title>
+      <link href="/2023/01/06/ubuntu-chang-yong-kuai-jie-jian/"/>
+      <url>/2023/01/06/ubuntu-chang-yong-kuai-jie-jian/</url>
+      
+        <content type="html"><![CDATA[<h2 id="桌面常用快捷键"><a href="#桌面常用快捷键" class="headerlink" title="桌面常用快捷键"></a>桌面常用快捷键</h2><ul><li><p>Alt + F1：聚焦到桌面左侧任务导航栏，可按上下键进行导航</p></li><li><p>Alt + F2：运行命令</p></li><li><p>Alt + F4：关闭当前窗口</p></li><li><p>Alt + Tab：切换程序窗口</p></li><li><p>Alt + 空格：打开窗口菜单</p></li><li><p>PrtSc：桌面截图</p></li><li><p>Win + A：搜索/浏览程序</p></li><li><p>Win + F：搜索/浏览文件</p></li><li><p>Win + M：搜索/浏览音乐文件</p></li><li><p>Win：搜索/浏览程序、文件、音乐文件等</p></li></ul><h2 id="常见终端快捷键"><a href="#常见终端快捷键" class="headerlink" title="常见终端快捷键"></a>常见终端快捷键</h2><ul><li><p>Ctrl + Alt + T：打开终端</p></li><li><p>Tab：命令或文件名自动补全</p></li><li><p>Ctrl + Shift + C：复制</p></li><li><p>Ctrl + Shift + V：粘贴</p></li><li><p>Ctrl + Shift + T：在同一个窗口新建终端标签页</p></li><li><p>Ctrl + Shift + W：关闭标签页</p></li><li><p>Ctrl + Shift + N：新建终端窗口</p></li><li><p>Ctrl + Shift + Q：关闭终端窗口</p></li><li><p>Ctrl + Shift + PageUp：标签页左移</p></li><li><p>Ctrl + Shift + PageDown：标签页右移</p></li><li><p>Ctrl + D：关闭标签页</p></li><li><p>Ctrl + L：清除屏幕</p></li><li><p>Ctrl + C：终止当前任务</p></li><li><p>Ctrl + P：显示上一条历史命令</p></li><li><p>Ctrl + N：显示下一条历史命令</p></li><li><p>Ctrl + R：反向搜索历史命令</p></li><li><p>Ctrl + J/M：回车（同enter键功能）</p></li><li><p>Ctrl + A：光标移动到行首</p></li><li><p>Ctrl + E：光标移动到行尾</p></li><li><p>Ctrl + B：关闭想后移动一个位置（backward）</p></li><li><p>Ctrl + Z：把当前任务放到后台运行</p></li><li><p>Ctrl + PageUp：前一个终端标签页</p></li><li><p>Ctrl + PageDown：下一个终端标签页</p></li><li><p>F1：打开帮助指南</p></li><li><p>F11：全屏切换</p></li><li><p>Alt + F：打开“文件”菜单（file）</p></li><li><p>Alt + E：打开“编辑”菜单（edit）</p></li><li><p>Alt + V：打开“查看“菜单（view）</p></li><li><p>Alt + S：打开“搜索”菜单（search）</p></li><li><p>Alt + T：打开“终端”菜单（terminal）</p></li><li><p>Alt + H：打开“帮助”菜单（help）</p></li><li><p>Ctrl + →：光标移动到上一个单词的词首</p></li><li><p>Ctrl + ←：光标移动到下一个单词的词尾</p></li><li><p>Ctrl + T：将光标位置的字符和前一个字符进行位置交换</p></li><li><p>Ctrl + U：剪切从行的开头到光标前一个位置的所有字符</p></li><li><p>Ctrl + K：剪切从光标位置到行末的所有字符</p></li><li><p>Ctrl + Y：粘贴Ctrl + U/Ctrl + K剪切的内容</p></li><li><p>Ctrl + D：删除光标位置的一个字符（delete键功能）</p></li><li><p>Ctrl + W：删除光标位置的前一个单词（Alt + Backspace组合键功能）</p></li><li><p>Ctrl + &amp;：恢复Ctrl + H/D/W删除的内容</p></li><li><p>Ctrl + Win + ↑：最大化当前窗口</p></li><li><p>Ctrl + Win + ↓：还原/最小化当前窗口</p></li><li><p>Ctrl + Win + D：最小化所有窗口</p></li><li><p>Win + W：展示所有窗口</p></li><li><p>Win + T：打开回收站</p></li><li><p>v2次连续Tab/4次连续Esc/2次连续Ctrl + I：将显示所有命令和工具名称</p></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Ubuntu </tag>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>C++学习之旅</title>
       <link href="/2023/01/05/c-xue-xi-zhi-lu/"/>
       <url>/2023/01/05/c-xue-xi-zhi-lu/</url>

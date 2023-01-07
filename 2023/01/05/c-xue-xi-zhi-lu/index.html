@@ -411,7 +411,7 @@ main是一个程序的入口，有且仅有一个
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-01-05
+                    2023-01-07
                 </div>
                 
 
@@ -441,11 +441,6 @@ main是一个程序的入口，有且仅有一个
 
         
 
-        
-        <!-- 代码块折行 -->
-        <style type="text/css">
-            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
-        </style>
         
 
         <div class="card-content article-card-content">
@@ -633,11 +628,11 @@ int main()
         b = num / 10 % 10;//获取十位
         c = num / 100;//获取百位
         int res = pow(a,3)+pow(b,3)+pow(c,3);
-        if(num == res){//判断是水仙花数才输出
-            cout << "水仙花数有：" << num <<endl;
-        }
+        if(num == res)//判断是水仙花数才输出
+        {
+            cout << "水仙花数有：" << num << endl;
+          }
         num++;
-        
     }
     while (num < 1000);
     system("pause");
@@ -677,20 +672,21 @@ cout << (int)arr << endl;//arr的首地址
 cout << (int)&arr[0] << endl;//arr第一个元素的地址
 </code></pre>
 <pre class=" language-c++"><code class="language-c++">int arr[] = {8,0,1,9,3,6,5,123,122,45,22,4};//冒泡排序，任意数组大小都可以排序
-    for (int i=0;i<sizeof(arr)/sizeof(arr[0])-1;i++){
-        for (int j= 0; j<sizeof(arr)/sizeof(arr[0])-1-i;j++){
-            if (arr[j]>arr[j+1]){
+for (int i=0;i<sizeof(arr)/sizeof(arr[0])-1;i++){
+    for (int j= 0; j<sizeof(arr)/sizeof(arr[0])-1-i;j++){
+        if (arr[j]>arr[j+1]){
             int tmp = arr[j];
             arr[j] = arr[j+1];
             arr[j+1] = tmp;
         }
-        } 
-        continue;
-    }
-    for (int item =0 ;item<sizeof(arr)/sizeof(arr[0]);item++){
-        cout << arr[item] << " ";
-        cout << endl;
-    }
+    } 
+    continue;
+}
+for (int item =0 ;item < sizeof(arr) / sizeof(arr[0]);item++)
+{
+    cout << arr[item] << " " ;
+    cout << endl ;
+}
 </code></pre>
 <h3 id="3、二维数组"><a href="#3、二维数组" class="headerlink" title="3、二维数组"></a>3、二维数组</h3><p>定义方式：</p>
 <p>1.<code>数据类型 数组名[ 行数 ][ 列数 ]；</code></p>
@@ -706,7 +702,7 @@ cout << (long long)&arr[0][0] << endl;//二维数组第一个元素的地址
 cout << sizeof(arr)/sizeof(arr[0]) << endl;//获取二维数组的行数
 cout << sizeof(arr[0])/sizeof(arr[0][0]) << endl;//获取二维数组列数
 </code></pre>
-<h2 id="五、函数"><a href="#五、函数" class="headerlink" title="五、函数"></a>五、函数</h2><h3 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h3><pre><code>返回值类型  函数名(参数列表)
+<h2 id="五、函数"><a href="#五、函数" class="headerlink" title="五、函数"></a>五、函数</h2><h3 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h3><pre class=" language-c++"><code class="language-c++">返回值类型  函数名(参数列表)
 {
     函数体语句
     return 表达式；
@@ -765,8 +761,7 @@ void swap(int num1,int num2){
 }
 </code></pre>
 <p>使用函数的主文件：</p>
-<pre class=" language-c++"><code class="language-c++">#include "cpp_obj.h"//需要添加头文件使用
-</code></pre>
+<p>#include “cpp_obj.h”//需要添加头文件使用</p>
 <h2 id="六、指针"><a href="#六、指针" class="headerlink" title="六、指针"></a>六、指针</h2><p><strong>指针就是一个地址</strong></p>
 <p>定义：<code>数据类型 * 指针变量名；</code></p>
 <p>使用：</p>
@@ -1170,6 +1165,13 @@ int main()
     //cout << *p << endl;运行会报错，内存已经被释放，无法访问
 }
 </code></pre>
+<h4 id="C-中对象new出来和直接声明的区别"><a href="#C-中对象new出来和直接声明的区别" class="headerlink" title="C++中对象new出来和直接声明的区别"></a>C++中对象new出来和直接声明的区别</h4><p>首先，最直观的，new出来的对象需要使用指针接收，而直接声明的不用。例如 A* a=new A() 与A a（）。</p>
+<p>new出来的对象是直接使用堆空间，而局部声明一个对象是放在栈中。</p>
+<p>new出来的对象类似于申请空间，因此需要delete销毁，而直接声明的对象则在使用完直接销毁。</p>
+<p>new出来的对象的生命周期是具有全局性，譬如在一个函数块里new一个对象，可以将该对象的指</p>
+<p>针返回回去，该对象依旧存在。而声明的对象的生命周期只存在于声明了该对象的函数块中，如果返</p>
+<p>回该声明的对象，将会返回一个已经被销毁的对象。</p>
+<p>new对象指针用途广泛，比如作为函数返回值、函数参数等``。</p>
 <h3 id="2、引用"><a href="#2、引用" class="headerlink" title="2、引用"></a>2、引用</h3><p>本质：给变量起别名</p>
 <p>语法：<code>(和原来一致的)数据类型 &amp;别名 = 原名</code></p>
 <blockquote>
@@ -1222,14 +1224,14 @@ int main()
 <pre class=" language-c++"><code class="language-c++">//引用使用的场景，通常用来修饰形参
 void showvalue(const int&v){
     //y+=10;
-    cout << v <<endl;
+    cout << v << endl;
 }
 int main() {
     //int &ref=10;引用本身需要一个合法的内存空间，因此这行错误
     //加入const就可以了，编译器优化代码，int temp=18;const int&ref=temp;
     const int &ref = 10;//都相当于引用了一个临时变量
     //ref=100;加入const后不可以修改变量
-    cout << ref <<endl;
+    cout << ref << endl;
     //函数中利用常量引用防止误操作修改实参
     int a =10;
     showValue(a);
@@ -1253,7 +1255,7 @@ cube(x+2);
 <h4 id="4、引用的本质"><a href="#4、引用的本质" class="headerlink" title="4、引用的本质"></a>4、引用的本质</h4><p>引用的本质在c++内部实现是一个指针常量</p>
 <pre class=" language-c++"><code class="language-c++">//自动转换为int * const ref = &a;指针常量是指针指向不可改，也说明为什么引用不可更改
 int &ref = a;
-ref=20;//内部发现ref是引用，自动帮我们转换为：*ref=20
+ref = 20;//内部发现ref是引用，自动帮我们转换为：*ref=20
 </code></pre>
 <h4 id="5、引用总结"><a href="#5、引用总结" class="headerlink" title="5、引用总结"></a>5、引用总结</h4><p>使用引用参数的原因：</p>
 <ol>
@@ -2027,9 +2029,9 @@ void teste1()
     Person p2(20);
     Person p3(30);
     p3=p2=p1;//赋值操作
-    cout<<"p1的年龄为："<*p1.m_Age<<end1;
-    cout<<"p2的年龄为："<<*p2.m_Age<end1;
-    cout<<"p3的年龄为："<<*p3.m_Age<end1;//此时p1、p2、p3应该都为18
+    cout<<"p1的年龄为："<< *p1.m_Age << end1;
+    cout<<"p2的年龄为："<< *p2.m_Age << end1;
+    cout<<"p3的年龄为："<< *p3.m_Age << end1;//此时p1、p2、p3应该都为18
 }
 </code></pre>
 <h4 id="5-关系运算符重载"><a href="#5-关系运算符重载" class="headerlink" title="5.关系运算符重载"></a>5.关系运算符重载</h4><h4 id="6-函数调用运算符重载"><a href="#6-函数调用运算符重载" class="headerlink" title="6.函数调用运算符重载"></a>6.函数调用运算符重载</h4><pre class=" language-c++"><code class="language-c++">class Myfun
@@ -2607,7 +2609,7 @@ int main()
     if (!ifs.is_open())
     {cout << "file is fail to open" << endl;}
     char buf[1024]={0};//第一种
-    while (ifs >> buf){cout<<buf<<endl;}
+    while (ifs >> buf){cout << buf << endl;}
     
     //char buf[1024]={0};//第二种
     //while (ifs.getline(buf,sizeof(buf))){cout<<buf<<endl;}
@@ -2657,7 +2659,7 @@ void teste1()
     {cout << "文件打开失败" << endl;}
     Person p;
     ifs.read((char *)&p,sizeof(p));
-    cout << "姓名：" << p.m_Name << "年龄：" << p.mAge <<endl;
+    cout << "姓名：" << p.m_Name << "年龄：" << p.mAge << endl;
 }
 </code></pre>
 <h2 id="十三、数据类型转换"><a href="#十三、数据类型转换" class="headerlink" title="十三、数据类型转换"></a>十三、数据类型转换</h2><p>当运算符的操作数具有不同的数据类型时，C++ 会自动将它们转换为相同的数据类型。当它这样做时，遵循一组规则。</p>
@@ -2794,7 +2796,46 @@ A
 <pre class=" language-c"><code class="language-c">booksPerMonth <span class="token operator">=</span> <span class="token keyword">double</span><span class="token punctuation">(</span>books<span class="token punctuation">)</span> <span class="token operator">/</span> months<span class="token punctuation">;</span>
 </code></pre>
 <h2 id="十四、模板"><a href="#十四、模板" class="headerlink" title="十四、模板"></a>十四、模板</h2><p>本阶段主要针对C++<strong>泛型编程</strong>和<strong>STL</strong>技术讲解</p>
-<h3 id="1、函数模板"><a href="#1、函数模板" class="headerlink" title="1、函数模板"></a>1、函数模板</h3><h3 id="2、类模板"><a href="#2、类模板" class="headerlink" title="2、类模板"></a>2、类模板</h3><h2 id="十五、STL"><a href="#十五、STL" class="headerlink" title="十五、STL"></a>十五、STL</h2><h3 id="1、STL-常用容器"><a href="#1、STL-常用容器" class="headerlink" title="1、STL-常用容器"></a>1、STL-常用容器</h3><h3 id="2、STL-函数对象"><a href="#2、STL-函数对象" class="headerlink" title="2、STL-函数对象"></a>2、STL-函数对象</h3><h3 id="3、STL-常用算法"><a href="#3、STL-常用算法" class="headerlink" title="3、STL-常用算法"></a>3、STL-常用算法</h3><h2 id="十六、左值和右值"><a href="#十六、左值和右值" class="headerlink" title="十六、左值和右值"></a>十六、左值和右值</h2><h3 id="1、什么是左值和右值"><a href="#1、什么是左值和右值" class="headerlink" title="1、什么是左值和右值"></a>1、什么是左值和右值</h3><p>首先，让我们避开那些正式的定义。在C++中，一个左值是指向一个指定内存的东西。另一方面，右值就是不指向任何地方的东西。通常来说，右值是暂时和短命的，而左值则活的很久，因为他们以变量的形式（variable）存在。我们可以将左值看作为容器（container）而将右值看做容器中的事物。如果容器消失了，容器中的事物也就自然就无法存在了。<br> 让我们现在来看一些例子：</p>
+<ul>
+<li><p>模板不可以直接使用，只是一个框架</p>
+</li>
+<li><p>模板的通用并不是万能的</p>
+</li>
+</ul>
+<h3 id="1、函数模板"><a href="#1、函数模板" class="headerlink" title="1、函数模板"></a>1、函数模板</h3><ul>
+<li><p>C++另一种编程思想就是==泛型编程==，主要利用的技术就是==模板==</p>
+</li>
+<li><p>C++提供两种模板机制：函数模板和类模板</p>
+</li>
+</ul>
+<p>函数模板作用：简历一个通用函数，其<strong>函数返回值类型</strong>和<strong>形参类型</strong>可以不具体指定，用一个<strong>虚拟的类型</strong>来代表</p>
+<p>本质：<strong>类型 参数化</strong></p>
+<p>语法：</p>
+<pre class=" language-c++"><code class="language-c++">template<typename T>//typename可以用class代替；T代表通用数据类型，名称可以替换，通常为大写字母
+...
+函数声明或定义
+</code></pre>
+<pre class=" language-c++"><code class="language-c++">template <typename T>
+//template <class T>同理，效果一致
+void swapObject(T &a, T &b)
+{
+    T tmp = a;
+    a = b;
+    b = tmp;
+}
+void test01()
+{
+    int a = 10;
+    int b = 20;
+    //swapObject(a,b);//1、自动类型推导
+    swapObject<int>(a,b);//2、显示指定类型，尖括号指定的是T的类型
+}
+</code></pre>
+<ul>
+<li>自动类型推导，必须推导出<strong>一致</strong>的数据类型T，才可以使用</li>
+<li>模板必须要确定出T的数据类型，才可以使用</li>
+</ul>
+<h3 id="2、类模板"><a href="#2、类模板" class="headerlink" title="2、类模板"></a>2、类模板</h3><h2 id="十五、STL"><a href="#十五、STL" class="headerlink" title="十五、STL"></a>十五、STL</h2><h3 id="1、STL-常用容器"><a href="#1、STL-常用容器" class="headerlink" title="1、STL-常用容器"></a>1、STL-常用容器</h3><h3 id="2、STL-函数对象"><a href="#2、STL-函数对象" class="headerlink" title="2、STL-函数对象"></a>2、STL-函数对象</h3><h3 id="3、STL-常用算法"><a href="#3、STL-常用算法" class="headerlink" title="3、STL-常用算法"></a>3、STL-常用算法</h3><h2 id="十六、左值和右值"><a href="#十六、左值和右值" class="headerlink" title="十六、左值和右值"></a>十六、左值和右值</h2><h3 id="1、什么是左值和右值"><a href="#1、什么是左值和右值" class="headerlink" title="1、什么是左值和右值"></a>1、什么是左值和右值</h3><p>首先，让我们避开那些正式的定义。在C++中，一个左值是指向一个指定内存的东西。另一方面，右值就是不指向任何地方的东西。通常来说，右值是暂时和短命的，而左值则活的很久，因为他们以变量的形式（variable）存在。我们可以将左值看作为容器（container）而将右值看做容器中的事物。如果容器消失了，容器中的事物也就自然就无法存在了。<br> 让我们现在来看一些例子：</p>
 <pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">666</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//ok</span>
 </code></pre>
 <p>在这里，<code>666</code>是一个右值。一个数字（从技术角度来说他是一个字面常量（literal constant））没有指定的内存地址，当然在程序运行时一些临时的寄存器除外。在该例中，<code>666</code>被赋值（assign）给<code>x</code>，<code>x</code>是一个变量。一个变量有着具体（specific）的内存位置，所以他是一个左值。C++中声明一个赋值（assignment）需要一个左值作为它的左操作数（left operand）：这完全合法。<br> 对于左值<code>x</code>，你可以做像这样的操作：</p>
@@ -3160,8 +3201,6 @@ std::cout << ++ref << "\n"; // error: increment of read-only reference ‘ref’
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
 
 <!-- 代码块复制 -->
 
@@ -3169,8 +3208,6 @@ std::cout << ++ref << "\n"; // error: increment of read-only reference ‘ref’
 
 
 <!-- 代码块收缩 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
 
@@ -3278,7 +3315,7 @@ std::cout << ++ref << "\n"; // error: increment of read-only reference ‘ref’
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">23.8k</span>
+                        class="white-color">25k</span>
             
             
             

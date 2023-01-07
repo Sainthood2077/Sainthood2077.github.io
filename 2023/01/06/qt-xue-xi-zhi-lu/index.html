@@ -4,9 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="MVT和MVC的区别, Blog">
-    <meta name="description" content="1.理解MVT和MVCMVC（Model View Controller 模型-视图-控制器）特点：把业务逻辑、模型数据、用户界面分离开来，让开发者将数据与表现**解耦**。
-解耦：降低各功能模块之间的耦合性，方便变更，更容易重构代码，最大">
+    <meta name="keywords" content="Qt学习之旅, Blog">
+    <meta name="description" content="Qt常用快捷键查找                           ctrl+f
+注释                           ctrl+/
+运行                           ctrl+r
+编译   ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +21,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>MVT和MVC的区别 | Da Vinci.</title>
+    <title>Qt学习之旅 | Da Vinci.</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -346,12 +348,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">MVT和MVC的区别</h1>
+                    <h1 class="description center-align post-title">Qt学习之旅</h1>
                 </div>
             </div>
         </div>
@@ -375,16 +377,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Django%E6%A8%A1%E5%9E%8B/">
-                                <span class="chip bg-color">Django模型</span>
+                            <a href="/tags/Qt/">
+                                <span class="chip bg-color">Qt</span>
                             </a>
                         
-                            <a href="/tags/MVT/">
-                                <span class="chip bg-color">MVT</span>
-                            </a>
-                        
-                            <a href="/tags/MVC/">
-                                <span class="chip bg-color">MVC</span>
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
                             </a>
                         
                     </div>
@@ -399,28 +397,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-06
+                    2023-01-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-10-06
+                    2023-01-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    820
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    4 分
                 </div>
                 
 
@@ -440,20 +438,51 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1-理解MVT和MVC"><a href="#1-理解MVT和MVC" class="headerlink" title="1.理解MVT和MVC"></a>1.理解MVT和MVC</h2><h3 id="MVC（Model-View-Controller-模型-视图-控制器）"><a href="#MVC（Model-View-Controller-模型-视图-控制器）" class="headerlink" title="MVC（Model View Controller 模型-视图-控制器）"></a>MVC（Model View Controller 模型-视图-控制器）</h3><p>特点：把业务逻辑、模型数据、用户界面分离开来，让开发者将数据与表现**<u>解耦</u>**。</p>
-<p>解耦：降低各功能模块之间的耦合性，方便变更，更容易重构代码，最大程度上实现代码的重用</p>
-<p>Model： 代表数据存取层，</p>
-<p>View 代表的是系统中选择显示什么和怎么显示的部分，</p>
-<p>Controller 指的是系统中根据用户输入并视需要访问模型，以决定使用哪个视图的那部分。</p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221006112114601.png" alt="image-20221006112114601"></p>
-<p>客户端发送请求，通过控制台分发请求，将请求发到数据库中，通过实体类，它与数据库具有一一对应的关系<br>然后数据库返回数据，将数据封装成对象，返回到控制器，控制器将其渲染到页面上，返回给客户。</p>
-<h3 id="MVT（Model-View-Templates-模型-视图-模板）"><a href="#MVT（Model-View-Templates-模型-视图-模板）" class="headerlink" title="MVT（Model View Templates 模型-视图-模板）"></a>MVT（Model View Templates 模型-视图-模板）</h3><p>Models：数据存取层。 该层处理与数据相关的所有事务： 如何存取、如何验证有效，是一个抽象层，用来构建和操作你的web应用中的数据，模型是你的数据的唯一的、权威的信息源。它包含你所储存数据的必要字段和行为。通常，每个模型对应数据库中唯一的一张表。</p>
-<p>视图（views）：业务逻辑层，该层包含存取模型及调取恰当模板的相关逻辑。用于封装负责处理用户请求及返回响应的逻辑。视图可以看作是前端与数据库的中间人，他会将前端想要的数据从数据库中读出来给前端。他也会将用户要想保存的数据写到数据库。</p>
-<p>模板(templates)：即表现层。 该层处理与表现相关的决定： 如何在页面或其他类型文档中进行显示。模板层提供了设计友好的语法来展示信息给用户。使用模板方法可以动态地生成HTML。模板包含所需HTML 输出的静态部分，以及一些特殊的语法，描述如何将动态内容插入。</p>
-<p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221006112038348.png" alt="image-20221006112038348"></p>
-<p>客户端发送请求，django路由分发请求，视图函数接收参数，控制流程，通过实体类（与数据库有映射关系）将请求发送到<br>数据库中，数据库返回数据，将数据在MODL层封装成对象，返回到视图函数，视图函数将其渲染到模板层（页面），返回<br>给客户端。</p>
-<h2 id="2-区别："><a href="#2-区别：" class="headerlink" title="2.区别："></a>2.区别：</h2><p>​        MVC中的View的目的是「呈现哪一个数据」，而MTV的View的目的是「数据如何呈现」。也就是把MVT中的View分成了视图（展现哪些数据）和模板（如何展现）2个部分，而Contorller这个要素由框架自己来实现了，我们需要做的就是把（带正则表达式的）URL对应到视图就可以了，通过这样的URL配置，系统将一个请求发送到一个合适的视图。</p>
-<p>MVC（控制层用来接收参数，控制流程，分发请求），MVT（模板层用来展示页面，省去了分发请求的步骤，将其交给了django路由）</p>
+                <h2 id="Qt常用快捷键"><a href="#Qt常用快捷键" class="headerlink" title="Qt常用快捷键"></a>Qt常用快捷键</h2><p>查找                           ctrl+f</p>
+<p>注释                           ctrl+/</p>
+<p>运行                           ctrl+r</p>
+<p>编译                           ctrl+b</p>
+<p>字体缩放                   ctrl+滚轮</p>
+<p>整行移动                   ctrl+shift+↑/↓</p>
+<p>自动对齐                   ctrl+i</p>
+<p>切换同名.cpp和.h     F4</p>
+<p>信号和槽的优势</p>
+<p>松散耦合：信号发送端和接收端本身没有关联，通过connect连接，将两端耦合子在一起</p>
+<h2 id="防止头文件被重复包含"><a href="#防止头文件被重复包含" class="headerlink" title="防止头文件被重复包含"></a>防止头文件被重复包含</h2><h3 id="一、头文件被重复包含"><a href="#一、头文件被重复包含" class="headerlink" title="一、头文件被重复包含"></a>一、头文件被重复包含</h3><p>#include文件的一 个不利之处在于一个头文件可能会被多次包含，为了说明这种错误，考虑下面的代码:</p>
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"x.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"x.h"</span></span>
+</code></pre>
+<p>显然，这里文件x.h被包含了两次，没有人会故意编写这样的代码。但是下面的代码:</p>
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"a.h"</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"b.h"</span></span>
+</code></pre>
+<p>看上去没什么问题。如果a.h和b.h都包含了一个头文件x.h。那么x.h在此也同样被包含了两次，只不过它的形式不是那么明显而已。</p>
+<h4 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h4><h4 id="第一种："><a href="#第一种：" class="headerlink" title="第一种："></a>第一种：</h4><p>多重包含在绝大多数情况下出现在大型程序中，它往往需要使用很多头文件，因此要发现重复包含并不容易。要解决这个问题，我们可以使用条件编译。如果所有的头文件都像下面这样编写:</p>
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">ifndef</span> _HEADERNAME_H</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> _HEADERNAME_H</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token comment" spellcheck="true">//(头文件内容)</span>
+
+<span class="token macro property">#<span class="token directive keyword">endif</span></span>
+</code></pre>
+<p>那么多重包含的危险就被消除了。</p>
+<pre><code>  当头文件第一次被包含时，它被正常处理，符号_HEADERNAME_H被定义为1。如果头文件被再次包含，通过条件编译，它的内容被忽略。符号_HEADERNAME_H按照被包含头文件的文件名进行取名，以避免由于其他头文件使用相同的符号而引起的冲突。
+</code></pre>
+<p>但是，你必须记住预处理器仍将整个头文件读入，即使这个头文件所有内容将被忽略。由于这种处理将托慢编译速度，所以如果可能，应该避免出现多重包含。</p>
+<h5 id="第二种："><a href="#第二种：" class="headerlink" title="第二种："></a>第二种：</h5><p>在windows平台下，有一个很方便的宏：<code> #pragma once</code></p>
+<p>两种方法都可以起到防止头文件被多次包含的作用，那么这两种方式有什么不同呢，或者说有什么相同之处呢？</p>
+<p>总结一下，除了#pragma once是微软编译器所特有的之外，用宏和#pragma once的办法来避免重复包含头文件，主要区别在于宏处理的方法会多次打开同一头文件，而#pragma once则不会重复打开，从而#pragma once能够更快速。</p>
+<p>用更确切的语言总结一下就是：#pragma once指定当前文件在构建时只被包含(或打开)一次,这样就可以减少构建的时间,因为加入#pragma once后,编译器在打开或读取第一个#include 模块后,就不会再打开或读取随后出现的同#include 模块。</p>
+<h3 id="二、变量被重复定义"><a href="#二、变量被重复定义" class="headerlink" title="二、变量被重复定义"></a>二、变量被重复定义</h3><p>我们来说一说重复包含的影响：</p>
+<p>C/C++在预处理的时候，include相同的文件，预处理器会检查XXX是否有定义再决定要不要复制内容，重复包含会是编译器多检查几次而已。另外在使用增量编译的时候，这个文件变化，所有 include 这个文件的文件都需要重新编译，即使没有去使用里面的任何内容，所以重复包含最经常带来的错误就是重定义。</p>
+<p><strong>使用#ifndef只是防止了头文件被重复包含，但是无法防止变量被重复定义</strong></p>
+<p>由于工程中的每个.c文件都是独立的解释的，即使头文件有</p>
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">ifndef</span> _TEST_H_</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> _TEST_H_</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token macro property">#enfif</span>
+</code></pre>
+<p>在其他文件中只要包含了某个头文件例如：global.h就会独立的解释,然后每个.c文件生成独立的标示符。在编译器链接时，就会将工程中所有的符号整合在一起，由于文件中有重名变量，于是就出现了重复定义的错误。</p>
+<h4 id="解决方法：-1"><a href="#解决方法：-1" class="headerlink" title="解决方法："></a>解决方法：</h4><p>在.c文件中声明变量，然后建一个头文件(.h文件)在所有的变量声明前加上extern，注意这里不要对变量进行的初始化。然后在其他需要使用全局变量的.c文件中包含.h文件。编译器会为.c生成目标文件，然后链接时，如果该.c文件使用了全局变量，链接器就会链接到此.c文件 。</p>
 
                 
             </div>
@@ -480,7 +509,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://sainthood2077.github.io/2022/10/06/mvt-he-mvc-de-qu-bie/">https://sainthood2077.github.io/2022/10/06/mvt-he-mvc-de-qu-bie/</a>
+                    <a href="https://sainthood2077.github.io/2023/01/06/qt-xue-xi-zhi-lu/">https://sainthood2077.github.io/2023/01/06/qt-xue-xi-zhi-lu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -518,16 +547,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Django%E6%A8%A1%E5%9E%8B/">
-                                    <span class="chip bg-color">Django模型</span>
+                                <a href="/tags/Qt/">
+                                    <span class="chip bg-color">Qt</span>
                                 </a>
                             
-                                <a href="/tags/MVT/">
-                                    <span class="chip bg-color">MVT</span>
-                                </a>
-                            
-                                <a href="/tags/MVC/">
-                                    <span class="chip bg-color">MVC</span>
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
                                 </a>
                             
                         </div>
@@ -573,17 +598,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/10/21/dong-tai-title/">
+                <a href="/2023/01/06/qt-xue-xi-zhi-lu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="动态Title">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Qt学习之旅">
                         
-                        <span class="card-title">动态Title</span>
+                        <span class="card-title">Qt学习之旅</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -593,9 +619,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -604,11 +630,16 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/js/">
-                        <span class="chip bg-color">js</span>
+                    <a href="/tags/Qt/">
+                        <span class="chip bg-color">Qt</span>
+                    </a>
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
                     </a>
                     
                 </div>
@@ -622,24 +653,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/04/django-xiang-mu-xue-xi/">
+                <a href="/2023/01/06/ubuntu-chang-yong-kuai-jie-jian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Django项目学习">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Ubuntu常用快捷键">
                         
-                        <span class="card-title">Django项目学习</span>
+                        <span class="card-title">Ubuntu常用快捷键</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Django学习分享
+                            
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-01-06
                             </span>
                         <span class="publish-author">
                             
@@ -652,8 +683,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Django/">
-                        <span class="chip bg-color">Django</span>
+                    <a href="/tags/Ubuntu/">
+                        <span class="chip bg-color">Ubuntu</span>
+                    </a>
+                    
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>

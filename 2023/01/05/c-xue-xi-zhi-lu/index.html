@@ -33,7 +33,7 @@ main是一个程序的入口，有且仅有一个
     
     <style>
         body{
-            background-image: url(https://gitee.com/sainthood2077/cloudimg/raw/main/images/4df5039ab58c494c964fe48902a26f46.jpg);
+            background-image: url(/);
             background-repeat:no-repeat;
             background-size: 100% 100%;
             background-attachment:fixed;
@@ -139,28 +139,6 @@ main是一个程序的入口，有且仅有一个
   
   <li class="hide-on-med-and-down nav-item">
     
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments-o" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
     <a href="/friends" class="waves-effect waves-light">
       
       <i class="fas fa-address-book" style="zoom: 0.6;"></i>
@@ -239,28 +217,6 @@ main是一个程序的入口，有且仅有一个
 			    <i class="fa-fw fas fa-archive"></i>
 			
 			归档
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments-o"></i>
-			
-			留言板
 		</a>
           
         </li>
@@ -411,7 +367,7 @@ main是一个程序的入口，有且仅有一个
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-01-07
+                    2023-01-08
                 </div>
                 
 
@@ -476,7 +432,7 @@ int main()
     return 0;
 }
 </code></pre>
-<h3 id="1、C-中的关键字"><a href="#1、C-中的关键字" class="headerlink" title="1、C++中的关键字"></a>1、C++中的关键字</h3><p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221230195657232.png" alt="image-20221230195657232"></p>
+<h3 id="1、C-中的关键字"><a href="#1、C-中的关键字" class="headerlink" title="1、C++中的关键字"></a>1、C++中的关键字</h3><p><img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20221230195657232.png" alt="关键字"></p>
 <h3 id="2、标识符（变量、常量）命名规则"><a href="#2、标识符（变量、常量）命名规则" class="headerlink" title="2、标识符（变量、常量）命名规则"></a>2、标识符（变量、常量）命名规则</h3><ul>
 <li>标识符不能是关键字</li>
 <li>标识符只能由字母数字下划线组成</li>
@@ -814,8 +770,7 @@ cout << p[2] << endl; // 结果为4
 
 for (int i=0;i < 4;i++){//用指针遍历数组
         cout << *p << endl;
-        p++;
-    }
+        p++;}
 </code></pre>
 <h4 id="5-指针和函数"><a href="#5-指针和函数" class="headerlink" title="5.指针和函数"></a>5.指针和函数</h4><p>函数定义的形参用指针代替，传入的值是实参的地址，实参内存地址被改变，值相应改变</p>
 <p>通过<strong>指针代替形参传递，可以改变实参的值</strong></p>
@@ -2062,7 +2017,7 @@ int main()
 <li>保护继承（protected）</li>
 <li>私有继承（private）</li>
 </ul>
-<img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20230105103413344.png" alt="image-20230105103413344" style="zoom:50%;">
+<img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20230105103413344.png" alt="继承逻辑" style="zoom:50%;">
 
 
 
@@ -2612,13 +2567,13 @@ int main()
     while (ifs >> buf){cout << buf << endl;}
     
     //char buf[1024]={0};//第二种
-    //while (ifs.getline(buf,sizeof(buf))){cout<<buf<<endl;}
+    //while (ifs.getline(buf,sizeof(buf))){cout << buf << endl;}
     
     //string buf;//第三种
-    //while (getline(ifs,buf)){cout<<buf<<endl;}
+    //while (getline(ifs,buf)){cout << buf << endl;}
 
     //char c;//第四种，不推荐效率太低
-    //while ((c = ifs.get()) != EOF ){cout<<c<<endl;}
+    //while ((c = ifs.get()) != EOF ){cout << c << endl;}
     ifs.close();
     
     system("pause");
@@ -2835,6 +2790,106 @@ void test01()
 <li>自动类型推导，必须推导出<strong>一致</strong>的数据类型T，才可以使用</li>
 <li>模板必须要确定出T的数据类型，才可以使用</li>
 </ul>
+<pre class=" language-c++"><code class="language-c++">template<class T>
+void func()
+{
+    cout << "func调用" << endl;
+}
+void test()
+{
+    func<int>();//此时不能自动识别类型，必须要指定
+}
+</code></pre>
+<h4 id="1-案例"><a href="#1-案例" class="headerlink" title="1.案例"></a>1.案例</h4><pre class=" language-c++"><code class="language-c++">template<class T>
+void select_sort(T *arr, int len)//选择排序
+{
+    for (int i =0; i<len; i++)
+    {
+        T max = i;//给最大下标初始化
+        for (int j=i+1; j<len; j++)
+        {
+            if (arr[j] > arr[max])//判断元素与当前最大下标的大小
+            {max = j;}//如果比当前的max大，则赋给max
+        }
+        if (max != i)//如果最大下标与当前下标不一致，就交换数据
+        {
+            int tmp = arr[i];
+            arr[i] = arr[max];
+            arr[max] = tmp;
+        }
+    }
+}
+template<class T>
+void print_result(T *parr, int len)//数组传值需要用指针
+{
+    for (int i = 0; i < len; i++)//用指针打印数组
+    {
+        cout << *parr << " ";
+        parr++;
+    }
+    cout << endl;
+}
+void test_char()
+{
+    char arr_char[] = "xkudbawlseozmqvpc";
+    int len_char = sizeof(arr_char) / sizeof(char);
+    //print_result(arr, len);//测试代码
+    select_sort(arr_char, len_char);//排序函数调用
+    print_result(arr_char, len_char);//打印函数调用
+}
+void test_int()
+{
+    int arr_int[] = {14, 46, 26, 33, 6, 12, 37, 24, 11, 9, 2, 0};
+    int len_int = sizeof(arr_int) / sizeof(int);
+    //print_result(arr, len);//测试代码
+    select_sort(arr_int, len_int);//排序函数调用
+    print_result(arr_int, len_int);//打印函数调用
+}
+int main()
+{
+    test_char();
+    test_int();
+    system("pause");
+    return 0;
+}
+</code></pre>
+<h4 id="2-普通函数和函数模板的区别"><a href="#2-普通函数和函数模板的区别" class="headerlink" title="2.普通函数和函数模板的区别"></a>2.普通函数和函数模板的区别</h4><p>普通函数与函数模板区别：</p>
+<ul>
+<li><p>普通函数调用时可以发生自动类型转换（隐式类型转换）</p>
+</li>
+<li><p>函数模板调用时，如果利用自动类型推导，不会发生隐式类型转换</p>
+</li>
+<li><p>如果利用显示指定类型的方式，可以发生隐式类型转换</p>
+</li>
+</ul>
+<pre class=" language-c++"><code class="language-c++">int myAdd0l(int a,int b)//普通函数
+{
+    return a + b;
+}
+void test010()
+{
+    char a = 'a';//会发生自动（隐式）类型转换
+    int b = 20;
+    cout << myAdd0l(a,b) << endl;
+}
+</code></pre>
+<pre class=" language-c++"><code class="language-c++">template<class T>//模板函数
+int myAdd0l(T a,T b)
+{
+    return a + b;
+}
+void test010()
+{
+    char a = 'a';//不会发生自动（隐式）类型转换
+    int b = 20;
+    //cout << myAdd0l(a,b) << endl;//报错如下图
+    cout << myAdd0l<int>(a,b) << endl;//这样就不会报错
+}
+</code></pre>
+<img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20230108092452702.png" alt="报错" style="zoom:67%;">
+
+
+
 <h3 id="2、类模板"><a href="#2、类模板" class="headerlink" title="2、类模板"></a>2、类模板</h3><h2 id="十五、STL"><a href="#十五、STL" class="headerlink" title="十五、STL"></a>十五、STL</h2><h3 id="1、STL-常用容器"><a href="#1、STL-常用容器" class="headerlink" title="1、STL-常用容器"></a>1、STL-常用容器</h3><h3 id="2、STL-函数对象"><a href="#2、STL-函数对象" class="headerlink" title="2、STL-函数对象"></a>2、STL-函数对象</h3><h3 id="3、STL-常用算法"><a href="#3、STL-常用算法" class="headerlink" title="3、STL-常用算法"></a>3、STL-常用算法</h3><h2 id="十六、左值和右值"><a href="#十六、左值和右值" class="headerlink" title="十六、左值和右值"></a>十六、左值和右值</h2><h3 id="1、什么是左值和右值"><a href="#1、什么是左值和右值" class="headerlink" title="1、什么是左值和右值"></a>1、什么是左值和右值</h3><p>首先，让我们避开那些正式的定义。在C++中，一个左值是指向一个指定内存的东西。另一方面，右值就是不指向任何地方的东西。通常来说，右值是暂时和短命的，而左值则活的很久，因为他们以变量的形式（variable）存在。我们可以将左值看作为容器（container）而将右值看做容器中的事物。如果容器消失了，容器中的事物也就自然就无法存在了。<br> 让我们现在来看一些例子：</p>
 <pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">666</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//ok</span>
 </code></pre>
@@ -3201,6 +3256,8 @@ std::cout << ++ref << "\n"; // error: increment of read-only reference ‘ref’
 
 <!-- 代码语言 -->
 
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
 
 <!-- 代码块复制 -->
 
@@ -3208,6 +3265,8 @@ std::cout << ++ref << "\n"; // error: increment of read-only reference ‘ref’
 
 
 <!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
 

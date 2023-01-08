@@ -2888,9 +2888,70 @@ void test010()
 </code></pre>
 <img src="https://gitee.com/sainthood2077/cloudimg/raw/main/images/image-20230108092452702.png" alt="报错" style="zoom:67%;">
 
-
-
-<h3 id="2、类模板"><a href="#2、类模板" class="headerlink" title="2、类模板"></a>2、类模板</h3><h2 id="十五、STL"><a href="#十五、STL" class="headerlink" title="十五、STL"></a>十五、STL</h2><h3 id="1、STL-常用容器"><a href="#1、STL-常用容器" class="headerlink" title="1、STL-常用容器"></a>1、STL-常用容器</h3><h3 id="2、STL-函数对象"><a href="#2、STL-函数对象" class="headerlink" title="2、STL-函数对象"></a>2、STL-函数对象</h3><h3 id="3、STL-常用算法"><a href="#3、STL-常用算法" class="headerlink" title="3、STL-常用算法"></a>3、STL-常用算法</h3><h2 id="十六、左值和右值"><a href="#十六、左值和右值" class="headerlink" title="十六、左值和右值"></a>十六、左值和右值</h2><h3 id="1、什么是左值和右值"><a href="#1、什么是左值和右值" class="headerlink" title="1、什么是左值和右值"></a>1、什么是左值和右值</h3><p>首先，让我们避开那些正式的定义。在C++中，一个左值是指向一个指定内存的东西。另一方面，右值就是不指向任何地方的东西。通常来说，右值是暂时和短命的，而左值则活的很久，因为他们以变量的形式（variable）存在。我们可以将左值看作为容器（container）而将右值看做容器中的事物。如果容器消失了，容器中的事物也就自然就无法存在了。<br> 让我们现在来看一些例子：</p>
+<h4 id="3-普通函数和模板函数的调用规则"><a href="#3-普通函数和模板函数的调用规则" class="headerlink" title="3.普通函数和模板函数的调用规则"></a>3.普通函数和模板函数的调用规则</h4><p>调用规则如下：</p>
+<ol>
+<li>如果函数模板和普通函数都可以实现，<strong>优先调用普通函数</strong></li>
+<li>可以通过空模板参数列表来强制调用函数模板</li>
+<li>函数模板也可以发生重载</li>
+<li>如果函数模板可以产生更好的匹配，优先调用函数模板</li>
+</ol>
+<pre class=" language-c++"><code class="language-c++">int myAdd0l(int a,int b)
+{
+    cout << "调用普通函数" << endl;
+    return a + b;
+}
+template<class T>
+int myAdd0l(T a,T b)
+{
+    cout << "调用模板函数" << endl;
+    return a + b;
+}
+template<class T>
+int myAdd0l(T a,T b,T c)//重载的模板
+{
+    cout << "调用模板函数" << endl;
+    return a + b;
+}
+void test01()
+{
+    int a = 133;
+    int b = 20;
+    cout << myAdd0l(a,b) << endl;//会调用普通函数
+    cout << myAdd0l<>(a,b) << endl;//强制调用模板函数
+    cout << myAdd0l(a,b,155) << endl;//调用重载模板函数
+    char x = 'y';
+    char y = 'x';
+    cout << myAdd0l(x,y) << endl;//调用模板函数,如果调用普通函数还需要转换类型，模板函数能更好匹配则会调用模板函数
+}
+</code></pre>
+<h4 id="4-模板函数的局限性"><a href="#4-模板函数的局限性" class="headerlink" title="4.模板函数的局限性"></a>4.模板函数的局限性</h4><ol>
+<li><p>如果模板函数中有赋值操作，而传入的是数组就无法实现</p>
+</li>
+<li><p>利用具体化Person的版本实现代码，具体化优先调用</p>
+</li>
+</ol>
+<pre class=" language-c++"><code class="language-c++">template<> bool myCompare(Person &p1,Person &p2)
+{
+    if (p1.m Name ==p2.m Name &p1.m Age ==p2.m Age)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+</code></pre>
+<ul>
+<li>利用具体化的模板，可以解决自定义类型的通用化</li>
+<li>学习模板并不是为了写模板，而是在STL能够运用系统提供的模板</li>
+</ul>
+<h3 id="2、类模板"><a href="#2、类模板" class="headerlink" title="2、类模板"></a>2、类模板</h3><p>建立一个通用类，类中的成员数据类型可以不具体制定，用一个<strong>虚拟的类型</strong>来代表。</p>
+<p>语法：</p>
+<pre class=" language-c++"><code class="language-c++">template<class T>
+class classname{}
+</code></pre>
+<h2 id="十五、STL"><a href="#十五、STL" class="headerlink" title="十五、STL"></a>十五、STL</h2><h3 id="1、STL-常用容器"><a href="#1、STL-常用容器" class="headerlink" title="1、STL-常用容器"></a>1、STL-常用容器</h3><h3 id="2、STL-函数对象"><a href="#2、STL-函数对象" class="headerlink" title="2、STL-函数对象"></a>2、STL-函数对象</h3><h3 id="3、STL-常用算法"><a href="#3、STL-常用算法" class="headerlink" title="3、STL-常用算法"></a>3、STL-常用算法</h3><h2 id="十六、左值和右值"><a href="#十六、左值和右值" class="headerlink" title="十六、左值和右值"></a>十六、左值和右值</h2><h3 id="1、什么是左值和右值"><a href="#1、什么是左值和右值" class="headerlink" title="1、什么是左值和右值"></a>1、什么是左值和右值</h3><p>首先，让我们避开那些正式的定义。在C++中，一个左值是指向一个指定内存的东西。另一方面，右值就是不指向任何地方的东西。通常来说，右值是暂时和短命的，而左值则活的很久，因为他们以变量的形式（variable）存在。我们可以将左值看作为容器（container）而将右值看做容器中的事物。如果容器消失了，容器中的事物也就自然就无法存在了。<br> 让我们现在来看一些例子：</p>
 <pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">666</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//ok</span>
 </code></pre>
 <p>在这里，<code>666</code>是一个右值。一个数字（从技术角度来说他是一个字面常量（literal constant））没有指定的内存地址，当然在程序运行时一些临时的寄存器除外。在该例中，<code>666</code>被赋值（assign）给<code>x</code>，<code>x</code>是一个变量。一个变量有着具体（specific）的内存位置，所以他是一个左值。C++中声明一个赋值（assignment）需要一个左值作为它的左操作数（left operand）：这完全合法。<br> 对于左值<code>x</code>，你可以做像这样的操作：</p>

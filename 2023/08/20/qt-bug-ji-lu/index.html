@@ -1,0 +1,1320 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Qt BUG记录, Blog">
+    <meta name="description" content="新建窗口（无论有没有UI）需要注意的要重视窗口继承的父类是什么，如果需要连接和定义槽函数就必须继承QObject及其派生类, 个别容器控件需要界面类是继承QWidget的
+ QT中,类要支持信号与槽机制,需要继承自QObject并在头文件开">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="referrer" content="no-referrer" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Qt BUG记录 | NicoCode</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<link rel="stylesheet" href="/js/prism/prism.css">
+
+<meta name="generator" content="Hexo 5.4.2">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">NicoCode</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">NicoCode</div>
+        <div class="logo-desc">
+            
+            PB
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Qt BUG记录</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/APP%E5%BC%80%E5%8F%91/">
+                                <span class="chip bg-color">APP开发</span>
+                            </a>
+                        
+                            <a href="/tags/Qt-BUG/">
+                                <span class="chip bg-color">Qt-BUG</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Qt/" class="post-category">
+                                Qt
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-08-20
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-02-16
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    13 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h4 id="新建窗口（无论有没有UI）需要注意的"><a href="#新建窗口（无论有没有UI）需要注意的" class="headerlink" title="新建窗口（无论有没有UI）需要注意的"></a>新建窗口（无论有没有UI）需要注意的</h4><p>要重视窗口继承的父类是什么，如果需要连接和定义槽函数就必须继承QObject及其派生类, 个别容器控件需要界面类是继承QWidget的</p>
+<p> QT中,类要支持信号与槽机制,需要继承自QObject并在头文件开头添加Q_OBJECT宏.  </p>
+<h4 id="在ubuntu把qt打包好的程序添加桌面快捷方式打开"><a href="#在ubuntu把qt打包好的程序添加桌面快捷方式打开" class="headerlink" title="在ubuntu把qt打包好的程序添加桌面快捷方式打开"></a>在ubuntu把qt打包好的程序添加桌面快捷方式打开</h4><p>1、尝试使用ln -s Desktop/demo2/demo2 Desktop/Robot创建软连接（并重命名），失败，双击执行Robot提示找不到可执行的路径，原文件也是脚本不能双击打开，创建的软连接也不能双击打开</p>
+<p>2、创建桌面图标，创建一个robot.desktop文件，写入以下代码：</p>
+<pre class=" language-plain"><code class="language-plain">[Desktop Entry]
+Version=1.0
+Type=Application
+Name=My Shortcut                 # 修改成自己的名称
+Comment=This is my shortcut # 可以修改
+Exec=/path/to/your/program  # 修改
+Icon=/path/to/your/icon          # 修改
+Terminal=false
+Categories=Utility                   # 可以修改
+</code></pre>
+<p>将以上文件夹放到/usr/share/applications/</p>
+<pre class=" language-plain"><code class="language-plain">sudo mv robot.desktop /usr/share/applications/
+</code></pre>
+<p>执行</p>
+<pre class=" language-plain"><code class="language-plain">sudo update-desktop-database 
+</code></pre>
+<p>就会刷新到应用菜单栏， 我们假设程序不需要以root身份运行。如果需要以root身份运行程序，那么需要将”Terminal=false”更改为”Terminal=true”，以在打开终端窗口时自动获取root权限。</p>
+<p>此时桌面是没有的，将/usr/share/applications/robot.desktop复制到桌面，双击执行就可以变成一个快捷方式</p>
+<h4 id="信号槽传输结构体"><a href="#信号槽传输结构体" class="headerlink" title="信号槽传输结构体"></a>信号槽传输结构体</h4><p>也需要注册为元类型才能传输</p>
+<p>头文件中：Q_DECLARE_METATYPE(heartBeat);</p>
+<p>源文件中：qRegisterMetaType<heartbeat>(“heartBeat”);</heartbeat></p>
+<h4 id="error-no-match-for-‘operator-‘-operand-types-are-‘const-TaskInfo‘-and-‘const-TaskInfo‘-if-n-gt-t-t"><a href="#error-no-match-for-‘operator-‘-operand-types-are-‘const-TaskInfo‘-and-‘const-TaskInfo‘-if-n-gt-t-t" class="headerlink" title="error: no match for ‘operator==‘ (operand types are ‘const TaskInfo‘ and ‘const TaskInfo‘)   if(n->t() ==t)"></a>error: no match for ‘operator==‘ (operand types are ‘const TaskInfo‘ and ‘const TaskInfo‘)   if(n-&gt;t() ==t)</h4><p>原因分析：结构体TaskInfo，由于QList在调用removeOne函数时需要查找到对应内容进行删除，因此需要进行对比，struct类型是没有对比的，所以需要进行重载解决该问题。 </p>
+<p>解决办法：</p>
+<p>error: no match for ‘operator==’没有匹配的==判断函数，说明编译器不知道TaskInfo结构体怎么比较算是两个对象相等。在TaskInfo结构体中重载==运算符</p>
+<pre class=" language-c++"><code class="language-c++">struct TaskInfo {
+    QString taskID;
+    QString deviceName;
+    QString deviceID;
+    int status;
+    QDateTime cyc_time;//选定的时间
+    int cyc_mode;//0就一次不循环，1就是每天，7就是每七天，30就是每月
+    QString xyz; // x-y,x-y,x-y
+
+    //编写==重载判断两个TaskInfo相等
+    bool operator==(const TaskInfo &p)
+    {
+        return (this->xyz == p.xyz) && (this->deviceID == p.deviceID);
+    }
+};
+</code></pre>
+<h4 id="Python-websocket-模块-ImportError-cannot-import-name-‘WebSocketApp‘"><a href="#Python-websocket-模块-ImportError-cannot-import-name-‘WebSocketApp‘" class="headerlink" title="Python websocket 模块 ImportError: cannot import name ‘WebSocketApp‘"></a>Python websocket 模块 ImportError: cannot import name ‘WebSocketApp‘</h4><p>问题解决</p>
+<p>运行 from websocket import WebSocketApp 语句时，</p>
+<p>报错 ImportError: cannot import name ‘WebSocketApp’</p>
+<p>查看发现，我的电脑中有两个 websocket 相关的包，分别是版本是：</p>
+<p>websocket                          0.2.1                 </p>
+<p>websocket-client                   0.56.0  </p>
+<p>websocket 0.2.1 这个包我忘了是什么时候安装的，但我知道，我代码中使用的是 websocket-client 0.56.0 包。</p>
+<p>所以，我卸载了两个包并重新安装了 websocket-client</p>
+<p>sudo pip3 uninstall websocket</p>
+<p>sudo pip3 uninstall websocket-client</p>
+<p>sudo pip3 install websocket-client</p>
+<p>此时，bug 得到了修复。</p>
+<p>我做了个实验，再次安装了 websocket 包</p>
+<p>sudo pip3 install websocket</p>
+<p>果然 bug 得到了复现。</p>
+<p>实验发现，安装 websocket-client 后，dist-packages 中新出现了 websocket 和 websocket_client-0.56.0.dist-info 两个文件夹。</p>
+<p>安装 websocket 后，dist-packages 中多出了 websocket-0.2.1.dist-info 文件夹，并且 websocket 文件夹中的文件（如：init等）被覆写。</p>
+<p>所以，我们使用的时候找不到 websocket_client 0.56.0 这个包，从而出现以上 bug。</p>
+<p>参考</p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/37442193/cannot-import-websocketapp-form-websocket-in-python">https://stackoverflow.com/questions/37442193/cannot-import-websocketapp-form-websocket-in-python</a></p>
+<p>2021-08-02 补充</p>
+<p>本文中的 websocket 库是一个未实现的库，没有描述信息，没有发布者等。</p>
+<p>​    pypi地址 <a target="_blank" rel="noopener" href="https://pypi.org/project/websocket/">https://pypi.org/project/websocket/</a></p>
+<p>本文中的 websocket-client 库是一个简单好用的同步的 websocket 的客户端的库，基于回调的方式使用。</p>
+<p>​    pypi地址： <a target="_blank" rel="noopener" href="https://pypi.org/project/websocket-client/">https://pypi.org/project/websocket-client/</a></p>
+<p>​    GitHub地址： <a target="_blank" rel="noopener" href="https://github.com/websocket-client/websocket-client">https://github.com/websocket-client/websocket-client</a></p>
+<p>​    文档地址： <a target="_blank" rel="noopener" href="https://websocket-client.readthedocs.io/en/latest/">https://websocket-client.readthedocs.io/en/latest/</a></p>
+<p>websockets 库也是一个很火的库，在 github 上已经有 3.5k 的星了，能用于实现服务器端和客户端，他是基于 asyncio （Python 的标准异步 I/O 框架） 实现的，提供一个基于协程的 API 来管理 Python 中的 WebSocket 连接。 因为基于 asyncio 所以只能在 Python3 中使用。</p>
+<p>​    pypi地址： <a target="_blank" rel="noopener" href="https://pypi.org/project/websockets/">https://pypi.org/project/websockets/</a></p>
+<p>​    GitHub地址： <a target="_blank" rel="noopener" href="https://github.com/aaugustin/websockets">https://github.com/aaugustin/websockets</a></p>
+<p>​    文档地址： <a target="_blank" rel="noopener" href="https://websockets.readthedocs.io/en/stable/">https://websockets.readthedocs.io/en/stable/</a></p>
+<p>————————————————</p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/tz_zs/article/details/96423813">https://blog.csdn.net/tz_zs/article/details/96423813</a></p>
+<p>以上操作依旧没有解决：</p>
+<p>检查文件名是否和websocket重名</p>
+<p>QT中编写SQL语句需要注意的是，需要填写字符串类型时需要加“ ”，需要整数时不能加任务引号，需要DateTime类型时也是字符型，需要用标准格式输入</p>
+<p>字符串和数字示例：</p>
+<p>QString queryStr = R”(UPDATE device set status = %1 where deviceID = “%2”;)”;</p>
+<p>query.exec(queryStr.arg(status).arg(deviceID))</p>
+<p>DateTime示例：</p>
+<p>QString queryStr = R”(UPDATE task set “cyc_time” = “%1” where taskID = “%2” )”;</p>
+<p>query.exec(queryStr.arg(nextTime.toString(“yyyy-MM-dd HH:mm:ss.zzz”),TaskID)</p>
+<h4 id="QString-arg属性解释"><a href="#QString-arg属性解释" class="headerlink" title="QString arg属性解释"></a>QString arg属性解释</h4><pre class=" language-plain"><code class="language-plain">//用后面依次替换前面，后面的类型确保都是Qstring即可。
+QString strs=QString("%1 %2 %3").arg("a","b","c");//输出a b c
+QString strs=QString("%1 %2 %3 %4 %5").arg("a","b","c").arg("d","e");//输出a b c d e
+//单个逐个替换
+QString strs=QString("%1 %2 %3").arg("a").arg("b").arg("c");//输出a b c
+QString str = QString("%1 %2").arg("%1World").arg("Hello");//HelloWorld %2
+//注意，int也可以为long、double等
+str = QString("%1").arg(63, 0, 16);//3f 十进制63的十六进制为3f  
+double d = 3.1415926;
+str = QString("delta: %1").arg(d, 0, 'g',4);
+//g表示精度是4，即整数+小数长度为4 输出为3.142
+</code></pre>
+<p>总结:想几个一组就几个一组，只要保证每组内的数据类型是一致的字符串都要是字符串，数字都要是数字（int，long，double），混合数据类型就会报错</p>
+<p>new要写到信号槽的前面！！！！！！！！！！！！！！！！！！！！</p>
+<p>指针对象请务必实例化，并删除</p>
+<h4 id="装入归档文件时出现了一个错误；Linux中无法打开exe文件"><a href="#装入归档文件时出现了一个错误；Linux中无法打开exe文件" class="headerlink" title="装入归档文件时出现了一个错误；Linux中无法打开exe文件"></a>装入归档文件时出现了一个错误；Linux中无法打开exe文件</h4><p>在Linux中，无法直接运行Windows的.exe文件，因为它们是不同的操作系统上的不同二进制文件格式。如果您想在Linux上运行一个Windows的.exe文件，有以下几种方法可以尝试：</p>
+<p>\1. 使用Wine：Wine是一个兼容层，使得在Linux上可以运行Windows应用程序。您可以按照安装Wine的过程，并使用Wine来运行您的.exe文件。请注意，并非所有的Windows应用程序都能在Wine中正常运行。</p>
+<p>\2. 使用虚拟机：您可以在Linux上安装虚拟机软件，如VMware或VirtualBox，然后在虚拟机中运行Windows操作系统，并在其中运行您的.exe文件。</p>
+<p>请注意，在运行.exe文件之前，您必须确保已经安装了相关的库和依赖项。您可能需要在Linux上手动安装这些依赖项，以确保能够正确运行.exe文件。</p>
+<h4 id="写入文件（会产生4个字节的多余字节）"><a href="#写入文件（会产生4个字节的多余字节）" class="headerlink" title="写入文件（会产生4个字节的多余字节）"></a>写入文件（会产生4个字节的多余字节）</h4><pre class=" language-cpp"><code class="language-cpp">QFile <span class="token function">writefile</span><span class="token punctuation">(</span><span class="token string">"1.dat"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//如果文件不存在，则创建该文件。路径在执行文件的上一级路径下。</span>
+writefile<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>QIODevice<span class="token operator">::</span>ReadWrite<span class="token punctuation">)</span><span class="token punctuation">;</span>
+QDataStream <span class="token function">out</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>writefile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//以下为5中写文件的方式，有些会在文件开头出多写入4个字节表示长度，有些不会，需要仔细区分！</span>
+out <span class="token operator">&lt;&lt;</span> ba<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//这种方式会在生成的文件一开始多处4个字节，表示QDataStream的长度</span>
+out<span class="token punctuation">.</span><span class="token function">writeBytes</span><span class="token punctuation">(</span>ba<span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>ba<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//这种方式也会在文件头多出4个字节</span>
+out<span class="token punctuation">.</span><span class="token function">writeRawData</span><span class="token punctuation">(</span>ba<span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>ba<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//这种方式保存的数据为实际ba中的内容，不会有任何多余字节</span>
+writefile<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>ba<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//这种方式也不会有多余字节</span>
+writefile<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>ba<span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>ba<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//这种方式也不会有多余字节</span>
+writefile<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="出现错误error-undefined-reference-to-vtable-for-TaskDispatch’"><a href="#出现错误error-undefined-reference-to-vtable-for-TaskDispatch’" class="headerlink" title="出现错误error: undefined reference to `vtable for TaskDispatch’"></a>出现错误error: undefined reference to `vtable for TaskDispatch’</h4><ul>
+<li>类的构造函数、析构函数没有进行定义（只在.h中声明没定义）</li>
+<li>头文件中出现了一些Qt的关键词，如Q_OBJECT、signals等，这时候要将头文件也放到CMakeLists.txt的add_executable中，不然不会将这些关键词编译，也就没有办法正确生成类了。如果使用Qt工程，头文件则要放到.pro文件的HEADERS中。</li>
+</ul>
+<h4 id="“undefined-reference-to-vtable-for’…”错误"><a href="#“undefined-reference-to-vtable-for’…”错误" class="headerlink" title="“undefined reference to `vtable for’…”错误."></a>“undefined reference to `vtable for’…”错误.</h4><p>在使用qt开发新项目时候，添加新的类是非常频繁的操作。有时候，会不小心跳过一些关键步骤，导致出现一些问题。例如“undefined reference to `vtable for”错误就很常见。</p>
+<p>QT中,类要支持信号与槽机制,需要继承自QObject并在头文件开头添加Q_OBJECT宏.</p>
+<p>如果使用QtCreator创建类时,没有选择继承自QObject类或其子类,而在创建后手工修改继承自QObject并手工添加Q_OBJECT宏,则在编译时有可能会出现”undefined reference to `vtable for’…”错误.</p>
+<p>如果添加后，没有马上编译，而是编写了很多业务代码后编译，才发现qt给你报了大量错误。</p>
+<p>这时怎么处理呢?</p>
+<p>解决方法:</p>
+<p>​    方法一：重新执行qmake(2021,08.03);</p>
+<p>​    方法二：把新创建的类从项目中移除(注意不要从磁盘上删除),然后再添加进工程,QtCreator就会重新解析此类,再编译就不再会出现上述错误.</p>
+<p>​    方法三：qtcreator有时候会抽风，实在不行就人工删除编译的中间文件，重新编译；</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h4 id="使用网络传输QFile"><a href="#使用网络传输QFile" class="headerlink" title="使用网络传输QFile"></a>使用网络传输QFile</h4><ol>
+<li>QFile转成QByteArray : QByteArray ba =  file.readAll()</li>
+<li>使用QByteArray传输</li>
+<li>QByteArray转成QFile : file.write(ba)</li>
+</ol>
+<h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><h4 id="QDateTime转换"><a href="#QDateTime转换" class="headerlink" title="QDateTime转换"></a>QDateTime转换</h4><pre class=" language-plain"><code class="language-plain">QDateTime a；
+QDate  b(2019,09,09);
+QTime c(01,02,03,111);
+a.setDate(b);
+a.setTime(c);
+</code></pre>
+<h4 id="Qt程序打包好报错：无法定位程序输入点-gxx-personality-v0-于动态链接库"><a href="#Qt程序打包好报错：无法定位程序输入点-gxx-personality-v0-于动态链接库" class="headerlink" title="Qt程序打包好报错：无法定位程序输入点 __gxx_personality_v0 于动态链接库"></a>Qt程序打包好报错：无法定位程序输入点 __gxx_personality_v0 于动态链接库</h4><p>需要将qt/5.12.0/mingw64/bin/libstdc+±6.dll 放到打包程序的根目录中；如果上面方法不生效：本地如果有多个/libstdc+±6.dll，将指定的编译环境的环境变量往上调</p>
+<h4 id="将QVector在Qt信号槽中传输的方法-eg-传输QVector-："><a href="#将QVector在Qt信号槽中传输的方法-eg-传输QVector-：" class="headerlink" title="将QVector在Qt信号槽中传输的方法(eg.传输QVector)："></a>将QVector在Qt信号槽中传输的方法(eg.传输QVector)：</h4><pre class=" language-plain"><code class="language-plain">#include <QVector>
+#include <QVariant>
+//声明QVector封装成一个元类型
+Q_DECLARE_METATYPE(QVector<QString>);
+
+class database
+{
+private:
+    //声明一个QVector对象
+    QVector<QString> searchResult;
+    //声明一个QVarit对象
+    QVariant searReasult_for_device;
+};
+class database::database()
+{
+  //在构造函数中注册元类型
+  qRegisterMetaType<QVariant>("QVariant");
+};
+
+
+//在函数体中，将QVector封装到QVariant中
+searReasult_for_device.setValue(searchResult);
+//就可以发送
+emit s_searchResult_for_device(searReasult_for_device);
+</code></pre>
+<pre class=" language-plain"><code class="language-plain">#include <QVector>
+QVector<QString> vecData;
+void classname::show(QVariant varData)
+{
+    vecData = varData.value<QVector<QString>>();
+    //...接下来就可以对QVector进行操作
+}
+</code></pre>
+<h4 id="时间戳转Datetime格式"><a href="#时间戳转Datetime格式" class="headerlink" title="时间戳转Datetime格式"></a>时间戳转Datetime格式</h4><p>QString dateTimeStamp = datetime.fromTime_t(static_cast<unsigned int="">(data_Msg.timestamp)).toString(“yyyy-MM-dd hh:mm:ss”);</unsigned></p>
+<p>在QProcess中调用涉及到后安装软件的指令，必须得指明路径才行</p>
+<h4 id="QT-QMessageBox定时退出"><a href="#QT-QMessageBox定时退出" class="headerlink" title="QT QMessageBox定时退出"></a>QT QMessageBox定时退出</h4><p>QMessageBox *box = new QMessageBox(QMessageBox::Information,tr(“你好”),tr(“你好”));</p>
+<p>QTimer::singleShot(1500,box,SLOT(accept())); //也可将accept改为close</p>
+<p>box-&gt;exec();//box-&gt;show();都可以</p>
+<p>监听的 Socket 和真正用来传数据的 Socket 是两个，一个叫作监听Socket，一个叫作已连接 Socket</p>
+<h4 id="Qt-Debug可以编译通过，但是无法通过release编译："><a href="#Qt-Debug可以编译通过，但是无法通过release编译：" class="headerlink" title="Qt Debug可以编译通过，但是无法通过release编译："></a>Qt Debug可以编译通过，但是无法通过release编译：</h4><p>1、可能缺少可文件，需要仔细查找</p>
+<p>2、可以在（.pro）文件中加入QMAKE_CXXFLAGS += -Werror=return-type</p>
+<p>并进入Debug模式运行，就会打印出错误</p>
+<p>时刻关注Vector访问的下标是否越界，每次在访问下标的时候都要进行越界判断</p>
+<h4 id="QT视频播放错误：DirectShowPlayerService-doRender-Unresolved-error-code-80040266"><a href="#QT视频播放错误：DirectShowPlayerService-doRender-Unresolved-error-code-80040266" class="headerlink" title="QT视频播放错误：DirectShowPlayerService::doRender: Unresolved error code 80040266"></a>QT视频播放错误：DirectShowPlayerService::doRender: Unresolved error code 80040266</h4><p>默认使用winfdows的解码器有些视频打不开，需要下载解码器，安装到qt根目录即可</p>
+<h4 id="QSocketNotifier-Socket-notifiers-cannot-be-enabled-or-disabled-from-another-thread报错解决："><a href="#QSocketNotifier-Socket-notifiers-cannot-be-enabled-or-disabled-from-another-thread报错解决：" class="headerlink" title="QSocketNotifier: Socket notifiers cannot be enabled or disabled from another thread报错解决："></a>QSocketNotifier: Socket notifiers cannot be enabled or disabled from another thread报错解决：</h4><p>背景及原因解释：</p>
+<p>我在Maindow里实例化了一个WsClient的对象，获取到文件路径后直接调用这个对的方法“发送文件”；在QWsClient这个类里创建的QWebSocket socket，同时”发送文件“的函数中也用到socket，这样创建是在WsClient使用是在MainWindow，所以报错。</p>
+<p>解决：通过信号槽将获取到的文件路径发送到WsClient里执行“发送文件”，就解决了。（补充1：我并没有添加任何子线程，仍有一个疑惑就是我并没有在不同线程中分开建立何使用socket，我依旧认为此时的MainWindow和WsClient是一个线程上运行的，都属于主线程，开发的项目是在Android上运行的，不知道会不会因为Android的机制认为是不同线程，请大佬解答了）（补充2：同在MainWindow类里调用wsClient自定义方法中也是用了socket.errorstring()并没有报错，sendTextMessage()也不会报错，只有sendBinaryMessage()方法报错）</p>
+<h4 id="信号槽发送数据"><a href="#信号槽发送数据" class="headerlink" title="信号槽发送数据"></a>信号槽发送数据</h4><p>创建一个子线程对象是主线程的工作.也就是说在对象在哪个线程被实例化就属于哪个线程.利用movetothread函数可以将对象转移至另外的线程.</p>
+<p>使用connect之后,槽函数默认执行在槽函数所在线程,若改变connect函数的第五个参数,比如设为Qt::DirectConnection,可让槽函数在信号所在线程执行.</p>
+<h4 id="Android通过USB安装安装包"><a href="#Android通过USB安装安装包" class="headerlink" title="Android通过USB安装安装包"></a>Android通过USB安装安装包</h4><p>Android程序，在手机连接USB“调试模式”下，找到系统../android-sdk-windows/platform-tools（该目录可以添加到环境变量）这个目录可以使用命令</p>
+<p>1、查看设备ID</p>
+<p>adb devices</p>
+<p>2、发送安装包  </p>
+<p>adb -s C80220601028 install F:\build-untitled-Android_for_armeabi_v7a_Clang_Qt_5_12_0_for_Android_ARMv7-Debug\android-build\build\outputs\apk\debug\qtA.apk</p>
+<h4 id="QT项目打包"><a href="#QT项目打包" class="headerlink" title="QT项目打包"></a>QT项目打包</h4><p>1、把release编译好后的.exe文件复制到一个qtexefile（任意命名）文件夹下，C:\Qt\Qt5.12.0\5.12.0\mingw73_64\bin（例）添加到系统环境变量</p>
+<p>2、在qtexefile文件夹下，powershell（我没有成功，但是使用cmd就成功了）运行windployte server.exe</p>
+<h4 id="QT开发Android项目获取（android-permission-WRITE-EXTERNAL-STORAGE可以替换）权限"><a href="#QT开发Android项目获取（android-permission-WRITE-EXTERNAL-STORAGE可以替换）权限" class="headerlink" title="QT开发Android项目获取（android.permission.WRITE_EXTERNAL_STORAGE可以替换）权限"></a>QT开发Android项目获取（android.permission.WRITE_EXTERNAL_STORAGE可以替换）权限</h4><pre class=" language-c++"><code class="language-c++">QtAndroid::PermissionResult r = QtAndroid::checkPermission("android.permission.WRITE_EXTERNAL_STORAGE");
+    if(r == QtAndroid::PermissionResult::Denied) {
+        QtAndroid::requestPermissionsSync( QStringList() << "android.permission.WRITE_EXTERNAL_STORAGE" );
+        r = QtAndroid::checkPermission("android.permission.WRITE_EXTERNAL_STORAGE");
+        if(r == QtAndroid::PermissionResult::Denied) {
+             return false;
+        }
+}
+</code></pre>
+<p>进入Android系统：adb shell</p>
+<h4 id="安卓APP相关路径"><a href="#安卓APP相关路径" class="headerlink" title="安卓APP相关路径"></a>安卓APP相关路径</h4><p>系统应用安装位置:/system/app</p>
+<p>系统特权应用安装位置:/system/priv-app</p>
+<p>用户应用安装位置:/data/app</p>
+<p>APP私有数据目录(访问需要Root权限):</p>
+<p>/data/data</p>
+<p>/data/user/<user_id></user_id></p>
+<p>/data/user_de/<user_id></user_id></p>
+<p>APP共享数据目录(Android11以上需要使用”文档”应用进行访问或授权，在shell权限下或使用MTP连接电脑，可直接访问):</p>
+<p>/data/media/<user_id>/Android/data</user_id></p>
+<p>/storage/self/primary/Android/data</p>
+<p>/sdcard/Android/data</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Nico</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://sainthood2077.github.io/2023/08/20/qt-bug-ji-lu/">https://sainthood2077.github.io/2023/08/20/qt-bug-ji-lu/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Nico</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/APP%E5%BC%80%E5%8F%91/">
+                                    <span class="chip bg-color">APP开发</span>
+                                </a>
+                            
+                                <a href="/tags/Qt-BUG/">
+                                    <span class="chip bg-color">Qt-BUG</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/08/23/crash-course-computer-science/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Crash Course Computer Science">
+                        
+                        <span class="card-title">Crash Course Computer Science</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-08-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/OS/" class="post-category">
+                                    OS
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/OS/">
+                        <span class="chip bg-color">OS</span>
+                    </a>
+                    
+                    <a href="/tags/CPU/">
+                        <span class="chip bg-color">CPU</span>
+                    </a>
+                    
+                    <a href="/tags/Cache/">
+                        <span class="chip bg-color">Cache</span>
+                    </a>
+                    
+                    <a href="/tags/network/">
+                        <span class="chip bg-color">network</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/08/05/mongodb/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="MongoDB">
+                        
+                        <span class="card-title">MongoDB</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                    数据库
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/MongoDB/">
+                        <span class="chip bg-color">MongoDB</span>
+                    </a>
+                    
+                    <a href="/tags/NoSQL/">
+                        <span class="chip bg-color">NoSQL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: NicoCode<br />'
+            + '文章作者: Nico<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者Nico所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">Nico</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">89.3k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+    
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "09";
+                        var startDate = "27";
+                        var startHour = "18";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+    
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+    
+                    calcSiteTime();
+                </script>
+                <script src="/js/prism/prism.js" async></script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,0"
+        pointColor="0,0,0" opacity='0.7'
+        zIndex="-1" count="299"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

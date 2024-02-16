@@ -1,0 +1,2604 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Docker, Blog">
+    <meta name="description" content="操作系统层面的虚拟化技术
+Docker核心概念（1）镜像(Image)
+Docker镜像是一个特殊的文件系统，提供容器运行时所需的程序、库、资源、配置等文件，另外还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。
+镜像是">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="referrer" content="no-referrer" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Docker | NicoCode</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<link rel="stylesheet" href="/js/prism/prism.css">
+
+<meta name="generator" content="Hexo 5.4.2">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">NicoCode</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">NicoCode</div>
+        <div class="logo-desc">
+            
+            PB
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Docker</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Docker/">
+                                <span class="chip bg-color">Docker</span>
+                            </a>
+                        
+                            <a href="/tags/images/">
+                                <span class="chip bg-color">images</span>
+                            </a>
+                        
+                            <a href="/tags/container/">
+                                <span class="chip bg-color">container</span>
+                            </a>
+                        
+                            <a href="/tags/dockerfile/">
+                                <span class="chip bg-color">dockerfile</span>
+                            </a>
+                        
+                            <a href="/tags/docker-compose/">
+                                <span class="chip bg-color">docker-compose</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Docker/" class="post-category">
+                                Docker
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-05-04
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-02-16
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    12.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    58 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>操作系统层面的虚拟化技术</p>
+<h4 id="Docker核心概念"><a href="#Docker核心概念" class="headerlink" title="Docker核心概念"></a>Docker核心概念</h4><p>（1）镜像(Image)</p>
+<p>Docker镜像是一个特殊的文件系统，提供容器运行时所需的程序、库、资源、配置等文件，另外还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。</p>
+<p>镜像是一个静态的概念，不包含任何动态数据，其内容在构建之后也不会被改变。</p>
+<p>（2）容器(Container)</p>
+<p>镜像与容器的关系，就是面向对象编程中类与对象的关系，我们定好每一个类，然后使用类创建对象，对应到Docker的使用上，则是构建好每一个镜像，然后使用镜像创建我们需要的容器。</p>
+<p>（3）仓库(Repository)</p>
+<p>仓库是一个集中存储和分发镜像的服务。Docker Registry包含很多个仓库，每个仓库对应多个标签，不同标签对应一个软件的不同版本。仓库分为公开仓库（Public）和私有仓库（Private）两种形式。</p>
+<p>最大的公开仓库是Docker Hub，是Docker提供用于存储和分布镜像的官方Docker Registry，也是默认的Registry。</p>
+<p>Docker Hub有很多官方或其他开发提供的高质量镜像供我们使用，如果要将我们自己构建的镜像上传到Docker Hub上，我们需要在Docker Hub上注册一个账号，然后把自己在本地构建的镜像发送到Docker Hub的仓库中。</p>
+<h4 id="Docker基本命令"><a href="#Docker基本命令" class="headerlink" title="Docker基本命令"></a>Docker基本命令</h4><h5 id="centos安装（安装前先卸载旧版本）"><a href="#centos安装（安装前先卸载旧版本）" class="headerlink" title="centos安装（安装前先卸载旧版本）"></a>centos安装（安装前先卸载旧版本）</h5><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 修改yum源</span>
+yum <span class="token function">install</span> -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+<span class="token comment" spellcheck="true"># yum list docker-ce --showduplicates    # 查看docker安装列表</span>
+yum <span class="token function">install</span> docker-ce -y                            <span class="token comment" spellcheck="true"># 直接安装最新版本的docker-ce</span>
+<span class="token function">service</span> docker start                                <span class="token comment" spellcheck="true"># 启动docker</span>
+systemctl <span class="token function">enable</span> docker                         <span class="token comment" spellcheck="true"># 开机启动</span>
+docker verison                                             <span class="token comment" spellcheck="true"># 查看版本信息</span>
+<span class="token comment" spellcheck="true"># docker run -ti ubuntu                                # 运行镜像</span>
+</code></pre>
+<h5 id="ubuntu安装（安装前先卸载旧版本）"><a href="#ubuntu安装（安装前先卸载旧版本）" class="headerlink" title="ubuntu安装（安装前先卸载旧版本）"></a>ubuntu安装（安装前先卸载旧版本）</h5><p><code>apt install apt-transport-https ca-certificates curl software-properties-common</code> Next, install a few prerequisite packages which let apt use packages over HTTPS</p>
+<p><code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg</code> Then add the GPG key for the official Docker repository to your system</p>
+<p><code>echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</code> Add the Docker repository to APT sources</p>
+<p><code>apt update</code> Update your existing list of packages again for the addition to be recognized </p>
+<p><code>apt-cache policy docker-ce</code> Make sure you are about to install from the Docker repo instead of the default Ubuntu repo  </p>
+<p><code>apt install docker-ce -y</code> install Docker</p>
+<p><code>systemctl status docker</code> Docker should now be installed, the daemon started, and the process enabled to start on boot. Check that it’s running  </p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/gif/38828771/1700448723615-a3b4f7e1-6a14-4d14-bc4d-05671ec5a884.gif" alt="img"></p>
+<h5 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h5><pre class=" language-bash"><code class="language-bash">docker create --name<span class="token operator">=</span>nginx1 nginx              <span class="token comment" spellcheck="true"># 创建镜像 --name : 指定名称</span>
+docker run -di -v /var/docker/nginx/nginx.conf:/etc/nginx/ngix.conf -p 80:80 ai_platfrom
+<span class="token comment" spellcheck="true"># -p port -v volume</span>
+
+docker start <span class="token function">id</span><span class="token operator">|</span>name                                         <span class="token comment" spellcheck="true"># 启动镜像</span>
+docker restart <span class="token function">id</span><span class="token operator">|</span>name                                     <span class="token comment" spellcheck="true"># 重启镜像</span>
+docker stop <span class="token function">id</span><span class="token operator">|</span>name                                          <span class="token comment" spellcheck="true"># 关闭镜像</span>
+docker <span class="token function">exec</span> -it <span class="token operator">&lt;</span>container_id<span class="token operator">></span> <span class="token function">bash</span>      <span class="token comment" spellcheck="true"># 进入容器中</span>
+docker stats  <span class="token comment" spellcheck="true"># 查看内存CPU占用情况</span>
+docker logs <span class="token operator">&lt;</span>container_ame<span class="token operator">></span>                             <span class="token comment" spellcheck="true"># 查看日志 -f ：实时日记 -t:时间  -tail:输出行数</span>
+docker <span class="token function">top</span> <span class="token operator">&lt;</span>container_name<span class="token operator">></span>                          <span class="token comment" spellcheck="true"># 查看容器内进程</span>
+docker <span class="token function">cp</span> <span class="token operator">&lt;</span>container_name<span class="token operator">></span>:/path                 <span class="token comment" spellcheck="true"># /path容器文件拷贝到宿主机，反之亦然</span>
+docker <span class="token function">diff</span> <span class="token operator">&lt;</span>container_name<span class="token operator">></span>                         <span class="token comment" spellcheck="true"># 容器运行后文件发生的变化</span>
+docker commit <span class="token operator">&lt;</span>container_name<span class="token operator">></span>  <span class="token operator">&lt;</span>image_name<span class="token operator">></span> <span class="token comment" spellcheck="true"># 提交容器为镜像</span>
+docker <span class="token function">rm</span> <span class="token variable"><span class="token variable">$(</span>docker <span class="token function">ps</span> -a -q<span class="token variable">)</span></span>                           <span class="token comment" spellcheck="true"># 批量删除</span>
+docker <span class="token function">export</span> -o file_name.tar <span class="token operator">&lt;</span>con_id<span class="token operator">></span>  <span class="token comment" spellcheck="true"># 导出容器到文件 </span>
+</code></pre>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1705653593747-e2c8976e-9181-44c7-a12c-c720b4bfc9f4.png" alt="img"></p>
+<h5 id="修改容器启动脚本"><a href="#修改容器启动脚本" class="headerlink" title="修改容器启动脚本"></a>修改容器启动脚本</h5><p>修改容器镜像的启动命令</p>
+<p>​    1、Dockerfile的方式修改命令</p>
+<p>​    2、直接通过命令改掉</p>
+<p>1、Dockerfile的方式修改命令</p>
+<p>首先先获取到你要修改的镜像的名称，可以执行docker images 进行查看，然后建一个Dockerfile，文件内容如下</p>
+<p>​    FROM image:demo  #要改动命令的镜像</p>
+<p>​    WORKDIR /root/  #执行命令的工作目录路径</p>
+<p>​    CMD [“python”,”main.py”] # 要更改的命令</p>
+<p>然后执行docker命令构建你的镜像</p>
+<p># -f Dockerfile是文件路径 </p>
+<p># -t 是之你构建之后的镜像名称</p>
+<p># 最后有个.不能省略</p>
+<p>docker build -f ./Dockerfile -t image_1:demo .</p>
+<p>执行之后生成的镜像的启动命令会被改掉</p>
+<p>2、直接通过命令改掉</p>
+<p>docker commit –change=”WORKDIR /root” -c ‘CMD [“python”,”main.py”]’ container_name image_1:demo</p>
+<p>–change 可以写入dockerfile的语法语句</p>
+<p>-c 可以写入启动命令</p>
+<p>最后接上修改之后的镜像名称</p>
+<h5 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h5><pre class=" language-bash"><code class="language-bash">docker images                                                 <span class="token comment" spellcheck="true"># 查看所有镜像</span>
+<span class="token comment" spellcheck="true"># tag：用于区分同一仓库中的不同镜像，默认为latest</span>
+<span class="token comment" spellcheck="true"># image id ：镜像唯一标识</span>
+<span class="token comment" spellcheck="true"># size ： 镜像大小</span>
+<span class="token comment" spellcheck="true"># repository：仓库名称，仓库用来存放同一类镜像，没有默认为 &lt;none></span>
+docker run -ti <span class="token operator">&lt;</span>images_name<span class="token operator">></span>                         <span class="token comment" spellcheck="true"># 进入docker images</span>
+docker <span class="token function">import</span> 文件名.tar image_name:image_tag <span class="token comment" spellcheck="true"># 文件导入为镜像</span>
+docker images -a                                          <span class="token comment" spellcheck="true"># 查看所有镜像，包括中间层镜像</span>
+docker images -aq                                          <span class="token comment" spellcheck="true"># 查看所有镜像，包括中间层镜像ID</span>
+docker images imageName                                <span class="token comment" spellcheck="true"># 查看具体镜像</span>
+docker rmi imageid或者imageName             <span class="token comment" spellcheck="true"># 删除指定的镜像</span>
+docker rmi imageidA imageidB imageidC <span class="token comment" spellcheck="true"># 删除指定多个镜像</span>
+docker rmi -f imageid or imageName        <span class="token comment" spellcheck="true"># 强制删除指定的镜像</span>
+docker rmi -f <span class="token variable"><span class="token variable">$(</span>docker images -aq<span class="token variable">)</span></span>      <span class="token comment" spellcheck="true"># 删除全部的镜像</span>
+docker image inspect imageName              <span class="token comment" spellcheck="true"># 查看具体镜像详情</span>
+docker <span class="token function">history</span> imageName                           <span class="token comment" spellcheck="true"># 查看镜像的创建历史</span>
+docker build <span class="token keyword">.</span> -t <span class="token operator">&lt;</span>custom_name<span class="token operator">></span>                <span class="token comment" spellcheck="true"># 使用Dockerfile打包镜像 和下面的功能一直，记得 .</span>
+docker build -f dockerfilepath -t imageName:<span class="token punctuation">[</span>tag<span class="token punctuation">]</span> <span class="token keyword">.</span> <span class="token comment" spellcheck="true"># 构建镜像，文件在当前目录下且文件名是Dockerfile可以不写-f指定，最后的 . 代表本次执行的上下文路径是当前路径，是指 docker 在构建镜像，有时候想要使用到本机的文件（比如复制），docker build 命令得知这个路径后，会将路径下的所有内容打包。上下文路径下不要放无用的文件，因为会一起打包发送给 docker 引擎，如果文件过多会造成过程缓慢。</span>
+docker save imageName<span class="token punctuation">[</span>:tag<span class="token punctuation">]</span> -o <span class="token function">file</span>        <span class="token comment" spellcheck="true"># 导出镜像到文件</span>
+docker load -i filePath                                <span class="token comment" spellcheck="true"># 导入镜像</span>
+docker login <span class="token punctuation">[</span>repo_host:port<span class="token punctuation">]</span>                     <span class="token comment" spellcheck="true"># 登录仓库,dockerhub可以不写[repo_host:port] </span>
+docker <span class="token function">logout</span> <span class="token punctuation">[</span>repo_host:port<span class="token punctuation">]</span>                  <span class="token comment" spellcheck="true"># 登出仓库,dockerhub可以不写[repo_host:port] </span>
+docker search imageName                                <span class="token comment" spellcheck="true"># 搜索镜像</span>
+docker tag sourceImage<span class="token punctuation">[</span>:tag<span class="token punctuation">]</span> targetImage<span class="token punctuation">[</span>:tag<span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 给镜像打标签</span>
+docker pull imageName<span class="token punctuation">[</span>:tag<span class="token punctuation">]</span>                      <span class="token comment" spellcheck="true"># 载镜像,不加tag就是latest</span>
+docker push imageName<span class="token punctuation">[</span>:tag<span class="token punctuation">]</span>                      <span class="token comment" spellcheck="true"># 推送镜像到仓库</span>
+</code></pre>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/38828771/1700451386532-43344060-adb8-49aa-8937-edb35540a024.jpeg" alt="img"> </p>
+<h4 id="Docker数据卷-挂载"><a href="#Docker数据卷-挂载" class="headerlink" title="Docker数据卷/挂载"></a>Docker数据卷/挂载</h4><p>我的理解：</p>
+<p>docker 每次重启会按照指定的镜像重新创建一个容器，也就是同一个镜像可以重新创建多个容器，并同时存在的原因</p>
+<p>所以，如果创建了新的容器，那原来的修改就没有了，所以有了挂载操作，挂载的底层原理是使用了linux的文件挂载，将数据卷挂载到容器的虚拟文件系统，在容器中的修改，实际是对宿主机的数据卷的修改，所以不会再重启后丢失修改</p>
+<p>重启（restart）容器不会影响docker run 时的配置信息，比如端口代理，挂载配置，## 有待验证</p>
+<p>1、数据挂载简介</p>
+<p>在Docker中，容器的数据读写默认发生在容器的存储层，当容器被删除时，容器中的数据将会丢失。如果想实现数据的持久化，就需要将容器和宿主机建立联系（将数据从宿主机挂载到容器中），通俗的说，数据卷就是在容器和宿主机之间实现数据共享。</p>
+<p>数据卷是宿主机(linux主机)中的一个目录或文件，当容器目录和数据卷目录绑定后，对方的修改会立即同步。可以不需要进入容器内部，就可以查看所需要的容器中的数据。</p>
+<p>一个数据卷可以被多个容器同时挂载，一个容器也可以被挂载多个数据卷。</p>
+<p><code>docker inspect -f "{{.Mounts}}" &lt;containerName/id&gt;</code> 查看容器的挂载信息</p>
+<p>注意点：</p>
+<ul>
+<li>不支持直接挂载文件，只能挂载文件夹</li>
+<li>想要挂载文件，必须宿主机也要有对应的同名文件</li>
+</ul>
+<p>2、三种数据挂载方式</p>
+<p>volume：挂载宿主机文件系统的固定位置（/var/lib/docker/volumes/卷名/_data）。</p>
+<p>bind mounts：挂载宿主机系统的任意位置。</p>
+<p>tmpfs mounts：挂载存储在宿主机系统的内存中，不会写入宿主机的文件系统。容器关闭重启数据丢失。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/38828771/1700452678683-5fe9b7a1-4c49-468f-ac93-e7ba34ae4b6d.png" alt="img"></p>
+<p>3、三种挂载方式适用场景</p>
+<p>（1）volume（固定目录数据卷挂载）容器之间共享数据</p>
+<p>（2）bind mounts（自定义目录挂载）主机与容器共享数据</p>
+<p>（3）tmpfs mounts（内存挂载）既不想将数据存于主机，又不想存于容器中时（这可以是出于安全的考虑，或当应用需要写大量非持久性的状态数据时为了保护容器的性能）。</p>
+<p>#volume 管理</p>
+<p><code>docker volume ls</code>            #列出所有卷</p>
+<p><code>docker volume create 卷名</code>    #创建卷</p>
+<p><code>docker volume inspect 卷名</code>   #查看卷详细信息</p>
+<p><code>docker volume rm 卷名1 卷名2</code>  #删除卷</p>
+<p><code>docker volume prune</code>          #删除未被使用的卷，容器停止的占用的卷也不会删除</p>
+<p>#volume mounts（固定目录数据卷挂载）</p>
+<pre><code>docker run --mount [type=volume,]source=卷名,target=容器文件夹 镜像名
+</code></pre>
+<p>#bind mounts（自定义目录挂载）</p>
+<pre><code>docker run --mount type=bind,source=宿主机文件夹,target=容器内文件夹 镜像名
+</code></pre>
+<p>#tmpfs mounts（内存挂载）</p>
+<pre><code>docker run --mount type=tmpfs,target=容器内文件夹 镜像名
+</code></pre>
+<h4 id="Docker网络"><a href="#Docker网络" class="headerlink" title="Docker网络"></a>Docker网络</h4><p>支持的三种模式</p>
+<p>宿主机中的 docker0 的虚拟网卡：该网卡是一个用于桥接宿主机与容器间网络通信的虚拟网卡。当我们启动容器但没有指定网络配置时，都会使用该网卡作为网桥。</p>
+<ol>
+<li>桥接模式（默认）</li>
+</ol>
+<p>对于每个容器，会创建一对虚拟网卡用作映射。一个在容器中：eth0，一个在宿主机中：vethX，映射关系维护在网桥中。其他主机访问容器时，必须经过宿主机，并在网桥 docker0 中中找到 vethX 继而访问容器。这也是默认的网络模式。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1705218035403-0b2f3c4f-1500-4168-b84e-edc93384f36c.png" alt="img"><br>\2. 主机模式</p>
+<p>容器共享主机的网络空间，即容器与主机在同一网段。缺点很明显，不安全。外部可以直接访问到容器，而没有一个挡板做拦截转发。<br><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1705218029692-edf236f6-e404-45c1-9624-f0bf183b8d24.png" alt="img"><br>\3. None 模式</p>
+<p>每个容器中只有本地 lo 网卡，即无法与其他容器或者主机通信。最安全，除非侵入了宿主机，否则无法访问到容器。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1705218021677-d95a899b-3daa-41b6-b471-65a2cf0f3d0f.png" alt="img"></p>
+<p>我们可以使用命令：docker network ls 查看 docker 默认支持的以上三种网络模式</p>
+<pre class=" language-bash"><code class="language-bash">$ docker network <span class="token function">ls</span>
+NETWORK ID     NAME      DRIVER    SCOPE
+7b61cc22b3cf   bridge    bridge    local
+90abe9832be3   host      host      local
+69357e9d4394   none      null      local
+</code></pre>
+<p>自定义网络（推荐）</p>
+<p>根据需求自定义配置容器网络。将会在宿主机中创建一个虚拟网卡（类似 docker0），用来关联未来在该网络环境下的容器的 vethX 虚拟网卡。可以但不限于配置：子网网段、网关、子网掩码、网络模式（桥接 or else）。<br>network 命令</p>
+<pre class=" language-bash"><code class="language-bash">$ docker network --help
+
+Usage:  docker network COMMAND
+
+Manage networks
+
+Commands:
+connect     Connect a container to a network
+create      Create a network
+disconnect  Disconnect a container from a network
+inspect     Display detailed information on one or <span class="token function">more</span> networks
+<span class="token function">ls</span>          List networks
+prune       Remove all unused networks
+<span class="token function">rm</span>          Remove one or <span class="token function">more</span> networks
+</code></pre>
+<p>创建</p>
+<pre class=" language-bash"><code class="language-bash">$ docker network create --help
+
+Usage:  docker network create <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span> NETWORK
+
+Create a network
+
+Options:
+--attachable           Enable manual container attachment
+--aux-address map      Auxiliary IPv4 or IPv6 addresses used by
+Network driver <span class="token punctuation">(</span>default map<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+--config-from string   The network from <span class="token function">which</span> to copy the configuration
+--config-only          Create a configuration only network
+-d, --driver string        Driver to manage the Network <span class="token punctuation">(</span>default <span class="token string">"bridge"</span><span class="token punctuation">)</span>
+--gateway strings      IPv4 or IPv6 Gateway <span class="token keyword">for</span> the master subnet
+--ingress              Create swarm routing-mesh network
+--internal             Restrict external access to the network
+--ip-range strings     Allocate container ip from a sub-range
+--ipam-driver string   IP Address Management Driver <span class="token punctuation">(</span>default <span class="token string">"default"</span><span class="token punctuation">)</span>
+--ipam-opt map         Set IPAM driver specific options <span class="token punctuation">(</span>default map<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+--ipv6                 Enable IPv6 networking
+--label list           Set metadata on a network
+-o, --opt map              Set driver specific options <span class="token punctuation">(</span>default map<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+--scope string         Control the network's scope
+--subnet strings       Subnet <span class="token keyword">in</span> CIDR <span class="token function">format</span> that represents a
+network segment
+</code></pre>
+<p>例子：</p>
+<p>docker network create –driver bridge –subnet 192.168.2.0/24 –gateway 192.168.2.1 my_net</p>
+<pre class=" language-bash"><code class="language-bash">使用桥接模式
+子网网段为 192.168.2.0 - 192.168.2.255
+子网掩码为 255.255.255.0 <span class="token punctuation">(</span>/24<span class="token punctuation">)</span>
+网关为 192.168.2.1
+名称为 my_net
+</code></pre>
+<p>检查一下宿主机中的网络设备：</p>
+<pre class=" language-bash"><code class="language-bash">$ ip addr show
+1: lo: <span class="token operator">&lt;</span>LOOPBACK,UP,LOWER_UP<span class="token operator">></span> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+inet 127.0.0.1/8 scope host lo
+valid_lft forever preferred_lft forever
+inet6 ::1/128 scope host
+valid_lft forever preferred_lft forever
+
+<span class="token punctuation">..</span>.
+
+3: docker0: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP<span class="token operator">></span> mtu 1500 qdisc noqueue state UP group default
+link/ether 02:42:00:6b:b7:ab brd ff:ff:ff:ff:ff:ff
+inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+valid_lft forever preferred_lft forever
+inet6 fe80::42:ff:fe6b:b7ab/64 scope <span class="token function">link</span>
+valid_lft forever preferred_lft forever
+
+<span class="token comment" spellcheck="true"># Here!</span>
+115: br-48a9b08a5c44: <span class="token operator">&lt;</span>NO-CARRIER,BROADCAST,MULTICAST,UP<span class="token operator">></span> mtu 1500 qdisc noqueue state DOWN group default
+link/ether 02:42:24:0c:55:a4 brd ff:ff:ff:ff:ff:ff
+inet 192.168.2.1/24 brd 192.168.2.255 scope global br-48a9b08a5c44
+valid_lft forever preferred_lft forever
+</code></pre>
+<p>观察一下虚拟网卡（网桥） br-48a9b08a5c44 中的 ip 192.168.2.1/24，正是网关地址。<br>检察</p>
+<pre class=" language-bash"><code class="language-bash">$ docker network inspect my_net
+<span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    <span class="token string">"Name"</span><span class="token keyword">:</span> <span class="token string">"my_net"</span>,
+    <span class="token string">"Id"</span><span class="token keyword">:</span> <span class="token string">"59f36f39b05ae61586aa9c1480edc6e57beab18fb8f8bc68301aef434b496d6b"</span>,
+    <span class="token string">"Created"</span><span class="token keyword">:</span> <span class="token string">"2023-06-20T02:11:19.065380096Z"</span>,
+    <span class="token string">"Scope"</span><span class="token keyword">:</span> <span class="token string">"local"</span>,
+    <span class="token string">"Driver"</span><span class="token keyword">:</span> <span class="token string">"bridge"</span>,
+    <span class="token string">"EnableIPv6"</span><span class="token keyword">:</span> false,
+    <span class="token string">"IPAM"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"Driver"</span><span class="token keyword">:</span> <span class="token string">"default"</span>,
+      <span class="token string">"Options"</span><span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>,
+      <span class="token string">"Config"</span><span class="token keyword">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token string">"Subnet"</span><span class="token keyword">:</span> <span class="token string">"192.168.2.0/24"</span>,
+          <span class="token string">"Gateway"</span><span class="token keyword">:</span> <span class="token string">"192.168.2.1"</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>,
+    <span class="token string">"Internal"</span><span class="token keyword">:</span> false,
+    <span class="token string">"Attachable"</span><span class="token keyword">:</span> false,
+    <span class="token string">"Ingress"</span><span class="token keyword">:</span> false,
+    <span class="token string">"ConfigFrom"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"Network"</span><span class="token keyword">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span>,
+    <span class="token string">"ConfigOnly"</span><span class="token keyword">:</span> false,
+    <span class="token string">"Containers"</span><span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>,
+    <span class="token string">"Options"</span><span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>,
+    <span class="token string">"Labels"</span><span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p>（其余的命令比如 ls、删除之类的，没有必要详细解释了。根据 –help 的提示进行操作即可）<br>应用</p>
+<ol>
+<li>启动两个容器，并应用前面创建的自定义网络 my_net</li>
+</ol>
+<pre class=" language-bash"><code class="language-bash">$ docker run -it -d -q --network my_net --name os1 busybox
+$ docker run -it -d -q --network my_net --name os2 busybox
+</code></pre>
+<p>此时查看一下网卡配置，可以发现多出了两个用于结合 br-48a9b08a5c44 网卡进行桥接的虚拟网卡：veth3654615@if95、veth8b144b4<a href="">@if97 </a> </p>
+<pre class=" language-bash"><code class="language-bash">$ ip addr
+
+1: lo: <span class="token operator">&lt;</span>LOOPBACK,UP,LOWER_UP<span class="token operator">></span> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+inet 127.0.0.1/8 scope host lo
+valid_lft forever preferred_lft forever
+inet6 ::1/128 scope host
+valid_lft forever preferred_lft forever
+
+<span class="token punctuation">..</span>.
+<span class="token punctuation">..</span>.
+<span class="token punctuation">..</span>.
+
+96: veth3654615@if95: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP<span class="token operator">></span> mtu 1500 qdisc noqueue master br-76115cefdaad state UP group default
+link/ether 62:69:f9:e9:94:52 brd ff:ff:ff:ff:ff:ff link-netnsid 3
+inet6 fe80::6069:f9ff:fee9:9452/64 scope <span class="token function">link</span>
+valid_lft forever preferred_lft forever
+98: veth8b144b4@if97: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP<span class="token operator">></span> mtu 1500 qdisc noqueue master br-76115cefdaad state UP group default
+link/ether 9e:2f:13:75:8f:c2 brd ff:ff:ff:ff:ff:ff link-netnsid 4
+inet6 fe80::9c2f:13ff:fe75:8fc2/64 scope <span class="token function">link</span>
+valid_lft forever preferred_lft forever
+</code></pre>
+<pre class=" language-bash"><code class="language-bash">$ docker <span class="token function">exec</span> -it os1 sh
+$ <span class="token function">ifconfig</span>
+eth0      Link encap:Ethernet  HWaddr 02:42:C0:A8:02:02
+inet addr:192.168.2.2  Bcast:192.168.2.255  Mask:255.255.255.0
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+RX packets:13 errors:0 dropped:0 overruns:0 frame:0
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:0
+RX bytes:1102 <span class="token punctuation">(</span>1.0 KiB<span class="token punctuation">)</span>  TX bytes:0 <span class="token punctuation">(</span>0.0 B<span class="token punctuation">)</span>
+
+lo        Link encap:Local Loopback
+inet addr:127.0.0.1  Mask:255.0.0.0
+UP LOOPBACK RUNNING  MTU:65536  Metric:1
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:1000
+RX bytes:0 <span class="token punctuation">(</span>0.0 B<span class="token punctuation">)</span>  TX bytes:0 <span class="token punctuation">(</span>0.0 B<span class="token punctuation">)</span>
+$ <span class="token function">ping</span> 192.168.2.3
+PING 192.168.2.3 <span class="token punctuation">(</span>192.168.2.3<span class="token punctuation">)</span>: 56 data bytes
+64 bytes from 192.168.2.3: seq<span class="token operator">=</span>0 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.118 ms
+64 bytes from 192.168.2.3: seq<span class="token operator">=</span>1 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.070 ms
+64 bytes from 192.168.2.3: seq<span class="token operator">=</span>2 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.074 ms
+</code></pre>
+<pre class=" language-bash"><code class="language-bash">$ docker <span class="token function">exec</span> -it os2 sh
+$ <span class="token function">ifconfig</span>
+eth0      Link encap:Ethernet  HWaddr 02:42:C0:A8:02:03
+inet addr:192.168.2.3  Bcast:192.168.2.255  Mask:255.255.255.0
+UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:0
+RX bytes:656 <span class="token punctuation">(</span>656.0 B<span class="token punctuation">)</span>  TX bytes:0 <span class="token punctuation">(</span>0.0 B<span class="token punctuation">)</span>
+
+lo        Link encap:Local Loopback
+inet addr:127.0.0.1  Mask:255.0.0.0
+UP LOOPBACK RUNNING  MTU:65536  Metric:1
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:1000
+RX bytes:0 <span class="token punctuation">(</span>0.0 B<span class="token punctuation">)</span>  TX bytes:0 <span class="token punctuation">(</span>0.0 B<span class="token punctuation">)</span>
+$ <span class="token function">ping</span> 192.168.2.2
+PING 192.168.2.2 <span class="token punctuation">(</span>192.168.2.2<span class="token punctuation">)</span>: 56 data bytes
+64 bytes from 192.168.2.2: seq<span class="token operator">=</span>0 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.096 ms
+64 bytes from 192.168.2.2: seq<span class="token operator">=</span>1 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.086 ms
+64 bytes from 192.168.2.2: seq<span class="token operator">=</span>2 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.078 ms
+</code></pre>
+<p>容器名称访问（推荐）</p>
+<p>除了根据容器 ip，还可以根据容器名称相互访问。这样做对比直接根据 ip 访问更加灵活，无论 ip 如何变化，只要容器名称正确就可以正确访问，推荐。</p>
+<pre class=" language-bash"><code class="language-bash">$ docker <span class="token function">exec</span> -it os1 <span class="token function">ping</span> os2
+PING os2 <span class="token punctuation">(</span>192.168.2.3<span class="token punctuation">)</span>: 56 data bytes
+64 bytes from 192.168.2.3: seq<span class="token operator">=</span>0 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.083 ms
+64 bytes from 192.168.2.3: seq<span class="token operator">=</span>1 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.074 ms
+64 bytes from 192.168.2.3: seq<span class="token operator">=</span>2 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.074 ms
+
+$ docker <span class="token function">exec</span> -it os2 <span class="token function">ping</span> os1
+PING os1 <span class="token punctuation">(</span>192.168.2.2<span class="token punctuation">)</span>: 56 data bytes
+64 bytes from 192.168.2.2: seq<span class="token operator">=</span>0 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.089 ms
+64 bytes from 192.168.2.2: seq<span class="token operator">=</span>1 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.082 ms
+64 bytes from 192.168.2.2: seq<span class="token operator">=</span>2 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.069 ms
+</code></pre>
+<p>应用默认的桥接模式</p>
+<p>不指定–network默认使用bridge模式，启动两个容器：</p>
+<pre class=" language-bash"><code class="language-bash">$ docker run -it -d --rm --name os1 busybox
+$ docker run -it -d --rm --name os2 busybox
+</code></pre>
+<p>通过容器 ip 进行访问：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 查看各自IP</span>
+$ docker <span class="token function">exec</span> -it os1 ip addr show
+1: lo: <span class="token operator">&lt;</span>LOOPBACK,UP,LOWER_UP<span class="token operator">></span> mtu 65536 qdisc noqueue qlen 1000
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+inet 127.0.0.1/8 scope host lo
+valid_lft forever preferred_lft forever
+107: eth0@if108: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN<span class="token operator">></span> mtu 1500 qdisc noqueue
+link/ether 02:42:ac:11:00:05 brd ff:ff:ff:ff:ff:ff
+inet 172.17.0.5/16 brd 172.17.255.255 scope global eth0
+valid_lft forever preferred_lft forever
+
+docker <span class="token function">exec</span> -it os2 ip addr show
+1: lo: <span class="token operator">&lt;</span>LOOPBACK,UP,LOWER_UP<span class="token operator">></span> mtu 65536 qdisc noqueue qlen 1000
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+inet 127.0.0.1/8 scope host lo
+valid_lft forever preferred_lft forever
+111: eth0@if112: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN<span class="token operator">></span> mtu 1500 qdisc noqueue
+link/ether 02:42:ac:11:00:06 brd ff:ff:ff:ff:ff:ff
+inet 172.17.0.6/16 brd 172.17.255.255 scope global eth0
+valid_lft forever preferred_lft forever
+
+<span class="token comment" spellcheck="true"># 访问</span>
+$ docker <span class="token function">exec</span> -it os1 <span class="token function">ping</span> 172.17.0.6
+PING 172.17.0.6 <span class="token punctuation">(</span>172.17.0.6<span class="token punctuation">)</span>: 56 data bytes
+64 bytes from 172.17.0.6: seq<span class="token operator">=</span>0 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.083 ms
+64 bytes from 172.17.0.6: seq<span class="token operator">=</span>1 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.084 ms
+
+$ docker <span class="token function">exec</span> -it os2 <span class="token function">ping</span> 172.17.0.5
+PING 172.17.0.5 <span class="token punctuation">(</span>172.17.0.5<span class="token punctuation">)</span>: 56 data bytes
+64 bytes from 172.17.0.5: seq<span class="token operator">=</span>0 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.109 ms
+64 bytes from 172.17.0.5: seq<span class="token operator">=</span>1 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.073 ms
+</code></pre>
+<p>在通过容器名称访问：</p>
+<pre class=" language-bash"><code class="language-bash">$ docker <span class="token function">exec</span> -it os1 <span class="token function">ping</span> os2
+ping: bad address <span class="token string">'os2'</span>
+$ docker <span class="token function">exec</span> -it os2 <span class="token function">ping</span> os1
+ping: bad address <span class="token string">'os1'</span>
+</code></pre>
+<p>因为没有指定的自定义的网络，只可以通过 ip 而不能根据容器名称进行访问。那么如何也可以通过容器名称进行访问呢：–link 参数。重启 os2：</p>
+<pre class=" language-bash"><code class="language-bash">$ docker run -it -d --rm --link os1 --name os2 busybox
+$ docker <span class="token function">exec</span> -it os2 <span class="token function">ping</span> os1
+PING os1 <span class="token punctuation">(</span>172.17.0.5<span class="token punctuation">)</span>: 56 data bytes
+64 bytes from 172.17.0.5: seq<span class="token operator">=</span>0 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.137 ms
+64 bytes from 172.17.0.5: seq<span class="token operator">=</span>1 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.087 ms
+</code></pre>
+<p>可以成功访问了。那么是如何做到的根据容器名称就能正常访问的呢？查看一下容器中/etc/hosts文件就明白了：</p>
+<pre class=" language-bash"><code class="language-bash">$ docker <span class="token function">exec</span> -it os2 <span class="token function">cat</span> /etc/hosts
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+172.17.0.5      os1 c528fc3de106 <span class="token comment" spellcheck="true"># Here!</span>
+172.17.0.6      d69d0a2dfb0b
+</code></pre>
+<p>实际上就是将ip、容器名称、容器 id做了映射。</p>
+<p>但是通过默认的桥接模式可以发现一个问题，十分的不方便，每个容器启动时都需要指定 –link。一旦容器的数量过多时，是极其麻烦的。所以，还是推荐自定义网络模式。<br>不同网络间的通信</p>
+<p>前面讨论的都是同网络间的容器通信，那么不同网络间的容器是如何通信的？比如即一个使用默认 docker0 网桥的容器与使用了自定义网络的容器如何进行通信？</p>
+<p>下面进行测试：</p>
+<p>创建两个在不同网络间的容器：</p>
+<pre class=" language-bash"><code class="language-bash">$ docker run -it -d --name def_net_os busybox
+$ docker run -it -d --name my_net_os --network my_net busybox
+</code></pre>
+<p>查看 ip 后 ping 测试：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#查看 def_net_os 的 ip</span>
+
+$ docker <span class="token function">exec</span> def_net_os ip addr show
+1: lo: <span class="token operator">&lt;</span>LOOPBACK,UP,LOWER_UP<span class="token operator">></span> mtu 65536 qdisc noqueue qlen 1000
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+inet 127.0.0.1/8 scope host lo
+valid_lft forever preferred_lft forever
+134: eth0@if135: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN<span class="token operator">></span> mtu 1500 qdisc noqueue
+link/ether 02:42:ac:11:00:05 brd ff:ff:ff:ff:ff:ff
+inet 172.17.0.5/16 brd 172.17.255.255 scope global eth0
+valid_lft forever preferred_lft forever
+
+<span class="token comment" spellcheck="true">#在 my_net_os 容器中 ping 测试</span>
+$ docker <span class="token function">exec</span> my_net_os <span class="token function">ping</span> 172.17.0.5
+<span class="token punctuation">(</span>无响应<span class="token punctuation">)</span>
+</code></pre>
+<p>实际结果确实为无法访问。检察一下容器的网络信息以及自定义网络信息：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#容器的网络信息</span>
+
+$ docker inspect def_net_os
+<span class="token punctuation">[</span><span class="token punctuation">{</span>
+  <span class="token punctuation">..</span>.
+  <span class="token string">"NetworkSettings"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"Bridge"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"SandboxID"</span><span class="token keyword">:</span> <span class="token string">"f4a4fac0a42297c3913ad7326d5d54163f34fe2f01c5088c4361517092fa24b3"</span>,
+    <span class="token punctuation">..</span>.
+    <span class="token string">"Gateway"</span><span class="token keyword">:</span> <span class="token string">"172.17.0.1"</span>,
+    <span class="token string">"GlobalIPv6Address"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"GlobalIPv6PrefixLen"</span><span class="token keyword">:</span> 0,
+    <span class="token string">"IPAddress"</span><span class="token keyword">:</span> <span class="token string">"172.17.0.5"</span>,
+    <span class="token string">"IPPrefixLen"</span><span class="token keyword">:</span> 16,
+    <span class="token string">"IPv6Gateway"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"MacAddress"</span><span class="token keyword">:</span> <span class="token string">"02:42:ac:11:00:05"</span>,
+    <span class="token string">"Networks"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true"># Here!</span>
+      <span class="token string">"bridge"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"IPAMConfig"</span><span class="token keyword">:</span> null,
+        <span class="token string">"Links"</span><span class="token keyword">:</span> null,
+        <span class="token string">"Aliases"</span><span class="token keyword">:</span> null,
+        <span class="token string">"NetworkID"</span><span class="token keyword">:</span> <span class="token string">"19c85157d58fecd939cf4b34aefe8f041b8a2d2b649c3c778cdc3d699df03810"</span>,
+        <span class="token string">"EndpointID"</span><span class="token keyword">:</span> <span class="token string">"20b1a057de5de9d9c8a64d72ff215efcc56b50abeccbf208be1ef6473c8b1e19"</span>,
+        <span class="token string">"Gateway"</span><span class="token keyword">:</span> <span class="token string">"172.17.0.1"</span>,
+        <span class="token string">"IPAddress"</span><span class="token keyword">:</span> <span class="token string">"172.17.0.5"</span>,
+        <span class="token string">"IPPrefixLen"</span><span class="token keyword">:</span> 16,
+        <span class="token string">"IPv6Gateway"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+        <span class="token string">"GlobalIPv6Address"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+        <span class="token string">"GlobalIPv6PrefixLen"</span><span class="token keyword">:</span> 0,
+        <span class="token string">"MacAddress"</span><span class="token keyword">:</span> <span class="token string">"02:42:ac:11:00:05"</span>,
+        <span class="token string">"DriverOpts"</span><span class="token keyword">:</span> null
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">]</span>
+
+$ docker inspect my_net_os
+<span class="token punctuation">[</span><span class="token punctuation">{</span>
+  <span class="token punctuation">..</span>.
+  <span class="token string">"NetworkSettings"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"Bridge"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"SandboxID"</span><span class="token keyword">:</span> <span class="token string">"34b9a9c4a5172b438d7568be0edeeadb26a56ba0db53b0a43d97c3b5ab2708e8"</span>,
+    <span class="token punctuation">..</span>.
+    <span class="token string">"Gateway"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"GlobalIPv6Address"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"GlobalIPv6PrefixLen"</span><span class="token keyword">:</span> 0,
+    <span class="token string">"IPAddress"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"IPPrefixLen"</span><span class="token keyword">:</span> 0,
+    <span class="token string">"IPv6Gateway"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"MacAddress"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"Networks"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true"># Here!</span>
+      <span class="token string">"my_net"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"IPAMConfig"</span><span class="token keyword">:</span> null,
+        <span class="token string">"Links"</span><span class="token keyword">:</span> null,
+        <span class="token string">"Aliases"</span><span class="token keyword">:</span> <span class="token punctuation">[</span><span class="token string">"8ffa841b7bb2"</span><span class="token punctuation">]</span>,
+        <span class="token string">"NetworkID"</span><span class="token keyword">:</span> <span class="token string">"48a9b08a5c44f34a1716885fab264ea6ccf58ceaa07adbc14f3b1ae5ac0a41d8"</span>,
+        <span class="token string">"EndpointID"</span><span class="token keyword">:</span> <span class="token string">"8e8b5f37df1217ad6e357a4f3f191ad68a2427357b905dc110df0762e4e885ba"</span>,
+        <span class="token string">"Gateway"</span><span class="token keyword">:</span> <span class="token string">"192.168.2.1"</span>,
+        <span class="token string">"IPAddress"</span><span class="token keyword">:</span> <span class="token string">"192.168.2.2"</span>,
+        <span class="token string">"IPPrefixLen"</span><span class="token keyword">:</span> 24,
+        <span class="token string">"IPv6Gateway"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+        <span class="token string">"GlobalIPv6Address"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+        <span class="token string">"GlobalIPv6PrefixLen"</span><span class="token keyword">:</span> 0,
+        <span class="token string">"MacAddress"</span><span class="token keyword">:</span> <span class="token string">"02:42:c0:a8:02:02"</span>,
+        <span class="token string">"DriverOpts"</span><span class="token keyword">:</span> null
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">]</span>
+
+$ docker network inspect my_net
+<span class="token punctuation">[</span><span class="token punctuation">{</span>
+  <span class="token string">"Name"</span><span class="token keyword">:</span> <span class="token string">"my_net"</span>,
+  <span class="token string">"Id"</span><span class="token keyword">:</span> <span class="token string">"48a9b08a5c44f34a1716885fab264ea6ccf58ceaa07adbc14f3b1ae5ac0a41d8"</span>,
+  <span class="token string">"Created"</span><span class="token keyword">:</span> <span class="token string">"2023-06-20T13:13:52.508531488+08:00"</span>,
+  <span class="token punctuation">..</span>.
+
+  <span class="token comment" spellcheck="true"># Here!</span>
+  <span class="token string">"Containers"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"8ffa841b7bb24ac29a5765701bfd7025c19fe109556672ddee4ceb2f46e6e56a"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"Name"</span><span class="token keyword">:</span> <span class="token string">"my_net_os"</span>,
+      <span class="token string">"EndpointID"</span><span class="token keyword">:</span> <span class="token string">"8e8b5f37df1217ad6e357a4f3f191ad68a2427357b905dc110df0762e4e885ba"</span>,
+      <span class="token string">"MacAddress"</span><span class="token keyword">:</span> <span class="token string">"02:42:c0:a8:02:02"</span>,
+      <span class="token string">"IPv4Address"</span><span class="token keyword">:</span> <span class="token string">"192.168.2.2/24"</span>,
+      <span class="token string">"IPv6Address"</span><span class="token keyword">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>,
+  <span class="token string">"Options"</span><span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>,
+  <span class="token string">"Labels"</span><span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">]</span>
+</code></pre>
+<p>可以发现两个容器分别在不同的网络中。my_net 的自定义网络信息中描述了处于当前自定义网络的所有容器实例：my_net_os。</p>
+<p>下面进行不同网络间的链接，在my_net网络中加入def_net_os容器。</p>
+<p><strong>connect 命令</strong></p>
+<pre><code>docker network connect  &lt;NETWORK&gt; &lt;CONTAINER&gt;
+</code></pre>
+<pre class=" language-bash"><code class="language-bash">$ docker network connect my_net def_net_os
+$ docker <span class="token function">exec</span> -it my_net_os <span class="token function">ping</span> def_net_os
+PING def_net_os <span class="token punctuation">(</span>192.168.2.3<span class="token punctuation">)</span>: 56 data bytes
+64 bytes from 192.168.2.3: seq<span class="token operator">=</span>0 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.109 ms
+64 bytes from 192.168.2.3: seq<span class="token operator">=</span>1 ttl<span class="token operator">=</span>64 time<span class="token operator">=</span>0.070 ms
+</code></pre>
+<p>这时就可以在 my_net_os 中与 def_net_os 通信了。我们在检察一下 def_net_os 容器的网络信息以及自定义网络信息：</p>
+<pre class=" language-bash"><code class="language-bash">$ docker inspect def_net_os
+<span class="token punctuation">[</span><span class="token punctuation">{</span>
+  <span class="token punctuation">..</span>.
+  <span class="token string">"NetworkSettings"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"Bridge"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"SandboxID"</span><span class="token keyword">:</span> <span class="token string">"f4a4fac0a42297c3913ad7326d5d54163f34fe2f01c5088c4361517092fa24b3"</span>,
+    <span class="token punctuation">..</span>.
+    <span class="token string">"Gateway"</span><span class="token keyword">:</span> <span class="token string">"172.17.0.1"</span>,
+    <span class="token string">"GlobalIPv6Address"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"GlobalIPv6PrefixLen"</span><span class="token keyword">:</span> 0,
+    <span class="token string">"IPAddress"</span><span class="token keyword">:</span> <span class="token string">"172.17.0.5"</span>,
+    <span class="token string">"IPPrefixLen"</span><span class="token keyword">:</span> 16,
+    <span class="token string">"IPv6Gateway"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+    <span class="token string">"MacAddress"</span><span class="token keyword">:</span> <span class="token string">"02:42:ac:11:00:05"</span>,
+    <span class="token string">"Networks"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"bridge"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"IPAMConfig"</span><span class="token keyword">:</span> null,
+        <span class="token string">"Links"</span><span class="token keyword">:</span> null,
+        <span class="token string">"Aliases"</span><span class="token keyword">:</span> null,
+        <span class="token string">"NetworkID"</span><span class="token keyword">:</span> <span class="token string">"19c85157d58fecd939cf4b34aefe8f041b8a2d2b649c3c778cdc3d699df03810"</span>,
+        <span class="token string">"EndpointID"</span><span class="token keyword">:</span> <span class="token string">"20b1a057de5de9d9c8a64d72ff215efcc56b50abeccbf208be1ef6473c8b1e19"</span>,
+        <span class="token string">"Gateway"</span><span class="token keyword">:</span> <span class="token string">"172.17.0.1"</span>,
+        <span class="token string">"IPAddress"</span><span class="token keyword">:</span> <span class="token string">"172.17.0.5"</span>,
+        <span class="token string">"IPPrefixLen"</span><span class="token keyword">:</span> 16,
+        <span class="token string">"IPv6Gateway"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+        <span class="token string">"GlobalIPv6Address"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+        <span class="token string">"GlobalIPv6PrefixLen"</span><span class="token keyword">:</span> 0,
+        <span class="token string">"MacAddress"</span><span class="token keyword">:</span> <span class="token string">"02:42:ac:11:00:05"</span>,
+        <span class="token string">"DriverOpts"</span><span class="token keyword">:</span> null
+      <span class="token punctuation">}</span>,
+      <span class="token comment" spellcheck="true"># Here!</span>
+      <span class="token string">"my_net"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"IPAMConfig"</span><span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>,
+        <span class="token string">"Links"</span><span class="token keyword">:</span> null,
+        <span class="token string">"Aliases"</span><span class="token keyword">:</span> <span class="token punctuation">[</span>
+          <span class="token string">"5d73baeef4e7"</span>
+        <span class="token punctuation">]</span>,
+        <span class="token string">"NetworkID"</span><span class="token keyword">:</span> <span class="token string">"48a9b08a5c44f34a1716885fab264ea6ccf58ceaa07adbc14f3b1ae5ac0a41d8"</span>,
+        <span class="token string">"EndpointID"</span><span class="token keyword">:</span> <span class="token string">"5e92f9f7767684daa035a92a153b65a334baf7f8b561ed8acff06eca41a0765b"</span>,
+        <span class="token string">"Gateway"</span><span class="token keyword">:</span> <span class="token string">"192.168.2.1"</span>,
+        <span class="token string">"IPAddress"</span><span class="token keyword">:</span> <span class="token string">"192.168.2.3"</span>,
+        <span class="token string">"IPPrefixLen"</span><span class="token keyword">:</span> 24,
+        <span class="token string">"IPv6Gateway"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+        <span class="token string">"GlobalIPv6Address"</span><span class="token keyword">:</span> <span class="token string">""</span>,
+        <span class="token string">"GlobalIPv6PrefixLen"</span><span class="token keyword">:</span> 0,
+        <span class="token string">"MacAddress"</span><span class="token keyword">:</span> <span class="token string">"02:42:c0:a8:02:03"</span>,
+        <span class="token string">"DriverOpts"</span><span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">]</span>
+
+$ docker network inspect my_net
+<span class="token punctuation">[</span><span class="token punctuation">{</span>
+  <span class="token string">"Name"</span><span class="token keyword">:</span> <span class="token string">"my_net"</span>,
+  <span class="token string">"Id"</span><span class="token keyword">:</span> <span class="token string">"48a9b08a5c44f34a1716885fab264ea6ccf58ceaa07adbc14f3b1ae5ac0a41d8"</span>,
+  <span class="token string">"Created"</span><span class="token keyword">:</span> <span class="token string">"2023-06-20T13:13:52.508531488+08:00"</span>,
+  <span class="token punctuation">..</span>.
+
+  <span class="token string">"Containers"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true"># Here!</span>
+    <span class="token string">"5d73baeef4e74a8a5808a16e12c080f0289d6ea2cf12a00aa576c6b0afe5ec93"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"Name"</span><span class="token keyword">:</span> <span class="token string">"def_net_os"</span>,
+      <span class="token string">"EndpointID"</span><span class="token keyword">:</span> <span class="token string">"5e92f9f7767684daa035a92a153b65a334baf7f8b561ed8acff06eca41a0765b"</span>,
+      <span class="token string">"MacAddress"</span><span class="token keyword">:</span> <span class="token string">"02:42:c0:a8:02:03"</span>,
+      <span class="token string">"IPv4Address"</span><span class="token keyword">:</span> <span class="token string">"192.168.2.3/24"</span>,
+      <span class="token string">"IPv6Address"</span><span class="token keyword">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span>,
+    <span class="token string">"8ffa841b7bb24ac29a5765701bfd7025c19fe109556672ddee4ceb2f46e6e56a"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"Name"</span><span class="token keyword">:</span> <span class="token string">"my_net_os"</span>,
+      <span class="token string">"EndpointID"</span><span class="token keyword">:</span> <span class="token string">"8e8b5f37df1217ad6e357a4f3f191ad68a2427357b905dc110df0762e4e885ba"</span>,
+      <span class="token string">"MacAddress"</span><span class="token keyword">:</span> <span class="token string">"02:42:c0:a8:02:02"</span>,
+      <span class="token string">"IPv4Address"</span><span class="token keyword">:</span> <span class="token string">"192.168.2.2/24"</span>,
+      <span class="token string">"IPv6Address"</span><span class="token keyword">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>,
+  <span class="token string">"Options"</span><span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>,
+  <span class="token string">"Labels"</span><span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">]</span>
+</code></pre>
+<p>容器与自定义网络间都维护了双方的信息，并且在 def_net_os 容器中，也新增了一个映射 my_net 网络网桥的网卡 eth1：</p>
+<pre class=" language-bash"><code class="language-bash">$ docker <span class="token function">exec</span> -it def_net_os ip addr show
+1: lo: <span class="token operator">&lt;</span>LOOPBACK,UP,LOWER_UP<span class="token operator">></span> mtu 65536 qdisc noqueue qlen 1000
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+inet 127.0.0.1/8 scope host lo
+valid_lft forever preferred_lft forever
+134: eth0@if135: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN<span class="token operator">></span> mtu 1500 qdisc noqueue
+link/ether 02:42:ac:11:00:05 brd ff:ff:ff:ff:ff:ff
+inet 172.17.0.5/16 brd 172.17.255.255 scope global eth0
+valid_lft forever preferred_lft forever
+
+<span class="token comment" spellcheck="true"># Here!</span>
+
+138: eth1@if139: <span class="token operator">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN<span class="token operator">></span> mtu 1500 qdisc noqueue
+link/ether 02:42:c0:a8:02:03 brd ff:ff:ff:ff:ff:ff
+inet 192.168.2.3/24 brd 192.168.2.255 scope global eth1
+valid_lft forever preferred_lft forever
+</code></pre>
+<p>通过一个简单示意图总结描述一下不同网络间通信的方式：<br><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1705217972952-9f5ade03-f5d7-4431-9bb0-878dbc77efe7.png" alt="img"></p>
+<h4 id="docker-layer"><a href="#docker-layer" class="headerlink" title="docker layer"></a>docker layer</h4><p>dockerfile中 RUN命令没执行一个就会生成一个layer ，如果修改一个dockerfile的最后几条RUN命令，重新打包，前面几层的docker layer会直接读取缓存中的，修改部分的将重新执行</p>
+<p>使用<code>docker builder prune</code>可以清空构件中产生的所有临时文件和镜像，包括未使用的docker layer</p>
+<p>如果使用这个命令就不能读取缓存快捷构建</p>
+<h4 id="Docker-ENTRYPOINT"><a href="#Docker-ENTRYPOINT" class="headerlink" title="Docker ENTRYPOINT"></a>Docker ENTRYPOINT</h4><p> 在 Dockerfile 中，ENTRYPOINT 是作为容器运行的命令存在的，但是他是非必须的，原因是除了可以在 Dockerfile 中填写 ENTRYPOINT，你还可以写 CMD，甚至同时使用两者</p>
+<p> 大部分的 Docker 镜像都定义了 ENTRYPOINT，即使不写，你依然可以从你的 base 镜像中获取到 ENTRYPOINT，前提当然是 base 镜像有定义</p>
+<p> 就算你的 Dockerfile 定义了 ENTRYPOINT，你还可以通过命令行的模式，在启动容器的时候提供 –entrypoint 选项来覆盖。下面的例子的含义是，通过 –entrypoint 来覆盖 Dockerfile 里定义的 ENTRYPOINT，然后给 CMD 命令传入 -l /tmp 的命令</p>
+<pre class=" language-bash"><code class="language-bash">$ docker run --entrypoint<span class="token operator">=</span>/bin/ls ubuntu -l /tmp
+</code></pre>
+<p>在dockerfile中定义的</p>
+<pre class=" language-dockerfile"><code class="language-dockerfile">FROM ubuntu:14.04
+ADD clean_log /usr/bin/clean_log
+RUN chmod +x /usr/bin/clean_log   
+ENTRYPOINT ["/usr/bin/clean_log"]   #将此镜像的入口点定义为clean_log脚本
+CMD ["7"]    #设置ENTRYPOINT命令的默认参数是7天
+</code></pre>
+<p>ENTRYPOINT和CMD的最佳实践——总是使用数组形式的写法：如果你经常在Docker Hub上查看别人的Dockerfile，会发现数组模式（例如 CMD [“/usr/bin/command”]）会比shell模式用得更多（CMD /usr/bin/command）。这是因为shell模式会自动在你提供的命令前面添加一个/bin/bash -c命令，这可能会导致意外的结果。不过有时shell模式更加有用</p>
+<p>ENTRYPROINT和CMD搭配可以定义容器需要运行的命令，而将命令行参数留给用户提供，则使用Dockerfile中的ENTRYPOINT命令是十分方便的，可以查看<a target="_blank" rel="noopener" href="https://blog.csdn.net/BigData_Mining/article/details/103814511">案例说明</a>。</p>
+<p> 可以搭配 CMD 命令使用：一般是变参才会使用 CMD ，这里的 CMD 等于是在给 ENTRYPOINT 传参</p>
+<pre class=" language-dockerfile"><code class="language-dockerfile">FROM nginx
+ENTRYPOINT ["nginx", "-c"] # 定参
+CMD ["/etc/nginx/nginx.conf"] # 变参 
+</code></pre>
+<h4 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker-Compose"></a>Docker-Compose</h4><p>Compose 通过一个配置文件来管理多个Docker容器，在配置文件中，所有的容器通过services来定义，然后使用<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=docker-compose&amp;spm=1001.2101.3001.7020">docker-compose</a>脚本来启动，停止和重启应用，和应用中的服务以及所有依赖服务的容器</p>
+<p>Compose和Docker兼容性</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/38828771/1701692876309-4e273246-e322-46d5-8808-e36614ec57a9.png" alt="img"></p>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><ol>
+<li>github 下载二进制文件安装<code>sudo curl -L https://github.com/docker/compose/releases/download/v3.4.0/docker-compose-</code>uname -s<code>-</code>uname -m<code> -o /usr/local/bin/docker-compose</code></li>
+</ol>
+<p><code>sudo chmod +x /usr/local/bin/docker-compose</code>添加可执行权限</p>
+<p><code>docker-compose --version</code> 检查版本</p>
+<ol>
+<li>pip 安装 <code>sudo pip install docker-compose</code></li>
+</ol>
+<h5 id="docker-compose-文件结构"><a href="#docker-compose-文件结构" class="headerlink" title="docker-compose 文件结构"></a>docker-compose 文件结构</h5><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3.7'</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span> 
+
+    <span class="token key atrule">mysql8</span><span class="token punctuation">:</span>
+        <span class="token key atrule">build</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 构建</span>
+          <span class="token key atrule">context</span><span class="token punctuation">:</span> ./dir 
+<span class="token comment" spellcheck="true"># 包含Dockerfile文件的目录路径，或者是git仓库的URL。 当提供的值是相对路径时，它被解释为相对</span>
+<span class="token comment" spellcheck="true"># 于当前compose文件的位置。 该目录也是发送到Docker守护程序构建镜像的上下文</span>
+
+        <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> Dockerfile<span class="token punctuation">-</span>alternate  
+<span class="token comment" spellcheck="true"># 备用Docker文件。Compose将使用备用文件来构建,还必须指定构建路径</span>
+  
+        <span class="token key atrule">args</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 添加构建镜像的参数，环境变量只能在构建过程中访问</span>
+          <span class="token key atrule">buildno</span><span class="token punctuation">:</span> <span class="token number">1  </span>
+          <span class="token key atrule">password</span><span class="token punctuation">:</span> secret
+        <span class="token key atrule">args</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> buildno=1  <span class="token comment" spellcheck="true"># 可以传递映射或列表</span>
+          <span class="token punctuation">-</span> password=secret
+<span class="token comment" spellcheck="true"># webapp服务将会通过./dir目录下的Dockerfile-alternate文件构建容器镜像</span>
+
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span>8.0.31
+<span class="token comment" spellcheck="true"># 指定启动容器的镜像，可以是镜像仓库/标签或者镜像id（或者id的前一部分）</span>
+<span class="token comment" spellcheck="true"># 如果镜像不存在，Compose将尝试从官方镜像仓库将其pull下来，如果你还指定了build，在这种情况下，</span>
+<span class="token comment" spellcheck="true"># 它将使用指定的build选项构建它，并使用image指定的名字和标记对其进行标记</span>
+
+        <span class="token key atrule">container_name</span><span class="token punctuation">:</span> jxscan<span class="token punctuation">-</span>mysql  <span class="token comment" spellcheck="true"># 指定一个自定义容器名称，而不是生成的默认名称</span>
+<span class="token comment" spellcheck="true"># 由于Docker容器名称必须是唯一的，因此如果指定了自定义名称，则无法将服务扩展到多个容器</span>
+        <span class="token key atrule">network_mode</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> frontend
+            
+        <span class="token comment" spellcheck="true"># restart: always</span>
+        <span class="token key atrule">restart</span><span class="token punctuation">:</span> <span class="token string">"no"</span>
+        <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+        <span class="token key atrule">restart</span><span class="token punctuation">:</span> on<span class="token punctuation">-</span>failure
+        <span class="token key atrule">restart</span><span class="token punctuation">:</span> unless<span class="token punctuation">-</span>stopped
+<span class="token comment" spellcheck="true"># no是默认的重启策略，在任何情况下都不会重启容器。 指定为always时，容器总是重新启动</span>
+<span class="token comment" spellcheck="true"># 如果退出代码指示出现故障错误，则on-failure将重新启动容器。</span>
+
+        <span class="token key atrule">hostname</span><span class="token punctuation">:</span> mysql8
+        <span class="token key atrule">expose</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token string">"8000"</span>
+<span class="token comment" spellcheck="true"># expose:暴露端口，但不映射到宿主机，只被连接的服务访问,仅可以指定内部端口为参数</span>
+
+
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 短格式</span>
+            <span class="token punctuation">-</span> <span class="token string">"3306:3306"</span>
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 长格式</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">target</span><span class="token punctuation">:</span> <span class="token number">80 </span><span class="token comment" spellcheck="true"># 容器内的端口 </span>
+              <span class="token key atrule">published</span><span class="token punctuation">:</span> <span class="token number">8080 </span><span class="token comment" spellcheck="true"># 物理主机的端口 </span>
+              <span class="token key atrule">protocol</span><span class="token punctuation">:</span> tcp  <span class="token comment" spellcheck="true"># 端口协议（tcp或udp） </span>
+              <span class="token key atrule">mode</span><span class="token punctuation">:</span> host <span class="token comment" spellcheck="true"># host 和ingress 两总模式，host用于在每个节点上发布主机端口，</span>
+<span class="token comment" spellcheck="true"># ingress 用于被负载平衡的swarm模式端口</span>
+
+          <span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+              <span class="token key atrule">resources</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 资源限制</span>
+                <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+                  <span class="token key atrule">cpus</span><span class="token punctuation">:</span> <span class="token string">'0.5'</span>  <span class="token comment" spellcheck="true"># 限制只能使用0.5CPU</span>
+                  <span class="token key atrule">memory</span><span class="token punctuation">:</span> 512M  <span class="token comment" spellcheck="true"># 限制内存大小不能超过</span>
+                <span class="token key atrule">reservations</span><span class="token punctuation">:</span>
+                  <span class="token key atrule">memory</span><span class="token punctuation">:</span> 256M  <span class="token comment" spellcheck="true"># 限制内存最小使用</span>
+
+<span class="token comment" spellcheck="true"># ports:暴露端口信息。 </span>
+<span class="token comment" spellcheck="true"># 常用的简单格式：使用宿主：容器 （HOST:CONTAINER）格式或者仅仅指定容器的端口（宿主将会随机选择</span>
+<span class="token comment" spellcheck="true"># 端口）都可以。</span>
+
+<span class="token comment" spellcheck="true"># 注意：当使用 HOST:CONTAINER 格式来映射端口时，如果你使用的容器端口小于 60 你可能会得到错误得</span>
+<span class="token comment" spellcheck="true"># 结果，因为 YAML 将会解析 xx:yy 这种数字格式为 60 进制。所以建议采用字符串格式。</span>
+
+        <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> /etc/localtime<span class="token punctuation">:</span>/etc/localtime<span class="token punctuation">:</span>ro
+            <span class="token punctuation">-</span> /opt/jxscan/docker/mysql/config/<span class="token punctuation">:</span>/etc/mysql
+            <span class="token punctuation">-</span> /opt/jxscan/docker/mysql/data/<span class="token punctuation">:</span>/var/lib/mysql
+            
+<span class="token comment" spellcheck="true"># 卷挂载路径设置。可以设置宿主机路径 （HOST:CONTAINER） 或加上访问模式 （HOST:CONTAINER:ro）,</span>
+<span class="token comment" spellcheck="true"># 挂载数据卷的默认权限是读写（rw），可以通过ro指定为只读.你可以在主机上挂载相对路径，该路径将相</span>
+<span class="token comment" spellcheck="true"># 对于当前正在使用的Compose配置文件的目录进行扩展。 相对路径应始终以 . 或者 .. 开始。</span>
+
+            
+            <span class="token punctuation">-</span> /var/lib/mysql  <span class="token comment" spellcheck="true"># 只需指定一个路径，让引擎创建一个卷</span>
+           
+            <span class="token punctuation">-</span> /opt/data<span class="token punctuation">:</span>/var/lib/mysql  <span class="token comment" spellcheck="true"># 指定绝对路径映射</span>
+           
+            <span class="token punctuation">-</span> ./cache<span class="token punctuation">:</span>/tmp/cache  <span class="token comment" spellcheck="true"># 相对于当前compose文件的相对路径</span>
+           
+            <span class="token punctuation">-</span> ~/configs<span class="token punctuation">:</span>/etc/configs/<span class="token punctuation">:</span>ro  <span class="token comment" spellcheck="true"># 用户家目录相对路径</span>
+           
+            <span class="token punctuation">-</span> datavolume<span class="token punctuation">:</span>/var/lib/mysql  <span class="token comment" spellcheck="true"># 命名卷</span>
+       
+        <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+            <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> jxscan123!
+            
+<span class="token comment" spellcheck="true"># 重用挂载卷情况：情况一、直接复写</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">web1</span><span class="token punctuation">:</span>
+    <span class="token key atrule">build</span><span class="token punctuation">:</span> ./web/
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ../code<span class="token punctuation">:</span>/opt/web/code
+  <span class="token key atrule">web2</span><span class="token punctuation">:</span>
+    <span class="token key atrule">build</span><span class="token punctuation">:</span> ./web/
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ../code<span class="token punctuation">:</span>/opt/web/code
+      
+<span class="token comment" spellcheck="true"># 重用挂载卷情况：情况二、顶级volumes</span>
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">data-volume</span><span class="token punctuation">:</span>
+  
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">web1</span><span class="token punctuation">:</span>
+    <span class="token key atrule">build</span><span class="token punctuation">:</span> ./web/
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> data<span class="token punctuation">-</span>volume<span class="token punctuation">:</span>/var/lib/db
+  <span class="token key atrule">web2</span><span class="token punctuation">:</span>
+    <span class="token key atrule">build</span><span class="token punctuation">:</span> ./web/
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> data<span class="token punctuation">-</span>volume<span class="token punctuation">:</span>/var/lib/backup/data
+<span class="token comment" spellcheck="true"># 注意：通过顶级volumes定义一个挂载卷，并从每个服务的卷列表中引用它， 这会替换早期版本的</span>
+<span class="token comment" spellcheck="true"># Compose文件格式中volumes_from。</span>
+      
+      
+    <span class="token key atrule">redis6</span><span class="token punctuation">:</span>
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> redis<span class="token punctuation">:</span>6.2.1
+        <span class="token key atrule">container_name</span><span class="token punctuation">:</span> jxscan<span class="token punctuation">-</span>redis
+        <span class="token key atrule">hostname</span><span class="token punctuation">:</span> redis6
+        <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+        <span class="token key atrule">network_mode</span><span class="token punctuation">:</span> <span class="token string">"bridge"</span>
+<span class="token comment" spellcheck="true"># 在 linux 上使用 host 网络模式启动容器的话，可以在本机通过 127.0.0.1 的方式访问</span>
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token string">"6379:6379"</span>
+            
+        <span class="token key atrule">pid</span><span class="token punctuation">:</span> <span class="token string">"host"</span>
+<span class="token comment" spellcheck="true"># 将PID模式设置为主机PID模式。 这就打开了容器与主机操作系统之间的共享PID地址空间</span>
+<span class="token comment" spellcheck="true"># 使用此标志启动的容器将能够访问和操作裸机的命名空间中的其他容器，反之亦然。即打开该选项的容器</span>
+<span class="token comment" spellcheck="true"># 可以相互通过进程 ID 来访问和操作</span>
+
+        <span class="token key atrule">dns</span><span class="token punctuation">:</span> 8.8.8.8
+        <span class="token key atrule">dns</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> 8.8.8.8
+          <span class="token punctuation">-</span> 9.9.9.9
+<span class="token comment" spellcheck="true"># 配置 DNS 服务器。可以是一个值，也可以是一个列表</span>
+
+        <span class="token key atrule">deploy</span><span class="token punctuation">:</span>
+              <span class="token key atrule">replicas</span><span class="token punctuation">:</span> <span class="token number">2</span>
+              <span class="token key atrule">update_config</span><span class="token punctuation">:</span>
+                <span class="token key atrule">parallelism</span><span class="token punctuation">:</span> <span class="token number">2</span>
+                <span class="token key atrule">delay</span><span class="token punctuation">:</span> 10s
+              <span class="token key atrule">restart_policy</span><span class="token punctuation">:</span>
+                <span class="token key atrule">condition</span><span class="token punctuation">:</span> on<span class="token punctuation">-</span>failure
+        <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> /etc/localtime<span class="token punctuation">:</span>/etc/localtime<span class="token punctuation">:</span>ro
+            <span class="token punctuation">-</span> /opt/jxscan/docker/redis/conf/redis.conf<span class="token punctuation">:</span>/usr/local/etc/redis/redis.conf
+            <span class="token punctuation">-</span> /opt/jxscan/docker/redis/logs/redis<span class="token punctuation">-</span>server.log<span class="token punctuation">:</span>/var/log/redis<span class="token punctuation">-</span>server.log
+        
+        
+        <span class="token key atrule">command</span><span class="token punctuation">:</span> redis<span class="token punctuation">-</span>server /usr/local/etc/redis/redis.conf
+<span class="token comment" spellcheck="true"># 覆盖容器启动后默认执行的命令。</span>
+                <span class="token key atrule">command</span><span class="token punctuation">:</span> bundle exec thin <span class="token punctuation">-</span>p 3000
+<span class="token comment" spellcheck="true"># 该命令也可以是一个类似于dockerfile的列表：</span>
+                <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"bundle"</span><span class="token punctuation">,</span> <span class="token string">"exec"</span><span class="token punctuation">,</span> <span class="token string">"thin"</span><span class="token punctuation">,</span> <span class="token string">"-p"</span><span class="token punctuation">,</span> <span class="token string">"3000"</span><span class="token punctuation">]</span>
+                
+                
+                
+<span class="token comment" spellcheck="true"># links 链接到另一个服务中的容器。 请指定服务名称和链接别名（SERVICE：ALIAS），或者仅指定服</span>
+<span class="token comment" spellcheck="true"># 务名称。</span>
+<span class="token key atrule">web</span><span class="token punctuation">:</span>
+  <span class="token key atrule">links</span><span class="token punctuation">:</span>
+   <span class="token punctuation">-</span> db
+   <span class="token punctuation">-</span> db<span class="token punctuation">:</span>database
+   <span class="token punctuation">-</span> redis
+<span class="token comment" spellcheck="true"># 链接到docker-compose.yml 外部的容器，甚至并非 Compose 管理的容器。参数格式跟 links 类似。</span>
+  <span class="token key atrule">external_links</span><span class="token punctuation">:</span>
+   <span class="token punctuation">-</span> redis_1
+   <span class="token punctuation">-</span> project_db_1<span class="token punctuation">:</span>mysql
+   <span class="token punctuation">-</span> project_db_1<span class="token punctuation">:</span>postgresql
+   
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">frontend</span><span class="token punctuation">:</span>
+  <span class="token key atrule">backend</span><span class="token punctuation">:</span>
+ 
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">db-data</span><span class="token punctuation">:</span>
+  
+下面是定义网络的实例：
+  <span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">"3.3"</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">db</span><span class="token punctuation">:</span>
+    <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mysql_db
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql<span class="token punctuation">:</span>latest
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> MYSQL_ROOT_PASSWORD=password
+      <span class="token punctuation">-</span> MYSQL_ROOT_HOST=10.5.0.1
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 3306<span class="token punctuation">:</span><span class="token number">3306</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> db<span class="token punctuation">:</span>/var/lib/mysql
+    <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+      <span class="token key atrule">custom_network</span><span class="token punctuation">:</span>
+        <span class="token key atrule">ipv4_address</span><span class="token punctuation">:</span> 10.5.0.5
+
+<span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+  <span class="token key atrule">db</span><span class="token punctuation">:</span>
+    <span class="token key atrule">driver</span><span class="token punctuation">:</span> local
+
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">custom_network</span><span class="token punctuation">:</span>
+    <span class="token key atrule">driver</span><span class="token punctuation">:</span> bridge
+    <span class="token key atrule">ipam</span><span class="token punctuation">:</span>
+      <span class="token key atrule">driver</span><span class="token punctuation">:</span> default
+      <span class="token key atrule">config</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">subnet</span><span class="token punctuation">:</span> 10.5.0.0/16
+      
+          <span class="token comment" spellcheck="true"># gateway: 10.5.0.1</span>
+网关注释掉，因为报错：
+<span class="token key atrule">ERROR</span><span class="token punctuation">:</span> The Compose file './docker<span class="token punctuation">-</span>compose.yml' is invalid because<span class="token punctuation">:</span>
+networks.backend.ipam.config value Additional properties are not allowed ('gateway' was unexpected)
+
+解决办法：
+<span class="token key atrule">config</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">subnet</span><span class="token punctuation">:</span> 10.5.0.0/16
+        <span class="token key atrule">gateway</span><span class="token punctuation">:</span> 10.5.0.1  <span class="token comment" spellcheck="true"># 网关设置在这里</span>
+        
+        
+
+AI docker<span class="token punctuation">-</span>compose
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">'3.7'</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span> 
+
+    <span class="token key atrule">mysql</span><span class="token punctuation">:</span>
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> mysql_new<span class="token punctuation">:</span>latest
+        <span class="token key atrule">container_name</span><span class="token punctuation">:</span> mysql_nwpu
+        <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+        <span class="token key atrule">hostname</span><span class="token punctuation">:</span> mysql
+        <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+            <span class="token key atrule">backend</span><span class="token punctuation">:</span>
+                <span class="token key atrule">ipv4_address</span><span class="token punctuation">:</span> 172.18.0.3
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token string">"20001:3306"</span>
+        <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+            <span class="token key atrule">MYSQL_ROOT_PASSWORD</span><span class="token punctuation">:</span> <span class="token number">123456</span>
+
+    <span class="token key atrule">llm</span><span class="token punctuation">:</span>
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> llm_garak<span class="token punctuation">:</span><span class="token number">2.0</span>
+        <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+        <span class="token key atrule">container_name</span><span class="token punctuation">:</span> llm
+        <span class="token key atrule">hostname</span><span class="token punctuation">:</span> llm
+        <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+            <span class="token key atrule">backend</span><span class="token punctuation">:</span>
+                <span class="token key atrule">ipv4_address</span><span class="token punctuation">:</span> 172.18.0.4
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token string">"20013:20013"</span>
+
+    <span class="token key atrule">ai_web_nwpu</span><span class="token punctuation">:</span>
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> ai_frontend<span class="token punctuation">:</span>latest
+        <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+        <span class="token key atrule">container_name</span><span class="token punctuation">:</span> ai<span class="token punctuation">-</span>frontend
+        <span class="token key atrule">hostname</span><span class="token punctuation">:</span> web
+        <span class="token key atrule">network_mode</span><span class="token punctuation">:</span> <span class="token string">"host"</span>
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token string">"80:80"</span>
+        <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> /etc/localtime<span class="token punctuation">:</span>/etc/localtime<span class="token punctuation">:</span>ro
+            <span class="token punctuation">-</span> /opt/docker/ai_frontend/nginx/nginx.conf<span class="token punctuation">:</span>/etc/nginx/nginx.conf
+            <span class="token punctuation">-</span> /opt/docker/ai_frontend/nginx/conf.d/<span class="token punctuation">:</span>/etc/nginx/conf.d/
+            <span class="token punctuation">-</span> /opt/docker/ai_frontend/nginx/html/<span class="token punctuation">:</span>/var/www/html/
+
+    <span class="token key atrule">ai_evaluate_nwpu</span><span class="token punctuation">:</span>
+        <span class="token key atrule">image</span><span class="token punctuation">:</span> ai_evaluate<span class="token punctuation">:</span><span class="token number">1.1</span>
+        <span class="token key atrule">restart</span><span class="token punctuation">:</span> always
+        <span class="token key atrule">hostname</span><span class="token punctuation">:</span> backend
+        <span class="token key atrule">container_name</span><span class="token punctuation">:</span> ai_evaluate
+        <span class="token key atrule">networks</span><span class="token punctuation">:</span>
+            <span class="token key atrule">backend</span><span class="token punctuation">:</span>
+                <span class="token key atrule">ipv4_address</span><span class="token punctuation">:</span> 172.18.0.2
+        <span class="token key atrule">ports</span><span class="token punctuation">:</span> 
+            <span class="token punctuation">-</span> <span class="token string">"20010:20010"</span>
+        <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> /opt/docker/ai_backend/config.py<span class="token punctuation">:</span>/code/ai_evaluate/function/databases/config.py
+
+<span class="token key atrule">networks</span><span class="token punctuation">:</span>
+    <span class="token key atrule">backend</span><span class="token punctuation">:</span>
+        <span class="token key atrule">driver</span><span class="token punctuation">:</span> <span class="token string">"bridge"</span>
+        <span class="token key atrule">ipam</span><span class="token punctuation">:</span>
+            <span class="token key atrule">driver</span><span class="token punctuation">:</span> default
+            <span class="token key atrule">config</span><span class="token punctuation">:</span>
+                <span class="token punctuation">-</span> <span class="token key atrule">subnet</span><span class="token punctuation">:</span> 172.18.0.0/16
+</code></pre>
+<p> 提示：您可以对此文件使用.yml或.yaml扩展名，他们都工作</p>
+<p> 与docker运行一样，默认情况下，Dockerfile中指定的选项（例如，CMD，EXPOSE，VOLUME，ENV）都被遵守，你不需要在docker-compose.yml中再次指定它们</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">environment</span><span class="token punctuation">:</span>
+  <span class="token key atrule">RACK_ENV</span><span class="token punctuation">:</span> development
+  <span class="token key atrule">SHOW</span><span class="token punctuation">:</span> <span class="token string">'true'</span>
+  <span class="token key atrule">SESSION_SECRET</span><span class="token punctuation">:</span>
+ 
+<span class="token key atrule">environment</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> RACK_ENV=development
+  <span class="token punctuation">-</span> SHOW=true
+  <span class="token punctuation">-</span> SESSION_SECRET
+<span class="token comment" spellcheck="true"># 添加环境变量。 你可以使用数组或字典两种形式。 任何布尔值; true，false，yes，no需要用引号</span>
+<span class="token comment" spellcheck="true"># 括起来，以确保它们不被YML解析器转换为True或False。 </span>
+<span class="token comment" spellcheck="true"># 只给定名称的变量会自动获取它在 Compose 主机上的值，可以用来防止泄露不必要的数据。</span>
+</code></pre>
+<p> 注意：如果你的服务指定了build选项，那么在构建过程中通过environment定义的环境变量将不会起作用。 将使用build的args子选项来定义构建时的环境变量。  </p>
+<pre class=" language-bash"><code class="language-bash">docker-conpose down <span class="token comment" spellcheck="true"># 停止运行定义的容器</span>
+docker-compose up -d <span class="token comment" spellcheck="true"># 运行定义的容器</span>
+</code></pre>
+<p>注意：YAML布尔值（true，false，yes，no，on，off）必须用引号括起来，以便解析器将它们解释为字符串</p>
+<h5 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h5><h6 id="pip-安装-docker-compose-启动报错"><a href="#pip-安装-docker-compose-启动报错" class="headerlink" title="pip 安装 docker-compose 启动报错"></a>pip 安装 docker-compose 启动报错</h6><pre class=" language-python"><code class="language-python">root@kys<span class="token punctuation">:</span><span class="token operator">/</span>opt<span class="token operator">/</span>docker<span class="token comment" spellcheck="true"># docker-compose up</span>
+Traceback <span class="token punctuation">(</span>most recent call last<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  File <span class="token string">"/usr/local/bin/docker-compose"</span><span class="token punctuation">,</span> line <span class="token number">8</span><span class="token punctuation">,</span> <span class="token keyword">in</span> <span class="token operator">&lt;</span>module<span class="token operator">></span>
+    sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span>main<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  File <span class="token string">"/usr/local/lib/python3.10/dist-packages/compose/cli/main.py"</span><span class="token punctuation">,</span> line <span class="token number">81</span><span class="token punctuation">,</span> <span class="token keyword">in</span> main
+    command_func<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  File <span class="token string">"/usr/local/lib/python3.10/dist-packages/compose/cli/main.py"</span><span class="token punctuation">,</span> line <span class="token number">200</span><span class="token punctuation">,</span> <span class="token keyword">in</span> perform_command
+    project <span class="token operator">=</span> project_from_options<span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+  File <span class="token string">"/usr/local/lib/python3.10/dist-packages/compose/cli/command.py"</span><span class="token punctuation">,</span> line <span class="token number">60</span><span class="token punctuation">,</span> <span class="token keyword">in</span> project_from_options
+    <span class="token keyword">return</span> get_project<span class="token punctuation">(</span>
+  File <span class="token string">"/usr/local/lib/python3.10/dist-packages/compose/cli/command.py"</span><span class="token punctuation">,</span> line <span class="token number">152</span><span class="token punctuation">,</span> <span class="token keyword">in</span> get_project
+    client <span class="token operator">=</span> get_client<span class="token punctuation">(</span>
+  File <span class="token string">"/usr/local/lib/python3.10/dist-packages/compose/cli/docker_client.py"</span><span class="token punctuation">,</span> line <span class="token number">41</span><span class="token punctuation">,</span> <span class="token keyword">in</span> get_client
+    client <span class="token operator">=</span> docker_client<span class="token punctuation">(</span>
+  File <span class="token string">"/usr/local/lib/python3.10/dist-packages/compose/cli/docker_client.py"</span><span class="token punctuation">,</span> line <span class="token number">124</span><span class="token punctuation">,</span> <span class="token keyword">in</span> docker_client
+    kwargs <span class="token operator">=</span> kwargs_from_env<span class="token punctuation">(</span>environment<span class="token operator">=</span>environment<span class="token punctuation">,</span> ssl_version<span class="token operator">=</span>tls_version<span class="token punctuation">)</span>
+TypeError<span class="token punctuation">:</span> kwargs_from_env<span class="token punctuation">(</span><span class="token punctuation">)</span> got an unexpected keyword argument <span class="token string">'ssl_version'</span>
+</code></pre>
+<p>docker 命令管理示例：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1706759942788-9b969a1b-5796-4291-b91a-98a532cdcb57.png" alt="img"></p>
+<h4 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h4><ul>
+<li>不对大小写敏感</li>
+</ul>
+<p>指令介绍</p>
+<pre class=" language-dockerfile"><code class="language-dockerfile">FROM                    # 基础镜像
+MAINTAINER        # 镜像是谁写的，姓名+邮箱
+
+ARG DEBIAN_FRONTEND=noninteractive
+# 这个命令很奇怪，我安装python3-tk需要交互，必须输入数字指定地区，而却还会改变自己的时区
+# 使用这个命令之后没有交互，
+
+RUN     \            # 镜像构建时需要运行的命令
+# 一个 RUN 指令执行会在当前镜像的基础上创建一个新的镜像层，接下来的指令将在这个新的镜像层上执行
+# RUN 语句有两种不同的形式：shell 格式和 exec 格式
+      ls -l &&\ # 多行模式
+      cd /etc 
+
+ADD                    # 添加内容，类似copy 复制.tar等归档文件会先解压再复制，支持URL作为源路径，自动下载
+WORKDIR            # 镜像工作目录
+VOLUME            # 挂载的目录
+EXPOSE            # 暴露端口配置
+CMD                    # 指定这个容器启动的时候要运行的命令,只有最后一个会生效，可被替代
+ENTRYPOINT    # 指定这个容器启动的时候要运行的命令，可以追加命令
+ONBUILD
+# 当构建一个被继承DockerFile 这个时候就会运行 ONBUILD 的指令，触发指令
+COPY
+# 拷贝，不支持自动解压归档文件.tar,不会复制源文件的头文件夹，而是指定文件夹的内容
+ENV
+# 构建的时候设置环境变量
+</code></pre>
+<p>COPY ADD 如果指定目录已经存在，都不会将文件覆盖，需要先删除</p>
+<p>注意：多行命令不要写多个RUN，原因是Dockerfile中每一个指令都会建立一层.</p>
+<p>多少个RUN就构建了多少层镜像，会造成镜像的臃肿、多层，不仅仅增加了构件部署的时间，还容易出错。</p>
+<p>RUN书写时的换行符是\  &amp;&amp;\</p>
+<p>dockerfile 需要一个 CMD ，不然docker run 可以启动，但是docker-compose启动会直接退出， 启动后没有默认的命令运行，而是立即退出 </p>
+<p>DockerFile(node环境带有gitee拉取代码)</p>
+<pre class=" language-dockerfile"><code class="language-dockerfile">FROM node:20
+RUN mkdir /root/.ssh/
+# "gitee" is the generated rsa file
+ADD gitee /root/.ssh/id_rsa
+RUN chmod 700 /root/.ssh/id_rsa
+RUN chown -R root:root /root/.ssh
+RUN touch /root/.ssh/known_hosts
+RUN ssh-keyscan gitee.com >> /root/.ssh/known_hosts
+# clone the project repo url
+RUN git clone <the code repository url>
+# the repository name
+WORKDIR /<the repository name>
+RUN npm install --global spa-http-server  --registry=https://registry.npm.taobao.org
+RUN npm install --global @vue/cli --registry=https://registry.npm.taobao.org
+EXPOSE 8080
+ENV BASE_URL http://localhost:10002
+# the repository name
+ENTRYPOINT cd /<the repository name> \
+    && git pull \
+    && export VUE_APP_API_BASE_URL=${BASE_URL} \
+    && npm install --registry=https://registry.npm.taobao.org \
+    && npm run build \
+    && cd /system/dist/ \
+    && http-server --push-state
+</code></pre>
+<p>这是针对上面环境的示例</p>
+<pre class=" language-dockerfile"><code class="language-dockerfile">FROM node:14
+RUN mkdir /root/.ssh/
+ADD gitee /root/.ssh/id_rsa
+RUN chmod 700 /root/.ssh/id_rsa
+RUN chown -R root:root /root/.ssh
+RUN touch /root/.ssh/known_hosts
+RUN ssh-keyscan gitee.com >> /root/.ssh/known_hosts
+RUN git clone git@gitee.com:fwgood/system.git
+WORKDIR /system
+RUN npm install --global spa-http-server  --registry=https://registry.npm.taobao.org
+RUN npm install --global @vue/cli --registry=https://registry.npm.taobao.org
+EXPOSE 8080
+ENV BASE_URL http://localhost:10002
+ENTRYPOINT cd /system \
+    && git pull \
+    && export VUE_APP_API_BASE_URL=${BASE_URL} \
+    && npm install --registry=https://registry.npm.taobao.org \
+    && npm run build \
+    && cd /system/dist/ \
+    && http-server --push-state
+</code></pre>
+<p>dockerfile 使用虚拟环境流程：</p>
+<p>在本地下载好虚拟环境中项目所需的包，dockerfile中使用虚拟环境的python解释器（绝对路径）启动项目</p>
+<pre class=" language-bash"><code class="language-bash">FROM daocloud.io/library/centos:centos7
+
+ENV PROJECT_PATH<span class="token operator">=</span><span class="token string">"/opt/hy/release/sa_process"</span> \
+    LANG<span class="token operator">=</span><span class="token string">"en_US.UTF-8"</span>
+
+RUN \
+  <span class="token function">mkdir</span> -p /opt/hy/release/sa_process <span class="token operator">&amp;&amp;</span>\
+  <span class="token function">mkdir</span> -p /var/log/hy_log
+
+
+<span class="token comment" spellcheck="true"># 拷贝项目代码</span>
+COPY ./init <span class="token variable">$PROJECT_PATH</span>/init
+COPY ./models <span class="token variable">$PROJECT_PATH</span>/models
+COPY ./settings <span class="token variable">$PROJECT_PATH</span>/settings
+COPY ./tasks <span class="token variable">$PROJECT_PATH</span>/tasks
+COPY ./utils <span class="token variable">$PROJECT_PATH</span>/utils
+COPY ./main.py <span class="token variable">$PROJECT_PATH</span>/main.py
+COPY ./env.tar <span class="token variable">$PROJECT_PATH</span>/env.tar
+<span class="token comment" spellcheck="true"># 换源</span>
+COPY ./docker/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
+COPY ./docker/epel.repo /etc/yum.repos.d/epel.repo
+<span class="token comment" spellcheck="true"># 拷贝python3.7源文件</span>
+COPY ./docker/Python-3.7.12.tar.xz /opt/Python-3.7.12.tar.xz
+<span class="token comment" spellcheck="true"># 拷贝yum缓存</span>
+COPY ./docker/yum /var/cache/yum
+
+RUN \
+  <span class="token comment" spellcheck="true"># 修改时区为中国时区</span>
+  <span class="token function">rm</span> -f /etc/localtime <span class="token operator">&amp;&amp;</span> <span class="token function">cp</span> /usr/share/zoneinfo/Asia/Shanghai /etc/localtime <span class="token operator">&amp;&amp;</span>\
+  <span class="token comment" spellcheck="true"># 安装开发工具</span>
+  yum -C -y groupinstall <span class="token string">"Development tools"</span> <span class="token operator">&amp;&amp;</span>\
+  yum -C -y <span class="token function">install</span> zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel <span class="token operator">&amp;&amp;</span>\
+  yum clean all <span class="token operator">&amp;&amp;</span>\
+  <span class="token comment" spellcheck="true"># 安装python3.7</span>
+  <span class="token function">mkdir</span> /usr/local/python3 <span class="token operator">&amp;&amp;</span>\
+  <span class="token function">tar</span> xJf /opt/Python-3.7.12.tar.xz -C /opt/  <span class="token operator">&amp;&amp;</span>\
+  <span class="token function">cd</span> /opt/Python-3.7.12 <span class="token operator">&amp;&amp;</span> ./configure --prefix<span class="token operator">=</span>/usr/local/python3 <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> <span class="token function">install</span> <span class="token operator">&amp;&amp;</span>\
+  <span class="token function">cd</span> /opt <span class="token operator">&amp;&amp;</span> <span class="token function">rm</span> -rf /opt/Python-3.7.12*  <span class="token operator">&amp;&amp;</span>\
+  <span class="token function">ln</span> -s /usr/local/python3/bin/python3 /usr/local/bin/python3 <span class="token operator">&amp;&amp;</span>\
+  <span class="token function">ln</span> -s /usr/local/python3/bin/pip3 /usr/local/bin/pip3 <span class="token operator">&amp;&amp;</span>\
+  <span class="token comment" spellcheck="true"># 解压项目文件</span>
+  <span class="token function">cd</span> <span class="token variable">$PROJECT_PATH</span> <span class="token operator">&amp;&amp;</span> <span class="token function">tar</span> xf env.tar <span class="token operator">&amp;&amp;</span> <span class="token function">rm</span> -f env.tar
+
+WORKDIR <span class="token variable">$PROJECT_PATH</span>
+CMD /opt/hy/release/sa_process/env/bin/python /opt/hy/release/sa_process/main.py
+</code></pre>
+<p>重新封装mysql</p>
+<pre class=" language-yaml"><code class="language-yaml">FROM mysql<span class="token punctuation">:</span>5.7.32  <span class="token comment" spellcheck="true"># 已有的镜像</span>
+COPY evaluate1220.sql /
+RUN service mysql start &amp;&amp;\
+    mysql <span class="token punctuation">-</span>uroot <span class="token punctuation">-</span>p123456 <span class="token punctuation">-</span>e "CREATE DATABASE evaluate" &amp;&amp;\
+    mysql <span class="token punctuation">-</span>uroot <span class="token punctuation">-</span>p123456 evaluate &lt; /evaluate1220.sql &amp;&amp;\
+    mysql <span class="token punctuation">-</span>uroot <span class="token punctuation">-</span>p123456 <span class="token punctuation">-</span>e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456';" &amp;&amp;\
+    mysql <span class="token punctuation">-</span>uroot <span class="token punctuation">-</span>p123456 <span class="token punctuation">-</span>e "FLUSH PRIVILEGES;"
+</code></pre>
+<h4 id="Docker使用MySQL"><a href="#Docker使用MySQL" class="headerlink" title="Docker使用MySQL"></a>Docker使用MySQL</h4><p><code>docker pull mysql</code> 默认安装最新版</p>
+<p>本地创建挂载目录 -v 如果安装最新版或者MySQL8.0及以下请查看<a target="_blank" rel="noopener" href="https://www.yuque.com/shinaryen/rd9xmx/sruesqz66osiq613?inner=u32e9e2e5">第二个报错</a></p>
+<pre class=" language-bash"><code class="language-bash">docker run -p 3306:3306 --name mysql \
+-v /mydata/mysql/log:/var/log/mysql \
+-v /mydata/mysql/data:/var/lib/mysql \
+-v /mydata/mysql/conf:/etc/mysql \
+-e MYSQL_ROOT_PASSWORD<span class="token operator">=</span>root \
+-d mysql:latest
+</code></pre>
+<p>命令详解：</p>
+<p>docker run:在docker中启动一个容器实例</p>
+<p>-d:该容器在后台运行</p>
+<p>-p 3306:3306：容器与主机映射端口为，主机3306，容器3306</p>
+<p>–name mysql：容器运行后的名称</p>
+<p>-v /mysqldata/mysql/log:/var/log/mysql：将容器/var/log/mysql目录下的数据，备份到主机的 /mysqldata/mysql/log目录下</p>
+<p>-v /mysqldata/mysql/data:/var/lib/mysql：将容器/var/lib/mysql目录下的数据，备份到主机的 /mysqldata/mysql/data目录下</p>
+<p>-v /mysqldata/mysql/conf:/etc/mysql：将容器/etc/mysql目录下的数据，备份到主机的 mysqldata/mysql/conf目录下</p>
+<p>-e MYSQL_ROOT_PASSWORD=root：设置当前mysql实例的密码为root</p>
+<p>mysql:5.7:需要运行的容器名称以及版本号</p>
+<p><code>docker exec -ti mysql bash</code>   进入容器</p>
+<p><code>mysql -u root -p</code> 输入密码登入MySQL</p>
+<p>远程访问设置</p>
+<p><code>create user 'admin'@'%' identified by '10217';</code>  创建账户用于远程</p>
+<p><code>grant all on *.* to 'admin'@'%';</code> 赋予所有权限</p>
+<p><code>alter user 'admin'@'%' identified with mysql_native_password by '10217';</code>  设置密码</p>
+<p><code>flush privileges;</code>  刷新权限</p>
+<p>将现有的镜像重新打包成新的镜像</p>
+<pre class=" language-dockerfile"><code class="language-dockerfile">FROM mysql:5.7.32  // 现有的镜像名称
+COPY evaluate1220.sql /
+RUN service mysql start &&\
+        mysql -uroot -p123456 -e "CREATE DATABASE evaluate" &&\
+        mysql -uroot -p123456 evaluate < /evaluate1220.sql &&\
+        mysql -uroot -p123456 -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456';" &&\
+        mysql -uroot -p123456 -e "FLUSH PRIVILEGES;"
+</code></pre>
+<h5 id="报错记录"><a href="#报错记录" class="headerlink" title="报错记录"></a>报错记录</h5><details class="lake-collapse"><summary id="ub846d6b2"><span class="ne-text">1. 运行容器并挂载目录出错</span></summary><p id="u88cf6aa8" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">报错代码段</span></p><pre data-language="bash" id="NF3iU" class="ne-codeblock language-bash" style="border: 1px solid #e8e8e8; border-radius: 2px; background: #f9f9f9; padding: 16px; font-size: 13px; color: #595959"><code>[root@VM-12-12-centos ~]# docker run -p 3306:3306 --name mysql \
+&gt; -v /mydata/mysql/log:/var/log/mysql \
+&gt; -v /mydata/mysql/data:/var/lib/mysql \
+&gt; -v /mydata/mysql/conf:/etc/mysql \
+&gt; -e MYSQL_ROOT_PASSWORD=root \
+&gt; -d mysql:latest
+79c8a53d443ce5de8a78a0851f00f9a46f8868e9d5c0047c9981773af127e7e8
+docker: Error response from daemon: driver failed programming external 
+connectivity on endpoint mysql (8699581b7317243f12940ca11315b7e0846a2afe01f9e97
+16035d3db240458c6):  (iptables failed: iptables --wait -t filter -A DOCKER ! -i
+docker0 -o docker0 -p tcp -d 172.17.0.2 --dport 3306 -j ACCEPT: iptables: No 
+chain/target/match by that name.</code></pre><p id="ub2a6110c" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">按照要求执行代码</span></p><p id="u2eb83a62" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><code class="ne-code" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; background-color: rgba(0, 0, 0, 0.06); border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 2px; padding: 0px 2px"><span class="ne-text">iptables --wait -t filter -A DOCKER ! -i docker0 -o docker0 -p tcp -d 172.17.0.2 --dport 3306 -j ACCEPT</span></code></p><p id="u76bddb0a" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">但是依旧报错：</span></p><p id="u329b9c50" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">iptables: No chain/target/match by that name.</span></p><p id="u040e7020" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">解决办法</span></p><p id="u751f7580" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><code class="ne-code" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; background-color: rgba(0, 0, 0, 0.06); border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 2px; padding: 0px 2px"><span class="ne-text">service docker restart</span></code><span class="ne-text"> 重启再执行命令即可生效</span></p></details>
+
+
+
+<details class="lake-collapse"><summary id="u303dee55"><span class="ne-text">2. 生成的容器无法运行起来</span></summary><pre data-language="bash" id="y8jun" class="ne-codeblock language-bash" style="border: 1px solid #e8e8e8; border-radius: 2px; background: #f9f9f9; padding: 16px; font-size: 13px; color: #595959"><code>docker run -p 3306:3306 --name mysql \
+-v /mydata/mysql/log:/var/log/mysql \
+-v /mydata/mysql/data:/var/lib/mysql \
+-v /mydata/mysql/conf:/etc/mysql \
+-e MYSQL_ROOT_PASSWORD=root \
+-d mysql:latest</code></pre><p id="u69b5ebc1" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">以上配置不适用于mysql8.0及以上（目前了解到的）</span></p><pre data-language="bash" id="rgrQ0" class="ne-codeblock language-bash" style="border: 1px solid #e8e8e8; border-radius: 2px; background: #f9f9f9; padding: 16px; font-size: 13px; color: #595959"><code>docker run -p 3306:3306 --name mysql \
+-v /mydata/mysql/log:/var/log/mysql \
+-v /mydata/mysql/data:/var/lib/mysql \
+-v /mydata/mysql/conf:/etc/mysql/conf.d \
+-e MYSQL_ROOT_PASSWORD=root \
+-d mysql:latest</code></pre></details>
+
+
+
+<details class="lake-collapse"><summary id="u5c467ac5"><span class="ne-text">3. 远程连接3306连接不上</span></summary><p id="ub039f9d0" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">1.是否有权限访问MySQL</span></p><p id="u1eaa1108" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">2.MySQL的服务为开启或已关闭</span></p><p id="u553862c3" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text"> </span><code class="ne-code" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; background-color: rgba(0, 0, 0, 0.06); border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 2px; padding: 0px 2px"><span class="ne-text">select User,host from mysql.user</span></code><span class="ne-text">  打印结果host值有%就代表有远程访问权限</span></p><p id="u7f7c734c" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">3.MySQL正在不同的端口上运行,连接端口错误，检查端口 </span><code class="ne-code" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; background-color: rgba(0, 0, 0, 0.06); border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 2px; padding: 0px 2px"><span class="ne-text">netstat -ntlp</span></code></p><p id="uf246a6bc" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">4.Linux防火墙阻止了与MySQL的连接，检查firewall或者</span><code class="ne-code" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; background-color: rgba(0, 0, 0, 0.06); border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 2px; padding: 0px 2px"><span class="ne-text">iptables -L</span></code><span class="ne-text"> 查看iptables规则</span></p><p id="u3a775f4f" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">5.是否被云服务器防火墙拦截，去网站的防火墙进行开放3306端口  &lt;-- 一般都是这个原因</span></p></details>
+
+
+
+<h4 id="Docker-使用MongoDB"><a href="#Docker-使用MongoDB" class="headerlink" title="Docker 使用MongoDB"></a>Docker 使用MongoDB</h4><p>docker pull mongo</p>
+<p>docker run –name mongo -p 27017:27017 -tid mongo:latest</p>
+<p> –auth 需要验证就加，不需要验证，就去掉。默认mongodb是不使用用户认证  </p>
+<p># 创建mongo容器后，进入容器</p>
+<p>docker exec -it mongodb /bin/bash</p>
+<p># 进入mongo shell</p>
+<p>mongo  6.0版本之前使用</p>
+<p>mongosh 6.0版本之后使用</p>
+<p>注：如果出现：bash: mongo: command not found</p>
+<p>这是因为MongoDB 6.0全面弃用了mongo而使用mongosh。</p>
+<p> mongod –version 查看mongo版本  </p>
+<p># 进入admin数据库</p>
+<p>use admin</p>
+<p># 创建超级权限root角色的用户，或者userAdminAnyDatabase 等角色权限比较大的用户，我创建的是拥有超级权限root角色的用户root</p>
+<p># 用户名：root，密码：root，角色：root，数据库：admin</p>
+<p>db.createUser({user:’root’,pwd:’10217-op’,roles:[{role:’root’,db:’admin’}]})</p>
+<p>6.0之后创建成功返回的成功标识为：{ok:1}</p>
+<p># 认证登录db.auth(‘用户名’,’密码’)，打印1则代表认证通过</p>
+<p>db.auth(‘root’,’10217-op’)</p>
+<p>创建普通用户、密码和数据库</p>
+<p>​    以 admin 用户身份进入mongo ：</p>
+<p>docker exec -it mongodb mongo admin </p>
+<p>​    创建 用户、密码和数据库：</p>
+<p>db.createUser({ user: ‘web’, pwd: ‘web123456’, roles: [ { role: “readWrite”, db: “web” } ] });</p>
+<p>​    对 web用户 进行身份认证：</p>
+<p>use web; </p>
+<p>db.auth(“web”,”web123456”);  </p>
+<h4 id="docker-Redis"><a href="#docker-Redis" class="headerlink" title="docker Redis"></a>docker Redis</h4><p><code>docker pull redis</code> 下载最新的redis</p>
+<p><code>docker run --restart=always --log-opt max-size=100m --log-opt max-file=2 -p 6379:6379 --name redis -v /home/redis/myredis/myredis.conf:/etc/redis/redis.conf -v /home/redis/myredis/data:/data -d redis redis-server /etc/redis/redis.conf  --appendonly yes  --requirepass 000415</code> 配置并运行redis</p>
+<ol>
+<li>–restart=always 总是开机启动</li>
+<li>–log是日志方面的</li>
+<li>-p 6379:6379 将6379端口挂载出去</li>
+<li>–name 给这个容器取一个名字</li>
+<li>-v 数据卷挂载</li>
+</ol>
+<ul>
+<li>/home/redis/myredis/myredis.conf:/etc/redis/redis.conf 这里是将 liunx 路径下的myredis.conf 和redis下的redis.conf 挂载在一起。</li>
+<li>/home/redis/myredis/data:/data 这个同上</li>
+</ul>
+<ol>
+<li>-d redis 表示后台启动redis</li>
+<li>redis-server /etc/redis/redis.conf 以配置文件启动redis，加载容器内的conf文件，最终找到的是挂载的目录 /etc/redis/redis.conf 也<strong>就是liunx下的/home/redis/myredis/myredis.conf</strong></li>
+<li>–appendonly yes 开启redis 持久化</li>
+<li>–requirepass 000415 设置密码 （如果你是通过docker 容器内部连接的话，就随意，可设可不设。但是如果想向外开放的话，一定要设置，我被搞过，可以看这篇文章“<a href="https://link.zhihu.com/?target=https://editor.csdn.net/md/?articleId=118061056">阿里云服务器中毒‘Kirito666’经历</a>”）</li>
+<li>成功界面</li>
+</ol>
+<p><code>docker logs --since 30m &lt;containerName&gt;</code> 查看近30min的日志，检查启动情况</p>
+<p><code>docker inspect &lt;containerName&gt;</code> 查看容器信息</p>
+<p><code>docker exec -it myredis redis-cli</code> 使用 redis-cli 输出</p>
+<h5 id="redis-conf"><a href="#redis-conf" class="headerlink" title="redis.conf"></a>redis.conf</h5><pre class=" language-go"><code class="language-go"># bind <span class="token number">192.168</span><span class="token punctuation">.</span><span class="token number">1.100</span> <span class="token number">10.0</span><span class="token punctuation">.</span><span class="token number">0.1</span>
+# bind <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token number">1</span>
+#bind <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span>
+
+protected<span class="token operator">-</span>mode no
+
+port <span class="token number">6379</span>
+
+tcp<span class="token operator">-</span>backlog <span class="token number">511</span>
+
+requirepass <span class="token number">000415</span>
+
+timeout <span class="token number">0</span>
+
+tcp<span class="token operator">-</span>keepalive <span class="token number">300</span>
+
+daemonize no
+
+supervised no
+
+pidfile <span class="token operator">/</span><span class="token keyword">var</span><span class="token operator">/</span>run<span class="token operator">/</span>redis_6379<span class="token punctuation">.</span>pid
+
+loglevel notice
+
+logfile <span class="token string">""</span>
+
+databases <span class="token number">30</span>
+
+always<span class="token operator">-</span>show<span class="token operator">-</span>logo yes
+
+save <span class="token number">900</span> <span class="token number">1</span>
+save <span class="token number">300</span> <span class="token number">10</span>
+save <span class="token number">60</span> <span class="token number">10000</span>
+
+stop<span class="token operator">-</span>writes<span class="token operator">-</span>on<span class="token operator">-</span>bgsave<span class="token operator">-</span><span class="token builtin">error</span> yes
+
+rdbcompression yes
+
+rdbchecksum yes
+
+dbfilename dump<span class="token punctuation">.</span>rdb
+
+dir <span class="token punctuation">.</span><span class="token operator">/</span>
+
+replica<span class="token operator">-</span>serve<span class="token operator">-</span>stale<span class="token operator">-</span>data yes
+
+replica<span class="token operator">-</span>read<span class="token operator">-</span>only yes
+
+repl<span class="token operator">-</span>diskless<span class="token operator">-</span>sync no
+
+repl<span class="token operator">-</span>disable<span class="token operator">-</span>tcp<span class="token operator">-</span>nodelay no
+
+replica<span class="token operator">-</span>priority <span class="token number">100</span>
+
+lazyfree<span class="token operator">-</span>lazy<span class="token operator">-</span>eviction no
+lazyfree<span class="token operator">-</span>lazy<span class="token operator">-</span>expire no
+lazyfree<span class="token operator">-</span>lazy<span class="token operator">-</span>server<span class="token operator">-</span>del no
+replica<span class="token operator">-</span>lazy<span class="token operator">-</span>flush no
+
+appendonly yes
+
+appendfilename <span class="token string">"appendonly.aof"</span>
+
+no<span class="token operator">-</span>appendfsync<span class="token operator">-</span>on<span class="token operator">-</span>rewrite no
+
+auto<span class="token operator">-</span>aof<span class="token operator">-</span>rewrite<span class="token operator">-</span>percentage <span class="token number">100</span>
+auto<span class="token operator">-</span>aof<span class="token operator">-</span>rewrite<span class="token operator">-</span>min<span class="token operator">-</span>size 64mb
+
+aof<span class="token operator">-</span>load<span class="token operator">-</span>truncated yes
+
+aof<span class="token operator">-</span>use<span class="token operator">-</span>rdb<span class="token operator">-</span>preamble yes
+
+lua<span class="token operator">-</span>time<span class="token operator">-</span>limit <span class="token number">5000</span>
+
+slowlog<span class="token operator">-</span>max<span class="token operator">-</span><span class="token builtin">len</span> <span class="token number">128</span>
+
+notify<span class="token operator">-</span>keyspace<span class="token operator">-</span>events <span class="token string">""</span>
+
+hash<span class="token operator">-</span>max<span class="token operator">-</span>ziplist<span class="token operator">-</span>entries <span class="token number">512</span>
+hash<span class="token operator">-</span>max<span class="token operator">-</span>ziplist<span class="token operator">-</span>value <span class="token number">64</span>
+
+list<span class="token operator">-</span>max<span class="token operator">-</span>ziplist<span class="token operator">-</span>size <span class="token operator">-</span><span class="token number">2</span>
+
+list<span class="token operator">-</span>compress<span class="token operator">-</span>depth <span class="token number">0</span>
+
+set<span class="token operator">-</span>max<span class="token operator">-</span>intset<span class="token operator">-</span>entries <span class="token number">512</span>
+
+zset<span class="token operator">-</span>max<span class="token operator">-</span>ziplist<span class="token operator">-</span>entries <span class="token number">128</span>
+zset<span class="token operator">-</span>max<span class="token operator">-</span>ziplist<span class="token operator">-</span>value <span class="token number">64</span>
+
+hll<span class="token operator">-</span>sparse<span class="token operator">-</span>max<span class="token operator">-</span>bytes <span class="token number">3000</span>
+
+stream<span class="token operator">-</span>node<span class="token operator">-</span>max<span class="token operator">-</span>bytes <span class="token number">4096</span>
+stream<span class="token operator">-</span>node<span class="token operator">-</span>max<span class="token operator">-</span>entries <span class="token number">100</span>
+
+activerehashing yes
+
+hz <span class="token number">10</span>
+
+dynamic<span class="token operator">-</span>hz yes
+
+aof<span class="token operator">-</span>rewrite<span class="token operator">-</span>incremental<span class="token operator">-</span>fsync yes
+
+rdb<span class="token operator">-</span>save<span class="token operator">-</span>incremental<span class="token operator">-</span>fsync yes
+</code></pre>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><h5 id="docker-build-多次提示没有空间"><a href="#docker-build-多次提示没有空间" class="headerlink" title="docker build 多次提示没有空间"></a>docker build 多次提示没有空间</h5><pre class=" language-go"><code class="language-go">docker builder prune <span class="token comment" spellcheck="true">// remove all builde cache</span>
+<span class="token comment" spellcheck="true">// Options:</span>
+<span class="token comment" spellcheck="true">//   -a, --all                  Remove all unused images, not just dangling ones</span>
+<span class="token comment" spellcheck="true">//       --filter filter        Provide filter values (e.g. 'unused-for=24h')</span>
+<span class="token comment" spellcheck="true">//   -f, --force                Do not prompt for confirmation</span>
+<span class="token comment" spellcheck="true">//       --keep-storage bytes   Amount of disk space to keep for cache</span>
+</code></pre>
+<h5 id="dockerfile-执行RUN命令报错127"><a href="#dockerfile-执行RUN命令报错127" class="headerlink" title="dockerfile 执行RUN命令报错127"></a>dockerfile 执行RUN命令报错127</h5><p>source 是 bashshell 的内置命令，可以激活 virtualenv 的虚拟环境</p>
+<p>报错如下：</p>
+<pre class=" language-dockerfile"><code class="language-dockerfile">/bin/sh -c source ... 使用bin/sh 找不到source命令
+RUN /bin/bash -c "source /user/ai_backend/venv/bin/activate"
+</code></pre>
+<h5 id="容器启动失败调试"><a href="#容器启动失败调试" class="headerlink" title="容器启动失败调试"></a>容器启动失败调试</h5><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sylvia-liu/p/14933776.html">https://www.cnblogs.com/sylvia-liu/p/14933776.html</a></p>
+<h5 id="Docker命令使用报错"><a href="#Docker命令使用报错" class="headerlink" title="Docker命令使用报错"></a>Docker命令使用报错</h5><p><code> docker search mysql</code> 或者 <code>docker pull</code> 这些命令无法使用</p>
+<p>出现如下错误：</p>
+<p>Error response from daemon: Get <a target="_blank" rel="noopener" href="https://index.docker.io/v1/search?q=mysql&amp;n=25:">https://index.docker.io/v1/search?q=mysql&amp;n=25:</a> x509: certificate has expired or is not yet valid</p>
+<p>原因分析：</p>
+<p>这个错误的原因在于是系统的时间和docker hub时间不一致,需要做系统时间与网络时间同步。</p>
+<p>解决方法：</p>
+<p><code>sudo yum -y install ntp ntpdate</code> 安装时间同步</p>
+<p><code>sudo ntpdate cn.pool.ntp.org</code>.同步时间</p>
+<p><code>date</code>查看本机时间</p>
+<h5 id="Docker删除镜像-容器"><a href="#Docker删除镜像-容器" class="headerlink" title="Docker删除镜像/容器"></a>Docker删除镜像/容器</h5><ol>
+<li>停止该镜像的所有容器</li>
+</ol>
+<p><code>docker ps</code> 查看运行的容器</p>
+<p><code>docker stop &lt;container_id&gt;</code> 停止容器（只取前三个字母即可）</p>
+<ol>
+<li>删除该镜像的所有容器</li>
+</ol>
+<p><code>docker ps -a</code> 查看所有存在的镜像</p>
+<p><code>docker rm &lt;container_id&gt;</code> 移除镜像下的所有容器（只取前三个字母即可）</p>
+<ol>
+<li>删除镜像（删除镜像前必须先删除容器）</li>
+</ol>
+<p><code>docker images</code> 查看镜像</p>
+<p><code>docker rmi &lt;image_id&gt;</code>  移除镜像（只取前三个字母即可）</p>
+<h5 id="Docker-清理"><a href="#Docker-清理" class="headerlink" title="Docker 清理"></a>Docker 清理</h5><pre class=" language-bash"><code class="language-bash">docker builder prune <span class="token comment" spellcheck="true"># 命令用于清理构建过程中产生的临时文件和缓存，包括未使用的镜像层。它可以帮助释放磁盘空间并清理不再需要的构建缓存</span>
+docker container prune <span class="token comment" spellcheck="true"># 清理停止状态的容器。运行该命令将删除所有已停止的容器，释放磁盘空间。</span>
+docker image prune <span class="token comment" spellcheck="true"># 清理无用的镜像。运行该命令将删除所有未被任何容器使用的镜像，释放磁盘空间。</span>
+docker network prune <span class="token comment" spellcheck="true"># 清理无用的网络。运行该命令将删除所有未被任何容器使用的网络，释放资源。</span>
+docker volume prune <span class="token comment" spellcheck="true"># 清理无用的卷。运行该命令将删除所有未被任何容器使用的卷，释放磁盘空间。</span>
+</code></pre>
+<h5 id="卸载旧版本docker"><a href="#卸载旧版本docker" class="headerlink" title="卸载旧版本docker"></a>卸载旧版本docker</h5><p>官方卸载命令</p>
+<pre class=" language-bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> purge docker-ce docker-ce-cli containerd.io
+$ <span class="token function">sudo</span> <span class="token function">rm</span> -rf /var/lib/docker
+</code></pre>
+<p>手动清理[确保删除干净]</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 删除某软件,及其安装时自动安装的所有包</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> autoremove docker docker-ce docker-engine docker.io containerd runc
+ 
+<span class="token comment" spellcheck="true"># 删除docker其他没有没有卸载</span>
+dpkg -l <span class="token operator">|</span> <span class="token function">grep</span> docker
+dpkg -l <span class="token operator">|</span><span class="token function">grep</span> ^rc<span class="token operator">|</span><span class="token function">awk</span> ‘<span class="token punctuation">{</span>print <span class="token variable">$2</span><span class="token punctuation">}</span>’ <span class="token operator">|</span><span class="token function">sudo</span> <span class="token function">xargs</span> dpkg -P <span class="token comment" spellcheck="true"># 删除无用的相关的配置文件</span>
+ 
+<span class="token comment" spellcheck="true"># 卸载没有删除的docker相关插件(结合自己电脑的实际情况)</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> autoremove docker-ce-*
+ 
+<span class="token comment" spellcheck="true"># 删除docker的相关配置&amp;目录</span>
+<span class="token function">sudo</span> <span class="token function">rm</span> -rf /etc/systemd/system/docker.service.d
+<span class="token function">sudo</span> <span class="token function">rm</span> -rf /var/lib/docker
+ 
+<span class="token comment" spellcheck="true"># 确定docker卸载完毕</span>
+docker --version
+</code></pre>
+<h5 id="Docker更换镜像源"><a href="#Docker更换镜像源" class="headerlink" title="Docker更换镜像源"></a>Docker更换镜像源</h5><p>创建或修改 /etc/docker/daemon.json 文件，修改：</p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"registry-mirrors"</span> <span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"https://registry.docker-cn.com"</span><span class="token punctuation">,</span>
+    <span class="token string">"http://hub-mirror.c.163.com"</span><span class="token punctuation">,</span>
+    <span class="token string">"https://docker.mirrors.ustc.edu.cn"</span><span class="token punctuation">,</span>
+    <span class="token string">"https://cr.console.aliyun.com"</span><span class="token punctuation">,</span>
+    <span class="token string">"https://mirror.ccs.tencentyun.com"</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>重启docker服务使配置生效：</p>
+<pre class=" language-bash"><code class="language-bash">systemctl daemon-reload
+systemctl restart docker.service
+</code></pre>
+<p>查看配置是否成功：</p>
+<pre class=" language-bash"><code class="language-bash">docker info
+</code></pre>
+<h5 id="docker调试"><a href="#docker调试" class="headerlink" title="docker调试"></a>docker调试</h5><p>container 为了 进程的存在而存在，如果主进程没有container也启动不起来，所以如果要单独运行程序，需要将程序开在其他进程，主进程保持运行即可</p>
+<p>如果在docker中有编辑环境比如ubuntu可以将主进程设为一个其他程序，或者死循环，进入容器手动开启程序进行调试</p>
+<h5 id="查看容器IP"><a href="#查看容器IP" class="headerlink" title="查看容器IP"></a>查看容器IP</h5><pre><code>docker inspect --format='{{.NetworkSettings.IPAddress}}' &lt;容器名称或 ID&gt;
+</code></pre>
+<h5 id="Docker-build-无法解析域名"><a href="#Docker-build-无法解析域名" class="headerlink" title="Docker build 无法解析域名"></a>Docker build 无法解析域名</h5><p>开始进行 docker build 构建镜像时，就遇到了以下的问题：</p>
+<pre class=" language-plain"><code class="language-plain">[root@localhost dockerfile1]# docker build -t xx:xx .
+
+...
+ => ERROR [2/2] RUN yum install telnet -y     && yum clean all     && rm -rf /var/cache/yum/*
+------
+ > [2/2] RUN yum install telnet -y     && yum clean all     && rm -rf /var/cache/yum/*:
+0.443 Loaded plugins: fastestmirror, ovl
+0.561 Determining fastest mirrors
+21.11 Could not retrieve mirrorlist http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os&infra=container error was
+21.11 14: curl#6 - "Could not resolve host: mirrorlist.centos.org; Unknown error"
+</code></pre>
+<p><strong>解决方法：</strong>在docker的daemon.json中追加DNS服务器地址。</p>
+<pre class=" language-json"><code class="language-json"># 追加到 /etc/docker/daemon.json，注意JSON的格式
+<span class="token punctuation">{</span><span class="token property">"dns"</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token string">"8.8.8.8"</span><span class="token punctuation">,</span><span class="token string">"114.114.114.114"</span><span class="token punctuation">]</span><span class="token punctuation">}</span>
+# 修改完daemon.json之后
+systemctl daemon-reload
+systemctl docker restart
+# 此时docker可以正常构建镜像了
+</code></pre>
+<p>测试不管用</p>
+<h5 id="docker仓库源"><a href="#docker仓库源" class="headerlink" title="docker仓库源"></a>docker仓库源</h5><ul>
+<li>[Docker Hub](官方提供的公共镜像仓库，包含大量的官方和社区维护的镜像</li>
+<li>[阿里云容器镜像服务](Docker镜像的下载</li>
+<li>[DaoCloud加速器提供的Docker镜像加速服务，可以加速国内Docker镜像的下载</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">{</span><span class="token string">"registry-mirrors"</span>:<span class="token punctuation">[</span><span class="token string">"https://almtd3fa.mirror.aliyuncs.com"</span><span class="token punctuation">]</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token string">"registry-mirrors"</span>:<span class="token punctuation">[</span><span class="token string">"https://registry.docker-cn.com"</span><span class="token punctuation">]</span><span class="token punctuation">}</span>
+</code></pre>
+<h5 id="启动服务作为容器进程"><a href="#启动服务作为容器进程" class="headerlink" title="启动服务作为容器进程"></a>启动服务作为容器进程</h5><p>服务作为容器进程会无法执行，因为服务启动后在后台执行，可知：</p>
+<p>容器执行的命令需要的进程是前台运行的，需要将服务放到前台运行，加上 <code>-n</code>参数就是前台运行</p>
+<h4 id="容器死循环"><a href="#容器死循环" class="headerlink" title="容器死循环"></a>容器死循环</h4><p>容器命令可以使用思璇换可以将容器保持启动状态，死循环如：<code>tail -f /dev/null</code></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Nico</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://sainthood2077.github.io/2022/05/04/docker/">https://sainthood2077.github.io/2022/05/04/docker/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Nico</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Docker/">
+                                    <span class="chip bg-color">Docker</span>
+                                </a>
+                            
+                                <a href="/tags/images/">
+                                    <span class="chip bg-color">images</span>
+                                </a>
+                            
+                                <a href="/tags/container/">
+                                    <span class="chip bg-color">container</span>
+                                </a>
+                            
+                                <a href="/tags/dockerfile/">
+                                    <span class="chip bg-color">dockerfile</span>
+                                </a>
+                            
+                                <a href="/tags/docker-compose/">
+                                    <span class="chip bg-color">docker-compose</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/07/21/cao-zuo-xi-tong/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="操作系统">
+                        
+                        <span class="card-title">操作系统</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/OS/" class="post-category">
+                                    OS
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%82%E6%AD%A5/">
+                        <span class="chip bg-color">异步</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%90%8C%E6%AD%A5/">
+                        <span class="chip bg-color">同步</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B9%B6%E5%8F%91/">
+                        <span class="chip bg-color">并发</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B9%B6%E8%A1%8C/">
+                        <span class="chip bg-color">并行</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/08/20/vscode-kuai-jie-jian-ji-lu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Vscode快捷键记录">
+                        
+                        <span class="card-title">Vscode快捷键记录</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Nico
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/vscode/">
+                        <span class="chip bg-color">vscode</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/">
+                        <span class="chip bg-color">快捷键</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: NicoCode<br />'
+            + '文章作者: Nico<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者Nico所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">Nico</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">89.3k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+    
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "09";
+                        var startDate = "27";
+                        var startHour = "18";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+    
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+    
+                    calcSiteTime();
+                </script>
+                <script src="/js/prism/prism.js" async></script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,0"
+        pointColor="0,0,0" opacity='0.7'
+        zIndex="-1" count="299"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

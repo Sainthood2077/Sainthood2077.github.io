@@ -1,0 +1,1343 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="PostgreSQL, Blog">
+    <meta name="description" content="介绍PGSQL
+
+开源
+关系型数据库
+底层基于C实现
+BDS协议
+
+版本选择
+
+如果为了稳定的运行，推荐使用12.x版本
+如果想体验新特性，推荐使用14.x版本
+
+PGSQL允许跨版本升级，而且没有什么大问题
+PGSQL国外使用的比较多，国">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="referrer" content="no-referrer" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>PostgreSQL | NicoCode</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<link rel="stylesheet" href="/js/prism/prism.css">
+
+<meta name="generator" content="Hexo 5.4.2">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">NicoCode</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">NicoCode</div>
+        <div class="logo-desc">
+            
+            PB
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">PostgreSQL</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/posrgresql/">
+                                <span class="chip bg-color">posrgresql</span>
+                            </a>
+                        
+                            <a href="/tags/pg/">
+                                <span class="chip bg-color">pg</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                数据库
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-10-05
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-02-16
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    11 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>PGSQL</p>
+<ul>
+<li>开源</li>
+<li>关系型数据库</li>
+<li>底层基于C实现</li>
+<li>BDS协议</li>
+</ul>
+<p>版本选择</p>
+<ul>
+<li>如果为了稳定的运行，推荐使用12.x版本</li>
+<li>如果想体验新特性，推荐使用14.x版本</li>
+</ul>
+<p>PGSQL允许跨版本升级，而且没有什么大问题</p>
+<p>PGSQL国外使用的比较多，国内以MySQL为主</p>
+<p>很多国产数据库基于PGSQL做的二次封装：比如华为GaussDB还有腾讯的Tbase等等</p>
+<p>PGSQL因为开源，有很多数据迁移的工具，可以快速的从MySQL，SQLServer，Oracle平转到PGSQL中，比如pgloader</p>
+<p>对比MySQL</p>
+<table>
+<thead>
+<tr>
+<th>MySQL</th>
+<th>PGSQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据类型不够丰富</td>
+<td>数据类型丰富</td>
+</tr>
+<tr>
+<td>不支持序列概念，Sequence</td>
+<td>有序列的概念的</td>
+</tr>
+<tr>
+<td>性能优化监控工具不是很多，定位问题的成本是比较高</td>
+<td>插件丰富</td>
+</tr>
+<tr>
+<td>主从复制没有一个官方的同步策略，同步问题难以解决。</td>
+<td>支持主从复制的同步操作，可以实现数据的0丢失，PostgreSQL的MVCC实现和MySQL不大一样，一行数据会存储多个版本。最多可以存储40亿个事务版本</td>
+</tr>
+</tbody></table>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>推荐Linux，不推荐Windows安装</p>
+<p>Linux的版本尽量使用7.x版本，最好是7.6或者是7.8版本</p>
+<p><a href="about:blank">官方下载地址</a></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 下载PGSQL的rpm包</span>
+<span class="token function">sudo</span> yum <span class="token function">install</span> -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+<span class="token comment" spellcheck="true"># 安装客户端</span>
+<span class="token function">sudo</span> yum <span class="token function">install</span> postgresql12
+<span class="token comment" spellcheck="true"># 安装服务端（可选）</span>
+<span class="token function">sudo</span> yum <span class="token function">install</span> -y postgresql12-server
+<span class="token comment" spellcheck="true"># 数据库初始化并开机自启</span>
+<span class="token function">sudo</span> /usr/pgsql-12/bin/postgresql-12-setup initdb
+<span class="token function">sudo</span> systemctl <span class="token function">enable</span> postgresql-12
+<span class="token function">sudo</span> systemctl start postgresql-12
+<span class="token comment" spellcheck="true"># 配置防火墙</span>
+firewall-cmd --permanent --add-port<span class="token operator">=</span>5432/tcp  
+firewall-cmd --permanent --add-port<span class="token operator">=</span>80/tcp  
+firewall-cmd --reload
+</code></pre>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>安装成功，默认创建用户：postgres</p>
+<p>配置和数据路径：<code>/var/lib/pgsql/12/data</code></p>
+<p>postgreSQL的核心文件，都属于postgres用户  </p>
+<h4 id="远程连接"><a href="#远程连接" class="headerlink" title="远程连接"></a>远程连接</h4><p>PostgreSQL默认情况下不支持远程连接</p>
+<ul>
+<li>MySQL给mysql.user追加用户，一般是采用grant的命令</li>
+<li>PostgreSQL要基于配置文件修改，才能制定用户是否可以远程连接</li>
+</ul>
+<p>1、修改配置文件 ../data/pg_hba.conf，（用户级）</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 第一块</span>
+local：代表本地连接，host代表可以指定连接的ADDRESS
+<span class="token comment" spellcheck="true"># 第二块</span>
+database编写数据库名，如果写all，代表所有库都可以连接
+<span class="token comment" spellcheck="true"># 第三块</span>
+user编写连接的用户，可以写all，代表所有用户
+<span class="token comment" spellcheck="true"># 第四块</span>
+address代表那些IP地址可以连接
+<span class="token comment" spellcheck="true"># 第五块</span>
+method加密方式，这块不用过多关注，直接md5
+<span class="token comment" spellcheck="true"># 允许任意地址的全部用户连接所有数据库</span>
+host    all             all             0.0.0.0/0               md5
+</code></pre>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1706422671539-a02f934b-3350-4258-8489-cc3be2922115.png" alt="img"></p>
+<p>2、修改配置配置在postgresql.conf（服务级）</p>
+<p> 默认PGSQL只允许localhost连接，修改为*，允许所有地址连接，或者指定放行的地址</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1706422745504-26ebd317-838b-4b95-a313-ef4ddac7b115.png" alt="img"></p>
+<p>重启服务生效</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> systemctl restart postgresql-12
+</code></pre>
+<h4 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h4><p> 默认情况下，只保存7天的日志，循环覆盖</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 代表日志是开启的。</span>
+logging_collector <span class="token operator">=</span> on
+<span class="token comment" spellcheck="true"># 日志存放的路径，默认放到当前目录下的log里</span>
+log_directory <span class="token operator">=</span> <span class="token string">'log'</span>
+<span class="token comment" spellcheck="true"># 日志的文件名，默认是postgresql为前缀，星期作为后缀</span>
+log_filename <span class="token operator">=</span> <span class="token string">'postgresql-%a.log'</span>
+<span class="token comment" spellcheck="true"># 默认一周过后，日志文件会被覆盖</span>
+log_truncate_on_rotation <span class="token operator">=</span> on
+<span class="token comment" spellcheck="true"># 一天一个日志文件</span>
+log_rotation_age <span class="token operator">=</span> 1d
+<span class="token comment" spellcheck="true"># 一个日志文件，没有大小限制</span>
+log_rotation_size <span class="token operator">=</span> 0
+</code></pre>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1706422943877-49831de4-71cd-4b5b-aca3-35bfa0b214de.png" alt="img"></p>
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><p>postgresql数据管理系统使用命令方式有两种:<br>\1. 内部命令,以反斜线开始 \ ,如: \l 显示所有数据库<br>\2. 标准SQL命令,以分号<code>;</code>或 \g 结束,可以使用多行</p>
+<p>连接参数</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1706423013400-8f1f505e-c53b-4105-89dd-6f854c22606d.png" alt="img"></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 切换用户并连接 - 在postgres用户下</span>
+<span class="token function">su</span> postgres
+psql -U postgres <span class="token comment" spellcheck="true"># 快速登录(全部使用默认设置)</span>
+<span class="token comment" spellcheck="true"># 切换用户并连接 - 非postgres用户下</span>
+psql -h 127.0.0.1 -p 5432 -U postgres  <span class="token comment" spellcheck="true"># 默认打开postgres数据库</span>
+psql -h 127.0.0.1 -p 5432 -d dba -U postgres  <span class="token comment" spellcheck="true"># 打开dba数据库</span>
+Password <span class="token keyword">for</span> user postgres:
+
+<span class="token comment" spellcheck="true"># 设置用户密码</span>
+ALTER USER postgres WITH PASSWORD <span class="token string">'postgres'</span> 
+
+<span class="token comment" spellcheck="true"># 数据库命令</span>
+\l                         <span class="token comment" spellcheck="true"># 列出所有数据库</span>
+\c database     <span class="token comment" spellcheck="true"># 选择database库</span>
+\dt                     <span class="token comment" spellcheck="true"># 查看所有表</span>
+\c interface     <span class="token comment" spellcheck="true"># 切换数据库</span>
+<span class="token keyword">select</span> * from apps limit 1<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true"># 查看某个库中某个表的记录</span>
+\encoding         <span class="token comment" spellcheck="true"># 显示字符集</span>
+\q                      <span class="token comment" spellcheck="true"># 退出</span>
+
+\d table             <span class="token comment" spellcheck="true"># 查看table表结构</span>
+
+
+\h                         <span class="token comment" spellcheck="true"># 显示 SQL 命令的说明</span>
+\h <span class="token keyword">select</span>       <span class="token comment" spellcheck="true"># 精细显示SQL命令中的select命令的使用方法</span>
+\?                      <span class="token comment" spellcheck="true"># 显示 pgsql 命令的说明 (pgsql内部命令)</span>
+
+\password postgres <span class="token comment" spellcheck="true"># 重新设置用户postgres的密码,然后需要 \q退出后才生效</span>
+
+\du           <span class="token comment" spellcheck="true"># 显示所有用户</span>
+\conninfo     <span class="token comment" spellcheck="true"># 显示当前数据库和连接信息</span>
+\e                       <span class="token comment" spellcheck="true"># 进入记事本sql脚本编辑状态(输入批命令后关闭将自动在命令行中执行)</span>
+\di                      <span class="token comment" spellcheck="true"># 查看索引(要建立关联)</span>
+\prompt <span class="token punctuation">[</span>文本<span class="token punctuation">]</span> 名称                   <span class="token comment" spellcheck="true"># 提示用户设定内部变数</span>
+\encoding <span class="token punctuation">[</span>字元编码名称<span class="token punctuation">]</span>          <span class="token comment" spellcheck="true"># 显示或设定用户端字元编码</span>
+<span class="token comment" spellcheck="true"># 可以将存储过程写在文本文件中aaa.sql,然后在psql状态下:</span>
+\i aaa.sql                                    <span class="token comment" spellcheck="true"># 将aaa.sql导入(到当前数据库)</span>
+\df                                           <span class="token comment" spellcheck="true"># 查看所有存储过程（函数）</span>
+\df+ name                                     <span class="token comment" spellcheck="true"># 查看某一存储过程</span>
+<span class="token keyword">select</span> version<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true"># 获取版本信息</span>
+<span class="token keyword">select</span> usename from pg_user<span class="token punctuation">;</span> <span class="token comment" spellcheck="true"># 获取系统用户信息</span>
+drop User username           <span class="token comment" spellcheck="true"># 删除用户</span>
+
+<span class="token comment" spellcheck="true"># 可以使用pg_dump和pg_dumpall来完成。比如备份sales数据库： </span>
+pg_dump drupal<span class="token operator">></span>/opt/Postgresql/backup/1.bak
+
+SELECT pg_size_pretty<span class="token punctuation">(</span>pg_database_size<span class="token punctuation">(</span><span class="token string">'mydatabase'</span><span class="token punctuation">))</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true"># 查看数据库占用磁盘空间大小</span>
+</code></pre>
+<details class="lake-collapse"><summary id="ud8c2d720"><span class="ne-text">\help</span></summary><p id="uf52b723d" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">General</span></p><p id="u7cfd3efd" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \copyright             show PostgreSQL usage and distribution terms</span></p><p id="u7eda0516" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \g [FILE] or ;         execute query (and send results to file or |pipe)</span></p><p id="u06e524a8" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \h [NAME]              help on syntax of SQL commands, * for all commands</span></p><p id="ua02479bc" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \q                     quit psql</span></p><p id="u8bb28680" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text"></span></p><p id="ua1b3adfb" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">Query Buffer</span></p><p id="ud93288b9" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \e [FILE] [LINE]       edit the query buffer (or file) with external editor</span></p><p id="u4ca5234a" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \ef [FUNCNAME [LINE]]  edit function definition with external editor</span></p><p id="u26d3ff4a" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \p                     show the contents of the query buffer</span></p><p id="uc3d0ae1e" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \r                     reset (clear) the query buffer</span></p><p id="u1a91f9d1" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \s [FILE]              display history or save it to file</span></p><p id="u7da94008" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \w FILE                write query buffer to file</span></p><p id="u7d255f22" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text"></span></p><p id="u43da760c" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">Input/Output</span></p><p id="u78839328" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \copy ...              perform SQL COPY with data stream to the client host</span></p><p id="ua1838b1e" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \echo [STRING]         write string to standard output</span></p><p id="u6dfcf4ab" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \i FILE                execute commands from file</span></p><p id="uf8a83d57" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \o [FILE]              send all query results to file or |pipe</span></p><p id="u7fa6548c" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \qecho [STRING]        write string to query output stream (see \o)</span></p><p id="u5217c449" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text"></span></p><p id="u241b565f" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">Informational</span></p><p id="uc370959c" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  (options: S = show system objects, + = additional detail)</span></p><p id="u7d9d763f" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \d[S+]                 list tables, views, and sequences</span></p><p id="u9d59aa13" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \d[S+]  NAME           describe table, view, sequence, or index</span></p><p id="u8de53392" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \da[S]  [PATTERN]      list aggregates</span></p><p id="u3d760ef3" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \db[+]  [PATTERN]      list tablespaces</span></p><p id="ued2264df" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dc[S]  [PATTERN]      list conversions</span></p><p id="ue93751fd" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dC     [PATTERN]      list casts</span></p><p id="u7886bdd9" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dd[S]  [PATTERN]      show comments on objects</span></p><p id="u40893f14" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \ddp    [PATTERN]      list default privileges</span></p><p id="ua69cc8bf" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dD[S]  [PATTERN]      list domains</span></p><p id="uc27d90b3" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \det[+] [PATTERN]      list foreign tables</span></p><p id="ud1740901" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \des[+] [PATTERN]      list foreign servers</span></p><p id="ub76072c1" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \deu[+] [PATTERN]      list user mappings</span></p><p id="u4325332a" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dew[+] [PATTERN]      list foreign-data wrappers</span></p><p id="udafa6d3a" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \df[antw][S+] [PATRN]  list [only agg/normal/trigger/window] functions</span></p><p id="u5587a6f2" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dF[+]  [PATTERN]      list text search configurations</span></p><p id="u4d3eba63" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dFd[+] [PATTERN]      list text search dictionaries</span></p><p id="u7386437f" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dFp[+] [PATTERN]      list text search parsers</span></p><p id="u29f82936" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dFt[+] [PATTERN]      list text search templates</span></p><p id="u9e0d6845" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dg[+]  [PATTERN]      list roles</span></p><p id="u1dd51923" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \di[S+] [PATTERN]      list indexes</span></p><p id="u113dc073" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dl                    list large objects, same as \lo_list</span></p><p id="u5fb5e646" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dL[S+] [PATTERN]      list procedural languages</span></p><p id="uc89e00bf" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dn[S+] [PATTERN]      list schemas</span></p><p id="u381caac8" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \do[S]  [PATTERN]      list operators</span></p><p id="u84aadb96" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dO[S+] [PATTERN]      list collations</span></p><p id="u55b65526" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dp     [PATTERN]      list table, view, and sequence access privileges</span></p><p id="u95450b65" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \drds [PATRN1 [PATRN2]] list per-database role settings</span></p><p id="u1f78ff19" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \ds[S+] [PATTERN]      list sequences</span></p><p id="u6b7c83a7" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dt[S+] [PATTERN]      list tables</span></p><p id="u316abeb3" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dT[S+] [PATTERN]      list data types</span></p><p id="u22b003a0" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \du[+]  [PATTERN]      list roles</span></p><p id="u6d6ac2be" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dv[S+] [PATTERN]      list views</span></p><p id="u15b8c365" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dE[S+] [PATTERN]      list foreign tables</span></p><p id="uf1c78c3f" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \dx[+]  [PATTERN]      list extensions</span></p><p id="u64bad03c" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \l[+]                  list all databases</span></p><p id="u1131bc74" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \sf[+] FUNCNAME        show a function's definition</span></p><p id="u4ea6e023" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \z      [PATTERN]      same as \dp</span></p><p id="u7aa7200e" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text"></span></p><p id="ud3a871fa" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">Formatting</span></p><p id="u0ab05bed" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \a                     toggle between unaligned and aligned output mode</span></p><p id="u82d88e9e" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \C [STRING]            set table title, or unset if none</span></p><p id="uab261939" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \f [STRING]            show or set field separator for unaligned query output</span></p><p id="ubcbcad93" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \H                     toggle HTML output mode (currently off)</span></p><p id="uf469c369" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \pset NAME [VALUE]     set table output option</span></p><p id="u6456e397" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">                         (NAME := {format|border|expanded|fieldsep|footer|null|</span></p><p id="u96085fde" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">                         numericlocale|recordsep|tuples_only|title|tableattr|pager})</span></p><p id="u7902a1a4" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \t [on|off]            show only rows (currently off)</span></p><p id="u1606e9d8" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \T [STRING]            set HTML &lt;table&gt; tag attributes, or unset if none</span></p><p id="uf8ec6960" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \x [on|off]            toggle expanded output (currently off)</span></p><p id="u758216d1" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text"></span></p><p id="u4ddc2c30" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">Connection</span></p><p id="u680f3add" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \c[onnect] {[DBNAME|- USER|- HOST|- PORT|-] | conninfo}</span></p><p id="u717af354" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">                         connect to new database (currently "postgres")</span></p><p id="u2ba73121" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \encoding [ENCODING]   show or set client encoding</span></p><p id="u7bf2261b" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \password [USERNAME]   securely change the password for a user</span></p><p id="u70772ec4" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \conninfo              display information about current connection</span></p><p id="u0335d58a" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text"></span></p><p id="u1d9857e8" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">Operating System</span></p><p id="u7ead7904" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \cd [DIR]              change the current working directory</span></p><p id="u0cf9ce75" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \timing [on|off]       toggle timing of commands (currently off)</span></p><p id="udbdb14b0" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \! [COMMAND]           execute command in shell or start interactive shell</span></p><p id="u2ad67b2a" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text"></span></p><p id="uf6dddc90" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">Variables</span></p><p id="u07f98da0" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \prompt [TEXT] NAME    prompt user to set internal variable</span></p><p id="u617695e1" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \set [NAME [VALUE]]    set internal variable, or list all if no parameters</span></p><p id="u66656cfe" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \unset NAME            unset (delete) internal variable</span></p><p id="ub4f092f9" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text"></span></p><p id="ud0db73a8" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">Large Objects</span></p><p id="u555a7058" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \lo_export LOBOID FILE</span></p><p id="u0ee6d349" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \lo_import FILE [COMMENT]</span></p><p id="ufd08da76" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \lo_list</span></p><p id="u5627f99a" class="ne-p" style="margin: 0; padding: 0; min-height: 24px"><span class="ne-text">  \lo_unlink LOBOID      large object operations</span></p></details>
+
+
+
+<h4 id="用户操作"><a href="#用户操作" class="headerlink" title="用户操作"></a>用户操作</h4><p>构建用户</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 区别就是create user默认有连接权限，create role没有，不过可以基于选项去设置</span>
+CREATE USER 名称 <span class="token punctuation">[</span> <span class="token punctuation">[</span> WITH <span class="token punctuation">]</span> 选项 <span class="token punctuation">[</span> <span class="token punctuation">..</span>. <span class="token punctuation">]</span> <span class="token punctuation">]</span>
+create role 名称 <span class="token punctuation">[</span> <span class="token punctuation">[</span> WITH <span class="token punctuation">]</span> 选项 <span class="token punctuation">[</span> <span class="token punctuation">..</span>. <span class="token punctuation">]</span> <span class="token punctuation">]</span>
+</code></pre>
+<p>构建超级管理员用户</p>
+<pre class=" language-bash"><code class="language-bash">create user root with SUPERUSER PASSWORD <span class="token string">'root'</span><span class="token punctuation">;</span>
+</code></pre>
+<p>此时不能登录，该用户没有数据库，需要创建这个用户所属数据库</p>
+<pre class=" language-bash"><code class="language-bash">create database root<span class="token punctuation">;</span>
+psql -h 192.168.11.32 -p 5432 -U root -W <span class="token comment" spellcheck="true"># 再去登录</span>
+</code></pre>
+<h4 id="权限操作"><a href="#权限操作" class="headerlink" title="权限操作"></a>权限操作</h4><p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1706423212637-c15931b6-1c16-4057-9c38-e670b8c3e412.png" alt="img"></p>
+<p>可以看到PGSQL一个数据库中有多个schema，在每个schema下都有自己的相应的库表信息，权限粒度会比MySQL更细一些</p>
+<p>在PGSQL中，权限的管理分为很多层：</p>
+<p>server、cluster、tablespace级别：这个级别一般是基于pg_hba.conf去配置</p>
+<p>database级别：通过命令级别操作，grant</p>
+<p>namespace、schema级别：用的不多</p>
+<p>对象级别：通过grant命令去设置</p>
+<p>后面如果需要对database或者是对象级别做权限控制，直接基于grant命令去操作即可</p>
+<pre class=" language-bash"><code class="language-bash">\help grant <span class="token comment" spellcheck="true"># 查看grant命令</span>
+</code></pre>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>PGSQL支持的类型特别丰富，大多数的类型和MySQL都有对应的关系</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1706423945479-a9d9d588-d836-44b6-bf76-c5f68832b529.png" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="http://www.postgres.cn/docs/12/datatype.html">等等</a></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="删除重复记录"><a href="#删除重复记录" class="headerlink" title="删除重复记录"></a>删除重复记录</h4><p>在PostgreSQL删除重复记录的表中table加一列rownum字段(id为table表中的主键) ，类型设置为serial类型即可，然后执行sql语句：</p>
+<pre class=" language-bash"><code class="language-bash">delete from deltest where rownum not in<span class="token punctuation">(</span>
+<span class="token keyword">select</span> max<span class="token punctuation">(</span>rownum<span class="token punctuation">)</span> from deltest 
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>最后删除列rownum即可</p>
+<h4 id="图形化界面安装"><a href="#图形化界面安装" class="headerlink" title="图形化界面安装"></a>图形化界面安装</h4><p>图形化界面可以连接PGSQL的很多，Navicat（收费）</p>
+<p>也可以直接使用PostgreSQL官方提供的图形化界面<a target="_blank" rel="noopener" href="https://www.pgadmin.org/">pgadmin</a>（免费）</p>
+<h4 id="python连接脚本"><a href="#python连接脚本" class="headerlink" title="python连接脚本"></a>python连接脚本</h4><pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> psycopg2
+
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 数据库连接参数</span>
+    params <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"host"</span><span class="token punctuation">:</span> <span class="token string">"127.0.0.1"</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 数据库服务器地址</span>
+        <span class="token string">"database"</span><span class="token punctuation">:</span> <span class="token string">"intelligence"</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 数据库名称</span>
+        <span class="token string">"user"</span><span class="token punctuation">:</span> <span class="token string">"postgres"</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 默认用户</span>
+        <span class="token string">"password"</span><span class="token punctuation">:</span> <span class="token string">"123456"</span><span class="token punctuation">,</span>  <span class="token comment" spellcheck="true"># 默认用户的密码</span>
+        <span class="token string">"port"</span><span class="token punctuation">:</span> <span class="token string">"5432"</span>  <span class="token comment" spellcheck="true"># PostgreSQL的默认端口</span>
+    <span class="token punctuation">}</span>
+    query <span class="token operator">=</span> <span class="token triple-quoted-string string">"""
+        SELECT i.ip, ii.found_time, ii.update_time, t.name, t.threat_level
+        FROM ip i
+        JOIN ip_intelligence ii ON i.id = ii.ip_id
+        JOIN intelligence_tag it ON ii.id = it.intelligence_id
+        JOIN tag t ON it.tag_id = t.id
+        LIMIT 10;
+    """</span>
+
+    <span class="token comment" spellcheck="true"># 建立连接</span>
+    conn <span class="token operator">=</span> psycopg2<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token operator">**</span>params<span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 创建游标对象</span>
+    cur <span class="token operator">=</span> conn<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 执行SQL查询</span>
+    cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>query<span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 获取查询结果</span>
+    results <span class="token operator">=</span> cur<span class="token punctuation">.</span>fetchall<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    <span class="token comment" spellcheck="true"># 打印结果</span>
+    <span class="token keyword">for</span> row <span class="token keyword">in</span> results<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># print(f"IP: {row[0]}, Found Time: {row[1]}, Update Time: {row[2]}, Name: {row[3]}, Threat Level: {row[4]}")</span>
+        <span class="token comment" spellcheck="true"># datetime.datetime格式转换为时间戳格式</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"IP: {row[0]}, Found Time: {int(row[1].timestamp())}, Update Time: {int(row[2].timestamp())}, Name: {row[3]}, Threat Level: {row[4]}"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">except</span> <span class="token punctuation">(</span>Exception<span class="token punctuation">,</span> psycopg2<span class="token punctuation">.</span>DatabaseError<span class="token punctuation">)</span> <span class="token keyword">as</span> error<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Error while connecting to PostgreSQL"</span><span class="token punctuation">,</span> error<span class="token punctuation">)</span>
+    
+<span class="token keyword">finally</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 关闭数据库连接</span>
+    <span class="token keyword">if</span> conn <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+        conn<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<h4 id="数据类型、索引、视图、触发器、事务、并发、MVCC、锁、备份-amp-恢复、数据迁移、主从操作"><a href="#数据类型、索引、视图、触发器、事务、并发、MVCC、锁、备份-amp-恢复、数据迁移、主从操作" class="headerlink" title="数据类型、索引、视图、触发器、事务、并发、MVCC、锁、备份&amp;恢复、数据迁移、主从操作"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/starlight_520/article/details/129851604?spm=1001.2014.3001.5506">数据类型、索引、视图、触发器</a>、事务、并发、MVCC、锁、备份&amp;恢复、数据迁移、主从操作</h4><h4 id=""><a href="#" class="headerlink" title=""></a></h4>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Nico</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://sainthood2077.github.io/2023/10/05/postgresql/">https://sainthood2077.github.io/2023/10/05/postgresql/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Nico</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/posrgresql/">
+                                    <span class="chip bg-color">posrgresql</span>
+                                </a>
+                            
+                                <a href="/tags/pg/">
+                                    <span class="chip bg-color">pg</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/10/06/vue-js/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Vue.js">
+                        
+                        <span class="card-title">Vue.js</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-10-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/vue/" class="post-category">
+                                    vue
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Vue/">
+                        <span class="chip bg-color">Vue</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/09/26/qt-xian-cheng-jian-tong-xin/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Qt线程间通信">
+                        
+                        <span class="card-title">Qt线程间通信</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Qt/" class="post-category">
+                                    Qt
+                                </a>
+                            
+                            <a href="/categories/Qt/thread/" class="post-category">
+                                    thread
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Qt/">
+                        <span class="chip bg-color">Qt</span>
+                    </a>
+                    
+                    <a href="/tags/thread/">
+                        <span class="chip bg-color">thread</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: NicoCode<br />'
+            + '文章作者: Nico<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者Nico所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">Nico</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">89.3k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+    
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "09";
+                        var startDate = "27";
+                        var startHour = "18";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+    
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+    
+                    calcSiteTime();
+                </script>
+                <script src="/js/prism/prism.js" async></script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,0"
+        pointColor="0,0,0" opacity='0.7'
+        zIndex="-1" count="299"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

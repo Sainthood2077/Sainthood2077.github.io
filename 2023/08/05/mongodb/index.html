@@ -1,0 +1,1794 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="MongoDB, Blog">
+    <meta name="description" content="NoSQL(NoSQL = Not Only SQL )，意即”不仅仅是SQL”
+MongoDB 是由数据库（database）、集合（collection）、文档对象（ ）三个层次组成
+MongoDB (文档型数据库)：提供可扩展的高性能">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="referrer" content="no-referrer" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>MongoDB | NicoCode</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<link rel="stylesheet" href="/js/prism/prism.css">
+
+<meta name="generator" content="Hexo 5.4.2">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">NicoCode</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">NicoCode</div>
+        <div class="logo-desc">
+            
+            PB
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">MongoDB</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/MongoDB/">
+                                <span class="chip bg-color">MongoDB</span>
+                            </a>
+                        
+                            <a href="/tags/NoSQL/">
+                                <span class="chip bg-color">NoSQL</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                数据库
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-08-05
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-02-16
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    6.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    24 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>NoSQL(NoSQL = Not Only SQL )，意即”不仅仅是SQL”</p>
+<p>MongoDB 是由数据库（database）、集合（collection）、文档对象（ ）三个层次组成</p>
+<p>MongoDB (文档型数据库)：提供可扩展的高性能数据存储 </p>
+<p>1、基于分布式文件存储</p>
+<p>2、高负载情况下添加更多节点，可以保证服务器性能 </p>
+<p>3、将数据存储为一个文档</p>
+<p> 易于读写的BSON（二进制JSON）格式来存储数据</p>
+<h3 id="关系型数据库遵循ACID规则"><a href="#关系型数据库遵循ACID规则" class="headerlink" title="关系型数据库遵循ACID规则"></a>关系型数据库遵循ACID规则</h3><p>事务在英文中是transaction，和现实世界中的交易很类似，它有如下四个特性：</p>
+<p>1、A (Atomicity) 原子性</p>
+<p>原子性很容易理解，也就是说事务里的所有操作要么全部做完，要么都不做，事务成功的条件是事务里的所有操作都成功，只要有一个操作失败，整个事务就失败，需要回滚。</p>
+<p>比如银行转账，从A账户转100元至B账户，分为两个步骤：1）从A账户取100元；2）存入100元至B账户。这两步要么一起完成，要么一起不完成，如果只完成第一步，第二步失败，钱会莫名其妙少了100元。</p>
+<p>2、C (Consistency) 一致性</p>
+<p>一致性也比较容易理解，也就是说数据库要一直处于一致的状态，事务的运行不会改变数据库原本的一致性约束。</p>
+<p>例如现有完整性约束a+b=10，如果一个事务改变了a，那么必须得改变b，使得事务结束后依然满足a+b=10，否则事务失败。</p>
+<p>3、I (Isolation) 独立性</p>
+<p>所谓的独立性是指并发的事务之间不会互相影响，如果一个事务要访问的数据正在被另外一个事务修改，只要另外一个事务未提交，它所访问的数据就不受未提交事务的影响。</p>
+<p>比如现在有个交易是从A账户转100元至B账户，在这个交易还未完成的情况下，如果此时B查询自己的账户，是看不到新增加的100元的。</p>
+<p>4、D (Durability) 持久性</p>
+<p>持久性是指一旦事务提交后，它所做的修改将会永久的保存在数据库上，即使出现宕机也不会丢失</p>
+<p>（疑惑：即使每次修改后缓存都执行写回操作？不只是写回，还需要保存到磁盘？）</p>
+<h3 id="RDBMS-对比-NoSQL"><a href="#RDBMS-对比-NoSQL" class="headerlink" title="RDBMS 对比 NoSQL"></a>RDBMS 对比 NoSQL</h3><p>RDBMS</p>
+<ul>
+<li>高度组织化结构化数据</li>
+<li>结构化查询语言（SQL） (SQL)</li>
+<li>数据和关系都存储在单独的表中。</li>
+<li>数据操纵语言，数据定义语言</li>
+<li>严格的一致性</li>
+<li>基础事务</li>
+</ul>
+<p>NoSQL</p>
+<ul>
+<li>代表着不仅仅是SQL</li>
+<li>没有声明性查询语言</li>
+<li>没有预定义的模式<br>-键 - 值对存储，列存储，文档存储，图形数据库</li>
+<li>最终一致性，而非ACID属性</li>
+<li>非结构化和不可预知的数据</li>
+<li>CAP定理</li>
+<li>高性能，高可用性和可伸缩性</li>
+</ul>
+<h3 id="CAP定理（CAP-theorem）"><a href="#CAP定理（CAP-theorem）" class="headerlink" title="CAP定理（CAP theorem）"></a>CAP定理（CAP theorem）</h3><p>在计算机科学中, CAP定理（CAP theorem）, 又被称作 布鲁尔定理（Brewer’s theorem）, 它指出对于一个分布式计算系统来说，不可能同时满足以下三点:</p>
+<ul>
+<li><strong>一致性(Consistency)</strong> (所有节点在同一时间具有相同的数据)</li>
+<li><strong>可用性(Availability)</strong> (保证每个请求不管成功或者失败都有响应)</li>
+<li><strong>分区容错性(Partition tolerance)</strong> (系统中任意信息的丢失或失败不会影响系统的继续运作)</li>
+</ul>
+<p>CAP理论的核心是：一个分布式系统不可能同时很好的满足一致性，可用性和分区容错性这三个需求，最多只能同时较好的满足两个。</p>
+<p>因此，根据 CAP 原理将 NoSQL 数据库分成了满足 CA 原则、满足 CP 原则和满足 AP 原则三 大类：</p>
+<ul>
+<li>CA - 单点集群，满足一致性，可用性的系统，通常在可扩展性上不太强大。</li>
+<li>CP - 满足一致性，分区容忍性的系统，通常性能不是特别高。</li>
+<li>AP - 满足可用性，分区容忍性的系统，通常可能对一致性要求低一些。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1706581049602-f2b33e24-e655-4dbb-96a7-6eecde4e3d94.png" alt="img"></p>
+<h3 id="NoSQL的优点-缺点"><a href="#NoSQL的优点-缺点" class="headerlink" title="NoSQL的优点/缺点"></a>NoSQL的优点/缺点</h3><p>优点:</p>
+<ul>
+<li>高可扩展性</li>
+<li>分布式计算</li>
+<li>低成本</li>
+<li>架构的灵活性，半结构化数据</li>
+<li>没有复杂的关系 </li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>没有标准化</li>
+<li>有限的查询功能（到目前为止）</li>
+<li>最终一致是不直观的程序</li>
+</ul>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><pre class=" language-bash"><code class="language-bash">use database <span class="token comment" spellcheck="true"># 切换/创建数据库</span>
+show dbs <span class="token comment" spellcheck="true"># 查看所有数据库</span>
+db.dropDatabase<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 删除数据库</span>
+db.version<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 查看版本</span>
+show tables <span class="token comment" spellcheck="true"># 查看所有集合</span>
+db.col.drop<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 删除集合</span>
+db.serverStatus<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 获取服务状态信息</span>
+
+db.col.stats<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 查看数据表的详细信息，如表大小</span>
+
+db.createCollection<span class="token punctuation">(</span><span class="token string">"runoob"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 创建集合</span>
+
+db.col.find<span class="token punctuation">(</span><span class="token punctuation">)</span>.pretty<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 格式化打印集合</span>
+
+<span class="token comment" spellcheck="true"># 列不存在直接就创建了</span>
+<span class="token comment" spellcheck="true"># 数据库表如果没有，使用use newdata也会直接创建了</span>
+<span class="token comment" spellcheck="true"># 使用update同理，创建status列默认值是0</span>
+db.runoob.update<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span>,<span class="token punctuation">{</span><span class="token variable">$set</span>:<span class="token punctuation">{</span>status:0<span class="token punctuation">}</span><span class="token punctuation">}</span>,false,true<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 插入字段</span>
+db.col.insert<span class="token punctuation">(</span><span class="token punctuation">{</span>title:<span class="token string">'Mongo'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+db.col.insertOne<span class="token punctuation">(</span><span class="token punctuation">{</span>title:<span class="token string">'MongoDB'</span>,url:<span class="token string">"http://www.mongo.org"</span>,tags:<span class="token punctuation">[</span><span class="token string">'mongo'</span>,<span class="token string">'db'</span>,<span class="token string">'NoSQL'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 插入多条</span>
+db.col.insertMany<span class="token punctuation">(</span><span class="token punctuation">[</span>
+<span class="token punctuation">{</span>title:<span class="token string">'MongoDB'</span>,url:<span class="token string">"http://www.mongo.org"</span>,tags:<span class="token punctuation">[</span><span class="token string">'mongo'</span>,<span class="token string">'db'</span>,<span class="token string">'NoSQL'</span><span class="token punctuation">]</span><span class="token punctuation">}</span>,
+<span class="token punctuation">{</span>title:<span class="token string">'MySQL'</span>,url:<span class="token string">"http://www.mysql.org"</span>,tags:<span class="token punctuation">[</span><span class="token string">'mysql'</span>,<span class="token string">'db'</span><span class="token punctuation">]</span><span class="token punctuation">}</span>,
+<span class="token punctuation">{</span>title:<span class="token string">'PostgreSQL'</span>,url:<span class="token string">"http://www.postgre.org"</span>,tags:<span class="token punctuation">[</span><span class="token string">'pgsql'</span>,<span class="token string">'db'</span><span class="token punctuation">]</span><span class="token punctuation">}</span>,
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 更新文档名</span>
+db.col.update<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span>, <span class="token punctuation">{</span> <span class="token variable">$rename</span><span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token string">'oldFieldName'</span><span class="token keyword">:</span> <span class="token string">'newFieldName'</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span>, <span class="token punctuation">{</span> multi: <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+
+<span class="token comment" spellcheck="true"># 更新所有文档</span>
+db.asset_info.updateMany<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span>, <span class="token punctuation">{</span><span class="token variable">$set</span><span class="token keyword">:</span> <span class="token punctuation">{</span>age: 12<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 更新符合条件的第一条文档</span>
+db.asset_info.updateMany<span class="token punctuation">(</span><span class="token punctuation">{</span>title:<span class="token string">'Mongo'</span><span class="token punctuation">}</span>, <span class="token punctuation">{</span><span class="token variable">$set</span><span class="token keyword">:</span> <span class="token punctuation">{</span>age: 12<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 更新符合条件的所有文档</span>
+db.asset_info.updateMany<span class="token punctuation">(</span><span class="token punctuation">{</span>title:<span class="token string">'Mongo'</span><span class="token punctuation">}</span>, <span class="token punctuation">{</span><span class="token variable">$set</span><span class="token keyword">:</span> <span class="token punctuation">{</span>age: 12<span class="token punctuation">}</span><span class="token punctuation">}</span>,<span class="token punctuation">{</span>multi:true<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 只更新第一条记录：</span>
+db.col.update<span class="token punctuation">(</span> <span class="token punctuation">{</span> <span class="token string">"count"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token variable">$gt</span> <span class="token keyword">:</span> 1 <span class="token punctuation">}</span> <span class="token punctuation">}</span> , <span class="token punctuation">{</span> <span class="token variable">$set</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token string">"test2"</span> <span class="token keyword">:</span> <span class="token string">"OK"</span><span class="token punctuation">}</span> <span class="token punctuation">}</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true"># 全部更新：</span>
+db.col.update<span class="token punctuation">(</span> <span class="token punctuation">{</span> <span class="token string">"count"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token variable">$gt</span> <span class="token keyword">:</span> 3 <span class="token punctuation">}</span> <span class="token punctuation">}</span> , <span class="token punctuation">{</span> <span class="token variable">$set</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token string">"test2"</span> <span class="token keyword">:</span> <span class="token string">"OK"</span><span class="token punctuation">}</span> <span class="token punctuation">}</span>,false,true <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true"># 只添加第一条：</span>
+db.col.update<span class="token punctuation">(</span> <span class="token punctuation">{</span> <span class="token string">"count"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token variable">$gt</span> <span class="token keyword">:</span> 4 <span class="token punctuation">}</span> <span class="token punctuation">}</span> , <span class="token punctuation">{</span> <span class="token variable">$set</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token string">"test5"</span> <span class="token keyword">:</span> <span class="token string">"OK"</span><span class="token punctuation">}</span> <span class="token punctuation">}</span>,true,false <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true"># 全部添加进去:</span>
+db.col.update<span class="token punctuation">(</span> <span class="token punctuation">{</span> <span class="token string">"count"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token variable">$gt</span> <span class="token keyword">:</span> 5 <span class="token punctuation">}</span> <span class="token punctuation">}</span> , <span class="token punctuation">{</span> <span class="token variable">$set</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token string">"test5"</span> <span class="token keyword">:</span> <span class="token string">"OK"</span><span class="token punctuation">}</span> <span class="token punctuation">}</span>,true,true <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true"># 全部更新：</span>
+db.col.update<span class="token punctuation">(</span> <span class="token punctuation">{</span> <span class="token string">"count"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token variable">$gt</span> <span class="token keyword">:</span> 15 <span class="token punctuation">}</span> <span class="token punctuation">}</span> , <span class="token punctuation">{</span> <span class="token variable">$inc</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token string">"count"</span> <span class="token keyword">:</span> 1<span class="token punctuation">}</span> <span class="token punctuation">}</span>,false,true <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true"># 只更新第一条记录：</span>
+db.col.update<span class="token punctuation">(</span> <span class="token punctuation">{</span> <span class="token string">"count"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token variable">$gt</span> <span class="token keyword">:</span> 10 <span class="token punctuation">}</span> <span class="token punctuation">}</span> , <span class="token punctuation">{</span> <span class="token variable">$inc</span> <span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token string">"count"</span> <span class="token keyword">:</span> 1<span class="token punctuation">}</span> <span class="token punctuation">}</span>,false,false <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true"># 如删除集合下全部文档</span>
+db.col.deleteMany<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 删除 status 等于 A 的全部文档</span>
+db.col.deleteMany<span class="token punctuation">(</span><span class="token punctuation">{</span> status <span class="token keyword">:</span> <span class="token string">"A"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 删除 status 等于 D 的一个文档</span>
+db.col.deleteOne<span class="token punctuation">(</span><span class="token punctuation">{</span> status: <span class="token string">"D"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 获取集合中title为string类型的文档</span>
+db.col.find<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"title"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token variable">$type</span> <span class="token keyword">:</span> 2<span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+db.col.find<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"title"</span> <span class="token keyword">:</span> <span class="token punctuation">{</span><span class="token variable">$type</span> <span class="token keyword">:</span> <span class="token string">'string'</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 查询col集合中title字段的内容，跳过3条，显示2条</span>
+db.col.find<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span>,<span class="token punctuation">{</span><span class="token string">"title"</span>:1,_id:0<span class="token punctuation">}</span><span class="token punctuation">)</span>.limit<span class="token punctuation">(</span>2<span class="token punctuation">)</span>.skip<span class="token punctuation">(</span>3<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 按照"like"字段进行降序（1是升序）</span>
+db.col.find<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span>,<span class="token punctuation">{</span><span class="token string">"title"</span>:1,_id:0<span class="token punctuation">}</span><span class="token punctuation">)</span>.sort<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"likes"</span>:-1<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 创建多个索引字段，也可以一个（关系型数据库中称作复合索引）</span>
+db.col.createIndex<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"title"</span>:1,<span class="token string">"description"</span>:-1<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 在后台创建索引</span>
+db.values.createIndex<span class="token punctuation">(</span><span class="token punctuation">{</span>open: 1, close: 1<span class="token punctuation">}</span>, <span class="token punctuation">{</span>background: true<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 查看集合索引</span>
+db.col.getIndexes<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 查看集合索引大小</span>
+db.col.totalIndexSize<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 删除集合所有索引</span>
+db.col.dropIndexes<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 删除集合指定索引</span>
+db.col.dropIndex<span class="token punctuation">(</span><span class="token string">"索引名称"</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 设置在创建记录后，180 秒左右删除。</span>
+db.col.createIndex<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"createDate"</span><span class="token keyword">:</span> 1<span class="token punctuation">}</span>,<span class="token punctuation">{</span>expireAfterSeconds: 180<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 由记录中设定日期点清除。</span>
+<span class="token comment" spellcheck="true"># 设置 A 记录在 2019 年 1 月 22 日晚上 11 点左右删除，A 记录中需添加 "ClearUpDate": new Date('Jan 22, 2019 23:00:00')，且 Index中expireAfterSeconds 设值为 0。</span>
+db.col.createIndex<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"ClearUpDate"</span><span class="token keyword">:</span> 1<span class="token punctuation">}</span>,<span class="token punctuation">{</span>expireAfterSeconds: 0<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 其他注意事项:</span>
+<span class="token comment" spellcheck="true"># 索引关键字段必须是 Date 类型</span>
+<span class="token comment" spellcheck="true"># 非立即执行：扫描 Document 过期数据并删除是独立线程执行，默认 60s 扫描一次，删除也不一定是立即删除成功。</span>
+<span class="token comment" spellcheck="true"># 单字段索引，混合索引不支持</span>
+
+<span class="token comment" spellcheck="true"># 聚合(aggregate)主要用于处理数据(诸如统计平均值，求和等)，并返回计算后的数据结果</span>
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b28a73ba9a16">嵌入查找</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/manual/reference/operator/aggregation/filter/">mongo $filter 用法</a></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token keyword">for</span> i <span class="token keyword">in</span> db_asset_info.aggregate<span class="token punctuation">(</span>
+    <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span><span class="token string">'<span class="token variable">$project</span>'</span><span class="token keyword">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"port_info"</span><span class="token keyword">:</span> <span class="token punctuation">{</span>  <span class="token comment" spellcheck="true"># 查找结果只有port_info字段结果</span>
+                <span class="token string">'<span class="token variable">$filter</span>'</span><span class="token keyword">:</span> <span class="token punctuation">{</span>  <span class="token comment" spellcheck="true"># 字段值为筛选条件的结果</span>
+                    <span class="token string">'input'</span><span class="token keyword">:</span> <span class="token string">"<span class="token variable">$port_info</span>"</span>,  <span class="token comment" spellcheck="true"># 筛选条件输入的列表</span>
+                    <span class="token string">'as'</span><span class="token keyword">:</span> <span class="token string">"item"</span>,   <span class="token comment" spellcheck="true"># 列表中的每个元素命名</span>
+                    <span class="token string">'cond'</span><span class="token keyword">:</span> <span class="token punctuation">{</span> <span class="token string">'<span class="token variable">$eq</span>'</span><span class="token keyword">:</span> <span class="token punctuation">[</span> <span class="token string">'$<span class="token variable">$item</span>.ProductName'</span>, <span class="token string">'nginx'</span> <span class="token punctuation">]</span> <span class="token punctuation">}</span>  <span class="token comment" spellcheck="true"># 筛选条件</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>,
+            <span class="token string">"_id"</span><span class="token keyword">:</span> 0
+        <span class="token punctuation">}</span>,
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+<span class="token punctuation">)</span>:
+    <span class="token keyword">if</span> i<span class="token punctuation">[</span><span class="token string">'port_info'</span><span class="token punctuation">]</span>:
+        print<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+
+示例：
+// <span class="token variable"><span class="token variable">`</span>storage<span class="token variable">`</span></span> Collection
+<span class="token punctuation">{</span>
+    <span class="token string">"_id"</span><span class="token keyword">:</span> <span class="token string">"alpha"</span>,
+    <span class="token string">"name"</span><span class="token keyword">:</span> <span class="token string">"Storage Alpha"</span>,
+    <span class="token string">"items"</span><span class="token keyword">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token string">"category"</span><span class="token keyword">:</span> <span class="token string">"food"</span>,
+            <span class="token string">"name"</span><span class="token keyword">:</span> <span class="token string">"apple"</span>
+        <span class="token punctuation">}</span>,
+        <span class="token punctuation">{</span>
+            <span class="token string">"category"</span><span class="token keyword">:</span> <span class="token string">"food"</span>,
+            <span class="token string">"name"</span><span class="token keyword">:</span> <span class="token string">"banana"</span>
+        <span class="token punctuation">}</span>,
+        <span class="token punctuation">{</span>
+            <span class="token string">"category"</span><span class="token keyword">:</span> <span class="token string">"tool"</span>,
+            <span class="token string">"name"</span><span class="token keyword">:</span> <span class="token string">"hammer"</span>
+        <span class="token punctuation">}</span>,
+        <span class="token punctuation">{</span>
+            <span class="token string">"category"</span><span class="token keyword">:</span> <span class="token string">"furniture"</span>,
+            <span class="token string">"name"</span><span class="token keyword">:</span> <span class="token string">"couch"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+
+查询得到：
+<span class="token punctuation">{</span>
+    <span class="token string">"_id"</span> <span class="token keyword">:</span> <span class="token string">"alpha"</span>,
+    <span class="token string">"items"</span> <span class="token keyword">:</span> <span class="token punctuation">[</span> 
+        <span class="token punctuation">{</span>
+            <span class="token string">"category"</span> <span class="token keyword">:</span> <span class="token string">"food"</span>,
+            <span class="token string">"name"</span> <span class="token keyword">:</span> <span class="token string">"apple"</span>
+        <span class="token punctuation">}</span>, 
+        <span class="token punctuation">{</span>
+            <span class="token string">"category"</span> <span class="token keyword">:</span> <span class="token string">"food"</span>,
+            <span class="token string">"name"</span> <span class="token keyword">:</span> <span class="token string">"banana"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>$type 类型对照表</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1706595566678-4706444b-7585-4b18-bb86-ba5e598b59bb.png" alt="img"></p>
+<p>索引参数</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1706613269182-7421c396-fb24-48de-a1e7-c10e05670025.png" alt="img"></p>
+<p>聚合表达式</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1706614314900-463f6d04-fa66-4bdc-9f7f-61a7b7cc7f8d.png" alt="img"></p>
+<h4 id="管道的概念"><a href="#管道的概念" class="headerlink" title="管道的概念"></a>管道的概念</h4><p>管道在Unix和Linux中一般用于将当前命令的输出结果作为下一个命令的参数。 </p>
+<p>MongoDB的聚合管道将MongoDB文档在一个管道处理完毕后将结果传递给下一个管道处理。管道操作是可以重复的。</p>
+<p>表达式：处理输入文档并输出。表达式是无状态的，只能用于计算当前聚合管道的文档，不能处理其它的文档。</p>
+<p>这里我们介绍一下聚合框架中常用的几个操作：</p>
+<ul>
+<li> $project：修改输入文档的结构。可以用来重命名、增加或删除域，也可以用于创建计算结果以及嵌套文档。</li>
+<li> $match：用于过滤数据，只输出符合条件的文档。$match使用MongoDB的标准查询操作。</li>
+<li> $limit：用来限制MongoDB聚合管道返回的文档数。</li>
+<li> $skip：在聚合管道中跳过指定数量的文档，并返回余下的文档。</li>
+<li> $unwind：将文档中的某一个数组类型字段拆分成多条，每条包含数组中的一个值。</li>
+<li> $group：将集合中的文档分组，可用于统计结果。</li>
+<li> $sort：将输入文档排序后输出。</li>
+<li> $geoNear：输出接近某一地理位置的有序文档。</li>
+</ul>
+<h4 id="MongoDB复制"><a href="#MongoDB复制" class="headerlink" title="MongoDB复制"></a>MongoDB复制</h4><p>数据同步在多个服务器的过程，复制提供了数据的冗余备份，并在多个服务器上存储数据副本，提高了数据的可用性， 并可以保证数据的安全性。 </p>
+<p>复制还允许您从硬件故障和服务中断中恢复数据</p>
+<ul>
+<li>保障数据的安全性</li>
+<li>数据高可用性 (24*7)</li>
+<li>灾难恢复</li>
+<li>无需停机维护（如备份，重建索引，压缩）</li>
+<li>分布式读取数据</li>
+</ul>
+<h5 id="复制原理："><a href="#复制原理：" class="headerlink" title="复制原理："></a>复制原理：</h5><p>mongodb的复制至少需要两个节点。其中一个是主节点，负责处理客户端请求，其余的都是从节点，负责复制主节点上的数据。 </p>
+<p>mongodb各个节点常见的搭配方式为：一主一从、一主多从。</p>
+<p>主节点记录在其上的所有操作oplog，从节点定期轮询主节点获取这些操作，然后对自己的数据副本执行这些操作，从而保证从节点的数据与主节点一致。 </p>
+<h5 id="副本集特征："><a href="#副本集特征：" class="headerlink" title="副本集特征："></a>副本集特征：</h5><ul>
+<li> N 个节点的集群</li>
+<li>任何节点可作为主节点</li>
+<li>所有写入操作都在主节点上</li>
+<li>自动故障转移</li>
+<li>自动恢复</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">rs.initiate<span class="token punctuation">(</span><span class="token punctuation">)</span>                     <span class="token comment" spellcheck="true"># 启动一个新的副本集</span>
+rs.conf<span class="token punctuation">(</span><span class="token punctuation">)</span>                             <span class="token comment" spellcheck="true"># 查看副本集的配置</span>
+rs.status<span class="token punctuation">(</span><span class="token punctuation">)</span>                          <span class="token comment" spellcheck="true"># 查看副本集状态</span>
+rs.add<span class="token punctuation">(</span>HOST_NAME:PORT<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 添加副本集的成员</span>
+db.isMaster<span class="token punctuation">(</span><span class="token punctuation">)</span>                     <span class="token comment" spellcheck="true"># 判断当前运行的Mongo服务是否为主节点</span>
+
+db.printReplicationInfo<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true"># 查看oplog状态</span>
+db.getReplicationInfo<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 可以用来查看oplog的状态、大小、存储的时间范围</span>
+db.printSlaveReplicationInfo<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"># 查看从库同步状态</span>
+</code></pre>
+<p>注意：MongoDB 中你只能通过主节点将 Mongo 服务添加到副本集中</p>
+<p>MongoDB的副本集与我们常见的主从有所不同，主从在主机宕机后所有服务将停止，而副本集在主机宕机后，副本会接管主节点成为主节点，不会出现宕机的情况</p>
+<p>为了提高复制的效率，复制集中的所有节点之间会相互的心跳检测（ping）。每个节点都可以从其它节点上获取 oplog。可以简单的将其视作 MySQL 中的 binlog。</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>mongod@db01 ~<span class="token punctuation">]</span> $ mongodump --port 28017 --oplog -o /mongodb/backup  <span class="token comment" spellcheck="true">#对28017实例中的数据进行全备</span>
+<span class="token comment" spellcheck="true">## --oplog参数：会记录备份过程中的数据变化，并以".bson"格式保存下来</span>
+
+<span class="token comment" spellcheck="true"># ...模拟故障</span>
+
+<span class="token punctuation">[</span>mongod@db01 ~<span class="token punctuation">]</span> $ mongorestore  --port 28017 --oplogReplay /mongodb/backup       <span class="token comment" spellcheck="true">#使用mongorestore命令恢复数据时，会自动识别/mongodb/backup目录下的 ".bson"文件</span>
+</code></pre>
+<p>热备详细解释：</p>
+<p><a target="_blank" rel="noopener" href="http://t.csdnimg.cn/KzqbH">热备解释</a></p>
+<h4 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h4><p>在Mongodb里面存在另一种集群，就是分片技术,可以满足MongoDB数据量大量增长的需求。</p>
+<p>当MongoDB存储海量的数据时，一台机器可能不足以存储数据，也可能不足以提供可接受的读写吞吐量。这时，我们就可以通过在多台机器上分割数据，使得数据库系统能存储和处理更多的数据。 </p>
+<ul>
+<li>复制所有的写入操作到主节点</li>
+<li>延迟的敏感数据会在主节点查询</li>
+<li>单个副本集限制在12个节点</li>
+<li>当请求量巨大时会出现内存不足。</li>
+<li>本地磁盘不足</li>
+<li>垂直扩展价格昂贵</li>
+</ul>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p> rs.add() 命令基本语法格式如下： &gt;rs.add(HOST_NAME:PORT)</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xingxia/p/mongodb_oplog.html">oplog详细信息</a></p>
+<p>注意：</p>
+<ul>
+<li>集合只有在内容插入后才会创建，创建集合(数据表)后要再插入一个文档(记录)，集合才会真正创建</li>
+<li>在执行 remove() 函数前先执行 find() 命令来判断执行的条件是否正确，这是一个比较好的习惯</li>
+<li>pymongo 聚合搜索查询得到的结果是一个迭代对象，需要使用async for item in db.aggregate()得到文档</li>
+</ul>
+<h3 id="用户操作"><a href="#用户操作" class="headerlink" title="用户操作"></a>用户操作</h3><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># /etc/mongo.conf</span>
+<span class="token comment" spellcheck="true"># security:</span>
+<span class="token comment" spellcheck="true">#    authorization: enabled</span>
+
+mongod --auth       <span class="token comment" spellcheck="true"># 启动 MongoDB 时启用身份验证</span>
+mongo admin         <span class="token comment" spellcheck="true"># 进入管理员管理页面</span>
+db.createUser<span class="token punctuation">(</span><span class="token punctuation">{</span>user:<span class="token string">"admin"</span>, pwd:<span class="token string">"123456"</span>, roles:<span class="token punctuation">[</span><span class="token punctuation">{</span>role:<span class="token string">"root"</span>, db:<span class="token string">"admin"</span><span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 创建管理员用户</span>
+
+docker <span class="token function">exec</span> -ti 074 mongo -u root -p XyLNxzToVDUaKIvC --authenticationDatabase admin
+
+
+mongo -u root -p <span class="token punctuation">[</span>password<span class="token punctuation">]</span> --authenticationDatabase admin
+</code></pre>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="远程连接配置"><a href="#远程连接配置" class="headerlink" title="远程连接配置"></a>远程连接配置</h4><pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># /etc/mongo.conf</span>
+<span class="token key atrule">net</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">27017</span>
+  <span class="token key atrule">bindIp</span><span class="token punctuation">:</span> 0.0.0.0 <span class="token comment" spellcheck="true"># 将127.0.0.1修改为0.0.0.0</span>
+</code></pre>
+<h4 id="连接配置"><a href="#连接配置" class="headerlink" title="连接配置"></a>连接配置</h4><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 打开mongo shell</span>
+mongo
+
+mongodb://username:password@host:port/database<span class="token punctuation">[</span>?options<span class="token punctuation">]</span><span class="token punctuation">]</span>
+</code></pre>
+<h3 id="报错记录"><a href="#报错记录" class="headerlink" title="报错记录"></a>报错记录</h3><h4 id="pymongo-中使用-find-查找报错’AsyncIOMotorCursor’object-is-not-subscriptable"><a href="#pymongo-中使用-find-查找报错’AsyncIOMotorCursor’object-is-not-subscriptable" class="headerlink" title="pymongo  中使用 find()查找报错’AsyncIOMotorCursor’object is not subscriptable"></a>pymongo  中使用 find()查找报错’AsyncIOMotorCursor’object is not subscriptable</h4><p>pymongo 中 find() 被定义为协程，需要使用异步等待，示例：</p>
+<pre><code>db = await db["collection"].find({"key":"value"})
+</code></pre>
+<p>就可以进行索引，<code>db[0]</code></p>
+<h4 id="find-sort-报错，超越缓冲区大小"><a href="#find-sort-报错，超越缓冲区大小" class="headerlink" title="find().sort()报错，超越缓冲区大小"></a>find().sort()报错，超越缓冲区大小</h4><p>使用pymongo时，这行代码触发如下报错：</p>
+<p>​    pymongo.errors.OperationFailure: Executor error during find command :: caused by :: Sort exceeded memory limit of 104857600 bytes, but did not opt in to external sorting. Aborting operation. Pass allowDiskUse:true to opt in., full error: {‘ok’: 0.0, ‘errmsg’: ‘Executor error during find command :: caused by :: Sort exceeded memory limit of 104857600 bytes, but did not opt in to external sorting. Aborting operation. Pass allowDiskUse:true to opt in.’, ‘code’: 292, ‘codeName’: ‘QueryExceededMemoryLimitNoDiskUseAllowed’}</p>
+<p>我实际遇到的Mongo报错：</p>
+<p>errMsg”:”Executor error during find command :: caused by :: Sort exceeded memory limit of 104857600 bytes, but did not opt in to external sorting. Aborting operation. Pass allowDiskUse:true to opt in.”</p>
+<p>触发代码：</p>
+<p>sorted_mongo_doc = mongo.find({}).sort(‘Time’, -1).limit(2000)</p>
+<p>原因</p>
+<p>查阅mongo中文文档(<a target="_blank" rel="noopener" href="https://mongodb.net.cn/manual/reference/method/cursor.sort/#sort-limit-results)">https://mongodb.net.cn/manual/reference/method/cursor.sort/#sort-limit-results)</a>，得知此报错的原因是排序内容超越32MB的内存限制。</p>
+<p><a target="_blank" rel="noopener" href="https://mongodb.net.cn/manual/reference/method/cursor.sort/#sort-limit-results">https://mongodb.net.cn/manual/reference/method/cursor.sort/#sort-limit-results</a></p>
+<p>找到如下解决方法，参考：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000040980419">https://segmentfault.com/a/1190000040980419</a></p>
+<p>文档解释：当无法从索引获取排序顺序时，MongoDB将对内存中的结果进行排序，这要求所排序的结果集小于32 MB。</p>
+<p>解决方法</p>
+<ol>
+<li>设置排序字段索引</li>
+</ol>
+<p>db.getCollection(‘col’).createIndex({“updatedAt”: 1})</p>
+<p>没做尝试，略</p>
+<ol>
+<li>提高数据库排序的内存上限</li>
+</ol>
+<p>db.adminCommand({setParameter: 1, internalQueryExecMaxBlockingSortBytes: 104857600})</p>
+<p>在pymongo中尝试失败</p>
+<p>3.更换 aggregate （聚合搜索）进行查询</p>
+<p>将查询语句替换如下：</p>
+<pre class=" language-yaml"><code class="language-yaml">sorted_mongo_doc = mongo.aggregate(<span class="token punctuation">[</span>
+    <span class="token punctuation">{</span><span class="token key atrule">'$project'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span><span class="token key atrule">'$sort'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token key atrule">'Time'</span><span class="token punctuation">:</span> <span class="token number">-1</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span><span class="token key atrule">'$limit'</span><span class="token punctuation">:</span> <span class="token number">2000</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span class="token punctuation">,</span> allowDiskUse=True)
+</code></pre>
+<p>allowDiskUse=True表示使用磁盘存储</p>
+<h4 id="aggregate不能操作两次表"><a href="#aggregate不能操作两次表" class="headerlink" title="aggregate不能操作两次表"></a>aggregate不能操作两次表</h4><p>pymongo使用过程中发现，aggregate不能连续操作同一张表两次，只能执行成功一次</p>
+<h4 id="重复插入报错"><a href="#重复插入报错" class="headerlink" title="重复插入报错"></a>重复插入报错</h4><p> pymongo.errors.DuplicateKeyError: E11000 duplicate key error collection: JXScan.message index: <em>id</em> dup key: { _id: ObjectId(‘65b9bfd52b4f663687b9f3fd’) }, full error: {‘index’: 0, ‘code’: 11000, ‘keyPattern’: {‘_id’: 1}, ‘keyValue’: {‘_id’: ObjectId(‘65b9bfd52b4f663687b9f3fd’)}, ‘errmsg’: “E11000 duplicate key error collection: JXScan.message index: <em>id</em> dup key: { _id: ObjectId(‘65b9bfd52b4f663687b9f3fd’) }”}  </p>
+<p>ai 解答：</p>
+<p>这个错误信息来自于MongoDB，是在使用PyMongo库与MongoDB数据库交互时遇到的一个常见问题。DuplicateKeyError错误表明你尝试向数据库中插入一个具有唯一索引（在这个例子中是_id字段）的重复键值。</p>
+<p>错误信息解释如下：</p>
+<ul>
+<li>E11000 是MongoDB的错误代码，表示发生了重复键错误。</li>
+<li>duplicate key error collection: JXScan.message index: <em>id</em> 指出在名为JXScan.message的集合中，_id字段（MongoDB的默认唯一索引）出现了重复的键值。</li>
+<li>dup key: { _id: ObjectId(‘65b9bfd52b4f663687b9f3fd’) } 显示了重复的_id值。</li>
+<li>keyPattern: {‘_id’: 1} 表示_id字段被设置为唯一索引。</li>
+<li>keyValue: {‘_id’: ObjectId(‘65b9bfd52b4f663687b9f3fd’)} 是尝试插入的重复的_id值。</li>
+<li>errmsg 提供了更详细的错误信息。</li>
+</ul>
+<p>在MongoDB中，_id字段是自动创建的唯一索引，这意味着每个文档的_id必须是唯一的。如果你尝试插入一个已经存在的_id，MongoDB会拒绝这个操作并抛出这个错误。</p>
+<p>我的发现：</p>
+<p>我发现查找这个 _id 并没有发现文档，就很奇怪，删除同样找不到也没删除</p>
+<p>解决办法：</p>
+<p>1、 使用 save 覆盖但是就数据会丢失</p>
+<p>2、使用 try 跳过，使用这个办法解决</p>
+<pre class=" language-bash"><code class="language-bash">try:
+    <span class="token punctuation">..</span>.
+except:
+    pass
+</code></pre>
+<h4 id="docker-启动mongo失败：数据未关闭"><a href="#docker-启动mongo失败：数据未关闭" class="headerlink" title="docker 启动mongo失败：数据未关闭"></a>docker 启动mongo失败：数据未关闭</h4><p>在docker中运行mongo失败，查看日志提示，锁没有释放，数据损坏或者升级的版本不兼容，我直接将容器迁移过来的，镜像是没有问题的，数据在打包的时候没有关闭镜像，可能是没有关闭 mongo 的连接导致数据文件损坏</p>
+<h4 id="checkpoint-检查点"><a href="#checkpoint-检查点" class="headerlink" title="checkpoint 检查点"></a><a target="_blank" rel="noopener" href="https://www.pdai.tech/md/db/nosql-mongo/mongo-y-checkpoint.html">checkpoint 检查点</a></h4><h4 id="mongo-执行命令耗时检查"><a href="#mongo-执行命令耗时检查" class="headerlink" title="mongo 执行命令耗时检查"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hxlasky/p/16048977.html">mongo 执行命令耗时检查</a></h4><h3 id="MongoDB-几种查询嵌套数据（Embedded）的方式"><a href="#MongoDB-几种查询嵌套数据（Embedded）的方式" class="headerlink" title="MongoDB 几种查询嵌套数据（Embedded）的方式"></a>MongoDB 几种查询嵌套数据（Embedded）的方式</h3><p>MongoDB <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/data-model-design/#embedded-data-models">推荐使用</a>「内嵌文档（Embedded）」，所以带来一个问题，如何查询嵌入文档内的数据？</p>
+<p>假如我们有一个 storage 的 Collection，包含一条数据：</p>
+<pre class=" language-json"><code class="language-json">// `storage` Collection
+<span class="token punctuation">{</span>
+    <span class="token property">"_id"</span><span class="token operator">:</span> <span class="token string">"alpha"</span><span class="token punctuation">,</span>
+    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Storage Alpha"</span><span class="token punctuation">,</span>
+    <span class="token property">"items"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"category"</span><span class="token operator">:</span> <span class="token string">"food"</span><span class="token punctuation">,</span>
+            <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"apple"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"category"</span><span class="token operator">:</span> <span class="token string">"food"</span><span class="token punctuation">,</span>
+            <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"banana"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"category"</span><span class="token operator">:</span> <span class="token string">"tool"</span><span class="token punctuation">,</span>
+            <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"hammer"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"category"</span><span class="token operator">:</span> <span class="token string">"furniture"</span><span class="token punctuation">,</span>
+            <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"couch"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>如何查出 items.category 为 food 的数据？</p>
+<p>熟悉 MongoDB 查询语句的同学可能立刻想到了以下查询语句：</p>
+<pre class=" language-shell"><code class="language-shell">db.storage.find({
+    'items.category': { 
+        $eq: 'food'
+    }
+})
+</code></pre>
+<p>但是这样只能查出这一条 storage 数据，并不能过滤 items 字段中不符合条件数据，实时上就是返回了整个 document。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><h4 id="映射操作符（Projection-Operator）"><a href="#映射操作符（Projection-Operator）" class="headerlink" title="$ 映射操作符（Projection Operator）"></a>$ 映射操作符（Projection Operator）</h4><p>第一个解决方案是使用 $ 映射操作符。</p>
+<p>这是 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/master/reference/operator/projection/positional/#proj._S_">官方文档</a> 的介绍：</p>
+<p>$ 操作符会限制 array 类型数据的返回结果，使其仅返回第一个满足条件的元素。</p>
+<p>那么我们使用 $ 进行查询：</p>
+<pre class=" language-shell"><code class="language-shell">db.storage.find(
+    {
+        'items.category': { 
+            $eq: 'food'
+        }
+    },
+    {
+        'items.$': 1
+    }
+)
+</code></pre>
+<p>就会得到这样的结果：</p>
+<pre class=" language-shell"><code class="language-shell">{
+    "_id" : "alpha",
+    "items" : [ 
+        {
+            "category" : "food",
+            "name" : "apple"
+        }
+    ]
+}
+</code></pre>
+<p>可以看到，不符合条件的 items 确实没有返回了（_id 字段是默认会返回的），但因为 $ 映射操作符只会返回数组中第一个符合条件的元素，另一条同样符合条件的元素无法被获取到。</p>
+<p>$ 映射操作符还有一些<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/operator/projection/positional/#array-field-limitations">其他限制条件</a>。</p>
+<h4 id="elemMatch-映射操作符（Projection-Operator）"><a href="#elemMatch-映射操作符（Projection-Operator）" class="headerlink" title="$elemMatch 映射操作符（Projection Operator）"></a>$elemMatch 映射操作符（Projection Operator）</h4><p>另一种方式是使用 $elemMatch 操作符（<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/operator/projection/elemMatch/#proj._S_elemMatch">官方文档</a>）。</p>
+<p>同样是「映射操作符」，$elemMatch 和 $ 的区别在于，$ 使用的是数据查询条件作为来映射（或者说过滤）array 中的数据，而 $elemMatch 需要指定单独的条件（可以指定多个条件）。</p>
+<p>查询示例如下：</p>
+<pre class=" language-shell"><code class="language-shell">db.storage.find(
+    // 对 `items` 的过滤条件不需要写在查询条件中
+    {
+        '_id': "alpha"
+    },
+    {
+        'items': {
+            '$elemMatch': {
+                'category': 'food'
+            }
+        }
+    }
+)
+</code></pre>
+<p>查询结果：</p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"_id"</span> <span class="token operator">:</span> <span class="token string">"alpha"</span><span class="token punctuation">,</span>
+    <span class="token property">"items"</span> <span class="token operator">:</span> <span class="token punctuation">[</span> 
+        <span class="token punctuation">{</span>
+            <span class="token property">"category"</span> <span class="token operator">:</span> <span class="token string">"food"</span><span class="token punctuation">,</span>
+            <span class="token property">"name"</span> <span class="token operator">:</span> <span class="token string">"apple"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>但和 $ 一样，$elemMatch 也只能返回数组中的<strong>第一条</strong>元素。</p>
+<h4 id="聚合（Aggregation）"><a href="#聚合（Aggregation）" class="headerlink" title="聚合（Aggregation）"></a>聚合（Aggregation）</h4><p>MongoDB &gt;= 3.2</p>
+<h5 id="filter"><a href="#filter" class="headerlink" title="$filter"></a>$filter</h5><p>「聚合」这里我们就简单理解为对数据的批处理（分组、转换、统计等）。它的功能实际上太强大了，详细介绍还是推荐看<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/aggregation/">官方文档</a>，用它来做数组过滤其实有一些杀鸡用牛刀的感觉。</p>
+<p>查询语句看起来有一些复杂：</p>
+<pre class=" language-shell"><code class="language-shell">db.storage.aggregate(
+    {
+        $project: {
+            "items": {
+                $filter: {
+                    input: "$items",
+                    as: "item",
+                    cond: { 
+                        $eq: [ '$$item.category', 'food' ]
+                    }
+                }
+            }
+        }
+    }
+)
+</code></pre>
+<p>查询结果：</p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"_id"</span> <span class="token operator">:</span> <span class="token string">"alpha"</span><span class="token punctuation">,</span>
+    <span class="token property">"items"</span> <span class="token operator">:</span> <span class="token punctuation">[</span> 
+        <span class="token punctuation">{</span>
+            <span class="token property">"category"</span> <span class="token operator">:</span> <span class="token string">"food"</span><span class="token punctuation">,</span>
+            <span class="token property">"name"</span> <span class="token operator">:</span> <span class="token string">"apple"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> 
+        <span class="token punctuation">{</span>
+            <span class="token property">"category"</span> <span class="token operator">:</span> <span class="token string">"food"</span><span class="token punctuation">,</span>
+            <span class="token property">"name"</span> <span class="token operator">:</span> <span class="token string">"banana"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>终于我们得到了想要的结果！</p>
+<h5 id="unwind"><a href="#unwind" class="headerlink" title="$unwind"></a>$unwind</h5><p>同样使用「聚合」，还可以使用 <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/operator/aggregation/unwind/#_S_unwind">$unwind 操作符</a>。</p>
+<p>如果文档中包含 array 类型字段、并且其中包含多个元素，使用 $unwind 操作符会根据元素数量输出多个文档，每个文档的 array 字段中仅包含 array 中的单个元素。</p>
+<p>我们来试试看：</p>
+<pre class=" language-shell"><code class="language-shell">db.storage.aggregate(
+    { 
+        $match : {
+            'items.category': 'food'
+        }
+    },
+    {
+        $unwind : '$items' 
+    },
+    {
+        $match : {
+            'items.category': 'food'
+        }
+    }
+)
+</code></pre>
+<p>查询结果：</p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"_id"</span> <span class="token operator">:</span> <span class="token string">"alpha"</span><span class="token punctuation">,</span>
+    <span class="token property">"name"</span> <span class="token operator">:</span> <span class="token string">"Storage Alpha"</span><span class="token punctuation">,</span>
+    <span class="token property">"items"</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"category"</span> <span class="token operator">:</span> <span class="token string">"food"</span><span class="token punctuation">,</span>
+        <span class="token property">"name"</span> <span class="token operator">:</span> <span class="token string">"apple"</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">{</span>
+    <span class="token property">"_id"</span> <span class="token operator">:</span> <span class="token string">"alpha"</span><span class="token punctuation">,</span>
+    <span class="token property">"name"</span> <span class="token operator">:</span> <span class="token string">"Storage Alpha"</span><span class="token punctuation">,</span>
+    <span class="token property">"items"</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"category"</span> <span class="token operator">:</span> <span class="token string">"food"</span><span class="token punctuation">,</span>
+        <span class="token property">"name"</span> <span class="token operator">:</span> <span class="token string">"banana"</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>$unwind 操作符返回了多条文档数据，并且改变了 items 字段的类型。</p>
+<p>不过查询语句相对前一个例子来说要简洁和易于理解，在某些场景下可能更好用。</p>
+<h4 id="应用层过滤处理"><a href="#应用层过滤处理" class="headerlink" title="应用层过滤处理"></a>应用层过滤处理</h4><p>如题，如果数组内容不多，取出整个文档后在应用层进行处理也不失为一个方法，可以说是分布式计算了……</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总结一下目前的结论（当前 MongoDB 版本为 3.6）：</p>
+<ul>
+<li>如果只需要获取 array 字段中的第一个满足条件的元素、并且一次查询中仅操作一个 array 类型的字段，使用 $ 或者 $elemMatch 映射操作符都可以满足需求；</li>
+<li>其他情况，优先考虑使用「聚合」；</li>
+<li>没有强迫症也可以在应用层做过滤处理。</li>
+</ul>
+<p>这个结论让我也颇感意外，因为「内嵌式」建模方式是 MongoDB 官方宣传的亮点之一（<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/core/data-model-design/">官方文档</a>，当年的宣传文档我暂时没找到）。如果你有更好的方案请在评论中指出。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10043965/how-to-get-a-specific-embedded-document-inside-a-mongodb-collection">How to get a specific embedded document inside a MongoDB collection?</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3985214/retrieve-only-the-queried-element-in-an-object-array-in-mongodb-collection">Retrieve only the queried element in an object array in MongoDB collection</a></li>
+</ul>
+<h2 id="查看mongodb执行命令耗时"><a href="#查看mongodb执行命令耗时" class="headerlink" title="查看mongodb执行命令耗时"></a>查看mongodb执行命令耗时</h2><p>1.开启日志,超过10毫秒的都记录</p>
+<pre class=" language-shell"><code class="language-shell">db.setProfilingLevel( 1 , 10)
+</code></pre>
+<p>2.执行命令</p>
+<pre class=" language-shell"><code class="language-shell">db.metric.aggregate([{$group: {_id: '$month', totalcnt: {$sum: 1}}}])
+</code></pre>
+<p>3.查看执行情况</p>
+<pre class=" language-shell"><code class="language-shell">> db.system.profile.find().pretty()
+{
+        "op" : "command",
+        "ns" : "db_test.metric",
+        "command" : {
+                "aggregate" : "metric",
+                "pipeline" : [
+                        {
+                                "$group" : {
+                                        "_id" : "$month",
+                                        "totalcnt" : {
+                                                "$sum" : 1
+                                        }
+                                }
+                        }
+                ],
+                "cursor" : {
+
+                },
+                "lsid" : {
+                        "id" : UUID("fda589d9-c981-4f93-9341-fca9980f77b3")
+                },
+                "$readPreference" : {
+                        "mode" : "secondaryPreferred"
+                },
+                "$db" : "db_test"
+        },
+        "keysExamined" : 0,
+        "docsExamined" : 1000000,
+        "cursorExhausted" : true,
+        "numYield" : 1026,
+        "nreturned" : 1,
+        "locks" : {
+                "ReplicationStateTransition" : {
+                        "acquireCount" : {
+                                "w" : NumberLong(1058)
+                        }
+                },
+                "Global" : {
+                        "acquireCount" : {
+                                "r" : NumberLong(1058)
+                        }
+                },
+                "Database" : {
+                        "acquireCount" : {
+                                "r" : NumberLong(1057)
+                        }
+                },
+                "Collection" : {
+                        "acquireCount" : {
+                                "r" : NumberLong(1057)
+                        }
+                },
+                "Mutex" : {
+                        "acquireCount" : {
+                                "r" : NumberLong(31)
+                        }
+                }
+        },
+        "flowControl" : {
+
+        },
+        "storage" : {
+
+        },
+        "responseLength" : 149,
+        "protocol" : "op_msg",
+        "millis" : 1732,
+        "planSummary" : "COLLSCAN",
+        "ts" : ISODate("2022-03-24T03:29:11.433Z"),
+        "client" : "192.168.1.135",
+        "appName" : "MongoDB Shell",
+        "allUsers" : [ ],
+        "user" : ""
+}
+</code></pre>
+<p>这里执行1732毫秒</p>
+<p>4.关闭日志</p>
+<pre class=" language-shell"><code class="language-shell">db.setProfilingLevel(0)
+</code></pre>
+<h2 id="对于总数的查询速度"><a href="#对于总数的查询速度" class="headerlink" title="对于总数的查询速度"></a>对于总数的查询速度</h2><p>大量数据下，计算文档数量</p>
+<ul>
+<li>使用 mongo shell 命令 db[‘TF’].count()，它会立即返回（300w 条耗时 0.201s）</li>
+<li>使用 pymongo db[‘TF’].count_documents({})，需要很长时间（300w 条耗时 3.2s）</li>
+<li>使用 pymongo 中的 db_thread.estimated_document_count()，很快返回（300w 条耗时 0.0288s）</li>
+</ul>
+<p>count 是原生的 Mongo 函数。它并没有真正计算所有文件。每当 Mongo 中插入或删除一条记录时，它都会缓存集合中的记录总数。运行 count 时，Mongo 将返回该缓存值</p>
+<p>count_documents 使用查询对象，这意味着它必须遍历所有记录才能获得总计数。因为没有传递任何参数，所以它必须遍历所有 300w 条记录。这就是它速度慢的原因</p>
+<p>对于 PyMongo 3.7+ 版本，可以使用 estimated_document_count 方法来获取一个基于集合元数据的快速计数估计。这个方法通常比 count_documents 要快，因为它不需要遍历整个集合。但是，它可能不会总是返回精确的文档数量，而是一个估计值</p>
+<h3 id="Pymongo-批量插入"><a href="#Pymongo-批量插入" class="headerlink" title="Pymongo 批量插入"></a>Pymongo 批量插入</h3><p>bulk_write(<em>requests:Sequence[ _WriteOp[ _DocumentType ] ]</em>, <em>ordered :</em> <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#bool">bool</a><em>=True</em>, <em>bypass_document_validation :</em> <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#bool">bool</a><em>=False</em>, <em>session:</em><a target="_blank" rel="noopener" href="https://pymongo.readthedocs.io/en/stable/api/pymongo/client_session.html#pymongo.client_session.ClientSession">ClientSession</a><em>|</em><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/constants.html#None">None</a><em>=None</em>, <em>comment:Any|</em><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/constants.html#None">None</a><em>=None</em>, <em>let:Mapping|</em><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/constants.html#None">None</a><em>=None</em>)→<a target="_blank" rel="noopener" href="https://pymongo.readthedocs.io/en/stable/api/pymongo/results.html#pymongo.results.BulkWriteResult">BulkWriteResult</a></p>
+<p>Requests are passed as a list of write operation instances ( <a target="_blank" rel="noopener" href="https://pymongo.readthedocs.io/en/stable/api/pymongo/operations.html#pymongo.operations.InsertOne">InsertOne</a>, <a target="_blank" rel="noopener" href="https://pymongo.readthedocs.io/en/stable/api/pymongo/operations.html#pymongo.operations.UpdateOne">UpdateOne</a>, <a target="_blank" rel="noopener" href="https://pymongo.readthedocs.io/en/stable/api/pymongo/operations.html#pymongo.operations.UpdateMany">UpdateMany</a>, <a target="_blank" rel="noopener" href="https://pymongo.readthedocs.io/en/stable/api/pymongo/operations.html#pymongo.operations.ReplaceOne">ReplaceOne</a>, <a target="_blank" rel="noopener" href="https://pymongo.readthedocs.io/en/stable/api/pymongo/operations.html#pymongo.operations.DeleteOne">DeleteOne</a>, or <a target="_blank" rel="noopener" href="https://pymongo.readthedocs.io/en/stable/api/pymongo/operations.html#pymongo.operations.DeleteMany">DeleteMany</a>).  ；</p>
+<p>Parameters:</p>
+<ul>
+<li>requests: A list of write operations (see examples above).</li>
+<li>ordered (optional): If True (the default) requests will be performed on the server serially, in the order provided. If an error occurs all remaining operations are aborted. If False requests will be performed on the server in arbitrary order, possibly in parallel, and all operations will be attempted.</li>
+<li>bypass_document_validation: (optional) If True, allows the write to opt-out of document level validation. Default is False.</li>
+<li>session (optional): a <a target="_blank" rel="noopener" href="https://pymongo.readthedocs.io/en/stable/api/pymongo/client_session.html#pymongo.client_session.ClientSession">ClientSession</a>.</li>
+<li>comment (optional): A user-provided comment to attach to this command.</li>
+<li>let (optional): Map of parameter names and values. Values must be constant or closed expressions that do not reference document fields. Parameters can then be accessed as variables in an aggregate expression context (e.g. “$$var”).</li>
+</ul>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://pymongo.readthedocs.io/en/stable/api/pymongo/collection.html#pymongo.collection.Collection.bulk_write">https://pymongo.readthedocs.io/en/stable/api/pymongo/collection.html#pymongo.collection.Collection.bulk_write</a></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 示例</span>
+<span class="token keyword">from</span> pymongo <span class="token keyword">import</span> MongoClient<span class="token punctuation">,</span> UpdateOne<span class="token punctuation">,</span> InsertOne
+
+requests <span class="token operator">=</span> <span class="token punctuation">[</span>InsertOne<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'b'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> UpdateOne<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">'$set'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">'c'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+result <span class="token operator">=</span> db<span class="token punctuation">.</span>test<span class="token punctuation">.</span>bulk_write<span class="token punctuation">(</span>requests<span class="token punctuation">,</span> ordered<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+</code></pre>
+<p>场景：使用循环中每次查询到就更新和批量更新的对比</p>
+<p>5000 条数据对比：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1707358452749-845dcddd-e380-49a4-8f41-64772afd68d4.png" alt="img"></p>
+<p>10000 条数据对比：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1707360010229-9739bb70-1ce6-4c5d-9a93-d112c78ede8c.png" alt="img"></p>
+<h4 id="疑问：为什么批量更新的时间越来越长了"><a href="#疑问：为什么批量更新的时间越来越长了" class="headerlink" title="疑问：为什么批量更新的时间越来越长了"></a>疑问：为什么批量更新的时间越来越长了<img src="https://cdn.nlark.com/yuque/0/2024/png/38828771/1707373106815-5b30e021-a890-42ec-8dbe-803edbf82c05.png" alt="img"></h4>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Nico</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://sainthood2077.github.io/2023/08/05/mongodb/">https://sainthood2077.github.io/2023/08/05/mongodb/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Nico</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/MongoDB/">
+                                    <span class="chip bg-color">MongoDB</span>
+                                </a>
+                            
+                                <a href="/tags/NoSQL/">
+                                    <span class="chip bg-color">NoSQL</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/08/20/qt-bug-ji-lu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Qt BUG记录">
+                        
+                        <span class="card-title">Qt BUG记录</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-08-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Qt/" class="post-category">
+                                    Qt
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/APP%E5%BC%80%E5%8F%91/">
+                        <span class="chip bg-color">APP开发</span>
+                    </a>
+                    
+                    <a href="/tags/Qt-BUG/">
+                        <span class="chip bg-color">Qt-BUG</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/07/22/nginx/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Nginx">
+                        
+                        <span class="card-title">Nginx</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/nginx/" class="post-category">
+                                    nginx
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/nginx/">
+                        <span class="chip bg-color">nginx</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">
+                        <span class="chip bg-color">反向代理</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: NicoCode<br />'
+            + '文章作者: Nico<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者Nico所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">Nico</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">89.3k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+    
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "09";
+                        var startDate = "27";
+                        var startHour = "18";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+    
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+    
+                    calcSiteTime();
+                </script>
+                <script src="/js/prism/prism.js" async></script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,0"
+        pointColor="0,0,0" opacity='0.7'
+        zIndex="-1" count="299"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

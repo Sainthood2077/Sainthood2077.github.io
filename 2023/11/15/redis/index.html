@@ -1,0 +1,2410 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Redis, Blog">
+    <meta name="description" content="
+开源
+ANSI C语言编写
+支持网络
+可基于内存亦可持久化的日志型
+Key-Value数据库
+提供多种语言的API
+
+redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="referrer" content="no-referrer" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Redis | NicoCode</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<link rel="stylesheet" href="/js/prism/prism.css">
+
+<meta name="generator" content="Hexo 5.4.2">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">NicoCode</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">NicoCode</div>
+        <div class="logo-desc">
+            
+            PB
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Redis</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/NoSQL/">
+                                <span class="chip bg-color">NoSQL</span>
+                            </a>
+                        
+                            <a href="/tags/redis/">
+                                <span class="chip bg-color">redis</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                数据库
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-11-15
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2024-02-16
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    12.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    55 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <ul>
+<li>开源</li>
+<li>ANSI C语言编写</li>
+<li>支持网络</li>
+<li>可基于内存亦可持久化的日志型</li>
+<li>Key-Value数据库</li>
+<li>提供多种语言的API</li>
+</ul>
+<p>redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave(主从)同步。</p>
+<p>缓存层通常使用内存缓存来实现，毕竟，传统 SQL 数据库的性能瓶颈通常发生在二级存储（即硬盘）的 I/O 层面。随着主内存 (RAM) 的价格在过去十年中下降，将（至少部分）数据存储在主内存中以提高性能便是一种性价比较高的解决方案。基于当前的技术发展现状，Redis 便成为当下一种较为流行的选择。 </p>
+<p>当然，大多数系统只将所谓的“热数据”存储在缓存层（即主内存）中。基于帕累托原理（也称为 80/20 法则），对于大多数事件，大约 80% 的影响来自 20% 的原因。为了节省成本，我们只需要将这 20% 存储在缓存层中。为了识别“热数据”，我们可以指定驱逐策略（例如 LFU 或 LRU ）来确定哪些数据将过期</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><a target="_blank" rel="noopener" href="https://redis.io/">官网</a>下载对应版本包</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">tar</span> -zxvf redis-6.0.10.tar.gz
+</code></pre>
+<p>需要 gcc 环境</p>
+<pre class=" language-bash"><code class="language-bash">yum <span class="token function">install</span> gcc-c++
+</code></pre>
+<p>Redis版本是6.0.10.对gcc环境的版本有一定的要求，要升级gcc的版本</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> yum <span class="token function">install</span> centos-release-scl
+<span class="token function">sudo</span> yum <span class="token function">install</span> devtoolset-7-gcc*
+scl <span class="token function">enable</span> devtoolset-7 <span class="token function">bash</span>
+gcc -v <span class="token comment" spellcheck="true"># 查看版本升级</span>
+
+<span class="token comment" spellcheck="true"># 在解压的目录中</span>
+<span class="token function">make</span> <span class="token operator">&amp;&amp;</span> <span class="token function">make</span> isntall
+</code></pre>
+<p>redis 默认目录</p>
+<p>/usr/local/bin</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#启动redis服务</span>
+redis-server <span class="token punctuation">..</span>/redis.conf  <span class="token comment" spellcheck="true"># 修改好配置文件后，指定路径</span>
+<span class="token comment" spellcheck="true">#连接redis服务</span>
+redis-cli -p 6379
+</code></pre>
+<p>在 Redis 中，HMSET 是一个用于设置 hash 中多个字段的命令，但它已经在 Redis 3.2 版本中被弃用，并在后续版本中完全移除。取而代之的是使用 HSET 命令结合多个字段-值对来一次性设置多个字段。由于 HMSET 已经不再可用</p>
+<p>redis 对一次写入的数据大小没有限制，但是根据Redis的设计，键（key）的最大长度是512 MB。因此，在使用HSET命令时，需要确保键（key）的长度不超过512 MB</p>
+<p>重启redis服务也不会导致数据丢失，只要内存没有影响</p>
+<h3 id="Redis-基本命令"><a href="#Redis-基本命令" class="headerlink" title="Redis 基本命令"></a>Redis 基本命令</h3><h4 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a>服务管理</h4><pre class=" language-bash"><code class="language-bash">$ redis-server restart  <span class="token comment" spellcheck="true"># 重启 redis-server 服务</span>
+$ redis-cli -h 127.0.0.1 -p 6379 <span class="token function">shutdown</span> <span class="token comment" spellcheck="true"># 关闭 redis-server 服务， 无密码</span>
+$ redis-cli -h 127.0.0.1 -p 6379 -a password <span class="token function">shutdown</span>  <span class="token comment" spellcheck="true"># 关闭 redis-server 服务，有密码</span>
+$ /user/local/redis/bin/redis-server /etc/redis/redis.conf <span class="token comment" spellcheck="true">#启动redis服务</span>
+</code></pre>
+<h4 id="Redis-keys"><a href="#Redis-keys" class="headerlink" title="Redis-keys"></a>Redis-keys</h4><pre class=" language-bash"><code class="language-bash"><span class="token keyword">set</span> key1 value1 <span class="token comment" spellcheck="true"># 增加键值</span>
+get key1 <span class="token comment" spellcheck="true"># 查看 key1 的值</span>
+strlen key1 <span class="token comment" spellcheck="true"># 查看 key1 的值的字符串长度</span>
+append key1 <span class="token comment" spellcheck="true"># 对 key1 的值追加</span>
+<span class="token comment" spellcheck="true"># 注意：字符串需要使用双引号，</span>
+
+info memory <span class="token comment" spellcheck="true"># 进入到redis shell 使用，打印所有磁盘占用情况</span>
+
+TYPE key  <span class="token comment" spellcheck="true"># 打印键类型</span>
+flushall <span class="token comment" spellcheck="true"># 清空所有数据</span>
+exists kye1 <span class="token comment" spellcheck="true"># key1是否存在</span>
+move key1 1  <span class="token comment" spellcheck="true"># 移除当前库1的key1的数据</span>
+expire key1 15 <span class="token comment" spellcheck="true"># 设置key1的过期时间为15s</span>
+ttl key1 <span class="token comment" spellcheck="true"># 查看key1的剩余生命时间</span>
+
+$ redis-cli CLIENT LIST
+<span class="token comment" spellcheck="true"># 这将返回一个包含所有客户端信息的列表。请注意，这个列表不会告诉你哪些客户端属于哪个用户</span>
+<span class="token comment" spellcheck="true"># 因为Redis不跟踪这种信息。如果你需要这种级别的用户管理，你可能需要在应用程序层面实现用户认证和会话跟踪。  </span>
+
+
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">ping</span>  <span class="token comment" spellcheck="true">#查看当前连接是否正常，正常返回PONG</span>
+PONG
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">clear</span>  <span class="token comment" spellcheck="true">#清楚当前控制台（为了更好的看到下面输入的命令）</span>
+127.0.0.1:6379<span class="token operator">></span> keys *  <span class="token comment" spellcheck="true">#查看当前库里所有的key</span>
+1<span class="token punctuation">)</span> <span class="token string">"db"</span>
+127.0.0.1:6379<span class="token operator">></span> FLUSHALL  <span class="token comment" spellcheck="true">#清空所有库的内容</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> name dingdada  <span class="token comment" spellcheck="true">#添加一个key为‘name’ value为‘dingdada’的数据</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> get name  <span class="token comment" spellcheck="true">#查询key为‘n    ame’的value值</span>
+<span class="token string">"dingdada"</span>
+127.0.0.1:6379<span class="token operator">></span> EXISTS name  <span class="token comment" spellcheck="true">#判断当前key是否存在</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> move name 1  <span class="token comment" spellcheck="true">#移除当前库1的key为‘name‘的数据</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> FLUSHALL  <span class="token comment" spellcheck="true">#再次清空所有库的内容</span>
+OK
+
+<span class="token comment" spellcheck="true">## 多加几条数据 下面测试设置key的过期时间</span>
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> name dingdada
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> name1 dingdada1
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> name2 dingdada2
+OK
+127.0.0.1:6379<span class="token operator">></span> EXPIRE name 3  <span class="token comment" spellcheck="true"># 设置key为’name‘的数据过期时间为15秒 单位seconds</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> ttl name  <span class="token comment" spellcheck="true"># 查看当前key为’name‘的剩余生命周期时间</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 3
+127.0.0.1:6379<span class="token operator">></span> ttl name
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 2
+127.0.0.1:6379<span class="token operator">></span> ttl name
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> ttl name
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> ttl name  <span class="token comment" spellcheck="true"># 如若返回-2，证明key已过期</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> -2
+127.0.0.1:6379<span class="token operator">></span> get name  <span class="token comment" spellcheck="true"># 再次查询即为空</span>
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span>
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">type</span> name1
+string
+</code></pre>
+<h4 id="String-字符串"><a href="#String-字符串" class="headerlink" title="String 字符串"></a>String 字符串</h4><pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> name dingdada  <span class="token comment" spellcheck="true">#插入一个key为‘name’值为‘dingdada’的数据</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> get name  <span class="token comment" spellcheck="true">#获取key为‘name’的数据</span>
+<span class="token string">"dingdada"</span>
+127.0.0.1:6379<span class="token operator">></span> get key1
+<span class="token string">"hello world!"</span>
+127.0.0.1:6379<span class="token operator">></span> keys *  <span class="token comment" spellcheck="true">#查看当前库的所有数据</span>
+1<span class="token punctuation">)</span> <span class="token string">"name"</span>
+127.0.0.1:6379<span class="token operator">></span> EXISTS name  <span class="token comment" spellcheck="true">#判断key为‘name’的数据存在不存在，存在返回1</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> EXISTS name1  <span class="token comment" spellcheck="true">#不存在返回0</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> APPEND name1 dingdada1  <span class="token comment" spellcheck="true">#追加到key为‘name’的数据后拼接值为‘dingdada1’，如果key存在类似于java中字符串‘+’，不存在则新增一个，类似于Redis中的set name1 dingdada1 ，并且返回该数据的总长度</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 9
+127.0.0.1:6379<span class="token operator">></span> get name1
+<span class="token string">"dingdada1"</span>
+127.0.0.1:6379<span class="token operator">></span> STRLEN name1  <span class="token comment" spellcheck="true">#查看key为‘name1’的字符串长度</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 9
+127.0.0.1:6379<span class="token operator">></span> APPEND name1 ,dingdada2  <span class="token comment" spellcheck="true">#追加，key存在的话，拼接‘+’，返回总长度</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 19
+127.0.0.1:6379<span class="token operator">></span> STRLEN name1
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 19
+127.0.0.1:6379<span class="token operator">></span> get name1
+<span class="token string">"dingdada1,dingdada2"</span>
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> key1 <span class="token string">"hello world!"</span>  <span class="token comment" spellcheck="true">#注意点：插入的数据中如果有空格的数据，请用“”双引号，否则会报错！</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> key1 hello world<span class="token operator">!</span>  <span class="token comment" spellcheck="true">#报错，因为在Redis中空格就是分隔符，相当于该参数已结束</span>
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> ERR syntax error
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> key1 hello,world<span class="token operator">!</span>  <span class="token comment" spellcheck="true">#逗号是可以的</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> num 0  <span class="token comment" spellcheck="true">#插入一个初始值为0的数据</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> get num
+<span class="token string">"0"</span>
+127.0.0.1:6379<span class="token operator">></span> incr num  <span class="token comment" spellcheck="true">#指定key为‘num’的数据自增1，返回结果  相当于java中 i++</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> get num  <span class="token comment" spellcheck="true">#一般用来做文章浏览量、点赞数、收藏数等功能</span>
+<span class="token string">"1"</span>
+127.0.0.1:6379<span class="token operator">></span> incr num
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 2
+127.0.0.1:6379<span class="token operator">></span> incr num
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 3
+127.0.0.1:6379<span class="token operator">></span> get num
+<span class="token string">"3"</span>
+127.0.0.1:6379<span class="token operator">></span> decr num  <span class="token comment" spellcheck="true">#指定key为‘num’的数据自减1，返回结果  相当于java中 i--</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 2
+127.0.0.1:6379<span class="token operator">></span> decr num
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> decr num
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> decr num  <span class="token comment" spellcheck="true">#可以一直减为负数~</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> -1
+127.0.0.1:6379<span class="token operator">></span> decr num  <span class="token comment" spellcheck="true">#一般用来做文章取消点赞、取消收藏等功能</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> -2
+127.0.0.1:6379<span class="token operator">></span> decr num
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> -3
+127.0.0.1:6379<span class="token operator">></span> INCRBY num 10  <span class="token comment" spellcheck="true">#后面跟上by  指定key为‘num’的数据自增‘参数（10）’，返回结果</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 7
+127.0.0.1:6379<span class="token operator">></span> INCRBY num 10
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 17
+127.0.0.1:6379<span class="token operator">></span> DECRBY num 3  <span class="token comment" spellcheck="true">#后面跟上by  指定key为‘num’的数据自减‘参数（3）’，返回结果</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 14
+127.0.0.1:6379<span class="token operator">></span> DECRBY num 3
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 11
+<span class="token comment" spellcheck="true">#截取</span>
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> key1 <span class="token string">"hello world!"</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> get key1
+<span class="token string">"hello world!"</span>
+127.0.0.1:6379<span class="token operator">></span> GETRANGE key1 0 4  <span class="token comment" spellcheck="true">#截取字符串，相当于java中的subString，下标从0开始，不会改变原有数据</span>
+<span class="token string">"hello"</span>
+127.0.0.1:6379<span class="token operator">></span> get key1
+<span class="token string">"hello world!"</span>
+127.0.0.1:6379<span class="token operator">></span> GETRANGE key1 0 -1  <span class="token comment" spellcheck="true">#0至-1相当于 get key1，效果一致，获取整条数据</span>
+<span class="token string">"hello world!"</span>
+<span class="token comment" spellcheck="true">#替换</span>
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> key2 <span class="token string">"hello,,,world!"</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> get key2
+<span class="token string">"hello,,,world!"</span>
+127.0.0.1:6379<span class="token operator">></span> SETRANGE key2 5 888  <span class="token comment" spellcheck="true">#此语句跟java中replace有点类似，下标也是从0开始，但是有区别：java中是指定替换字符，Redis中是从指定位置开始替换，替换的数据根据你所需替换的长度一致，返回值是替换后的长度</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 14
+127.0.0.1:6379<span class="token operator">></span> get key2
+<span class="token string">"hello888world!"</span>
+127.0.0.1:6379<span class="token operator">></span> SETRANGE key2 5 67  <span class="token comment" spellcheck="true">#该处只替换了两位</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 14
+127.0.0.1:6379<span class="token operator">></span> get key2
+<span class="token string">"hello678world!"</span>
+<span class="token comment" spellcheck="true">#设置过期时间，跟Expire的区别是前者设置已存在的key的过期时间，而setex是在创建的时候设置过期时间</span>
+127.0.0.1:6379<span class="token operator">></span> setex name1 15  dingdada  <span class="token comment" spellcheck="true">#新建一个key为‘name1’，值为‘dingdada’，过期时间为15秒的字符串数据</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> ttl name1  <span class="token comment" spellcheck="true">#查看key为‘name1’的key的过期时间</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 6
+127.0.0.1:6379<span class="token operator">></span> ttl name1
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 5
+127.0.0.1:6379<span class="token operator">></span> ttl name1
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 3
+127.0.0.1:6379<span class="token operator">></span> ttl name1
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> ttl name1
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> ttl name1  <span class="token comment" spellcheck="true">#返回为-2时证明该key已过期，即不存在</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> -2
+<span class="token comment" spellcheck="true">#不存在设置</span>
+127.0.0.1:6379<span class="token operator">></span> setnx name2 dingdada2  <span class="token comment" spellcheck="true">#如果key为‘name2’不存在，新增数据，返回值1证明成功</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> get name2
+<span class="token string">"dingdada2"</span>
+127.0.0.1:6379<span class="token operator">></span> keys *
+1<span class="token punctuation">)</span> <span class="token string">"name2"</span>
+127.0.0.1:6379<span class="token operator">></span> setnx name2 <span class="token string">"dingdada3"</span>  <span class="token comment" spellcheck="true">#如果key为‘name2’的已存在，设置失败，返回值0，也就是说这个跟set的区别是：set会替换原有的值，而setnx不会，存在即不设置，确保了数据误操作~</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> get name2
+<span class="token string">"dingdada2"</span>
+127.0.0.1:6379<span class="token operator">></span> mset k1 v1 k2 v2 k3 v3  <span class="token comment" spellcheck="true">#插入多条数据</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> keys *  <span class="token comment" spellcheck="true">#查询所有数据</span>
+1<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k3"</span>
+3<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+127.0.0.1:6379<span class="token operator">></span> mget k1 k2 k3  <span class="token comment" spellcheck="true">#查询key为‘k1’，‘k2’，‘k3’的数据</span>
+1<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+127.0.0.1:6379<span class="token operator">></span> MSETNX k1 v1 k4 v4  <span class="token comment" spellcheck="true">#msetnx是一个原子性的操作，在一定程度上保证了事务！要么都成功，要么都失败！相当于if中的条件&amp;&amp;（与）</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> keys *
+1<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k3"</span>
+3<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+127.0.0.1:6379<span class="token operator">></span> MSETNX k5 v5 k4 v4  <span class="token comment" spellcheck="true">#全部成功</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> keys *
+1<span class="token punctuation">)</span> <span class="token string">"k2"</span>
+2<span class="token punctuation">)</span> <span class="token string">"k4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"k3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"k5"</span>
+5<span class="token punctuation">)</span> <span class="token string">"k1"</span>
+<span class="token comment" spellcheck="true">#这里其实本质上还是字符串，但是我们讲其key巧妙的设计了一下。</span>
+<span class="token comment" spellcheck="true">##mset student:1:name  student 相当于类名，1 相当于id，name 相当于属性</span>
+<span class="token comment" spellcheck="true">#如果所需数据全部这样设计，那么我们在java的业务代码中，就不需要关注太多的key</span>
+<span class="token comment" spellcheck="true">#只需要找到student类，下面哪个id，需要哪个属性即可，减少了代码的繁琐，在一定程度上可以理解为这个一个类的对象！</span>
+127.0.0.1:6379<span class="token operator">></span> mset student:1:name dingdada student:1:age 22  <span class="token comment" spellcheck="true">#新增一个key为‘student:1:name’，value为‘dingdada ’。。等数据</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> keys *  <span class="token comment" spellcheck="true">#查看所有的key</span>
+1<span class="token punctuation">)</span> <span class="token string">"student:1:age"</span>
+2<span class="token punctuation">)</span> <span class="token string">"student:1:name"</span>
+127.0.0.1:6379<span class="token operator">></span> mget student:1:age student:1:name  <span class="token comment" spellcheck="true">#获取数据</span>
+1<span class="token punctuation">)</span> <span class="token string">"22"</span>
+2<span class="token punctuation">)</span> <span class="token string">"dingdada"</span>
+
+<span class="token comment" spellcheck="true">##getset操作</span>
+127.0.0.1:6379<span class="token operator">></span> getset name1 dingdada1  <span class="token comment" spellcheck="true">#先get再set，先获取key，如果没有，set值进去，返回的是get的值</span>
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span>
+127.0.0.1:6379<span class="token operator">></span> get name1
+<span class="token string">"dingdada1"</span>
+127.0.0.1:6379<span class="token operator">></span> getset name1 dingdada2  <span class="token comment" spellcheck="true">##先获取key，如果有，set（替换）最新的值进去，返回的是get的值</span>
+<span class="token string">"dingdada1"</span>
+127.0.0.1:6379<span class="token operator">></span> get name1  <span class="token comment" spellcheck="true">#替换成功</span>
+<span class="token string">"dingdada2"</span>
+
+<span class="token comment" spellcheck="true"># 可以灵活的表示字符串、整数、浮点数3种值。Redis会自动的识别这3种值。</span>
+</code></pre>
+<h4 id="List-列表"><a href="#List-列表" class="headerlink" title="List 列表"></a>List 列表</h4><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#lpush 左插入</span>
+127.0.0.1:6379<span class="token operator">></span> lpush list v1  <span class="token comment" spellcheck="true">#新增一个集合</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> lpush list v2
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 2
+127.0.0.1:6379<span class="token operator">></span> lpush list v3
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 3
+<span class="token comment" spellcheck="true">#lrange 查询集合</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1  <span class="token comment" spellcheck="true">#查询list的所有元素值</span>
+1<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+127.0.0.1:6379<span class="token operator">></span> lpush list1 v1 v2 v3 v4 v5  <span class="token comment" spellcheck="true">#批量添加集合元素</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 5
+127.0.0.1:6379<span class="token operator">></span> LRANGE list1 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+5<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+<span class="token comment" spellcheck="true">###这里大家有没有注意到，先进去的会到后面，也就是我们的lpush的意思是左插入，l--left</span>
+<span class="token comment" spellcheck="true">#rpush 右插入</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 1  <span class="token comment" spellcheck="true">#指定查询列表中的元素，从下标零开始，1结束，两个元素</span>
+1<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 0  <span class="token comment" spellcheck="true">#指定查询列表中的唯一元素</span>
+1<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+127.0.0.1:6379<span class="token operator">></span> rpush list rv0  <span class="token comment" spellcheck="true">#右插入，跟lpush相反，这里添加进去元素是在尾部！</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4
+127.0.0.1:6379<span class="token operator">></span> lrange list 0 -1  <span class="token comment" spellcheck="true">#查看集合所有元素</span>
+1<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+4<span class="token punctuation">)</span> <span class="token string">"rv0"</span>
+<span class="token comment" spellcheck="true">##联想：这里我们是不是可以做一个，保存的记录值（如：账号密码的记录），</span>
+每次都使用lpush，老的数据永远在后面，我们每次获取 0 0 位置的元素，是不是相当于更新了
+数据操作，但是数据记录还在？想要查询记录即可获取集合所有元素！
+<span class="token comment" spellcheck="true">#lpop 左移除</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+5<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+127.0.0.1:6379<span class="token operator">></span> lpop list  <span class="token comment" spellcheck="true">#从头部开始移除第一个元素</span>
+<span class="token string">"v5"</span>
+<span class="token comment" spellcheck="true">##################</span>
+<span class="token comment" spellcheck="true">#rpop 右移除</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+127.0.0.1:6379<span class="token operator">></span> rpop list
+<span class="token string">"v1"</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1  <span class="token comment" spellcheck="true">#从尾部开始移除第一个元素</span>
+1<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+
+<span class="token comment" spellcheck="true">#lindex 查询指定下标元素</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+127.0.0.1:6379<span class="token operator">></span> lindex list 1  <span class="token comment" spellcheck="true">#获取指定下标位置集合的元素，下标从0开始计数</span>
+<span class="token string">"v3"</span>
+127.0.0.1:6379<span class="token operator">></span> lindex list 0  <span class="token comment" spellcheck="true">#相当于java中的indexof</span>
+<span class="token string">"v4"</span>
+<span class="token comment" spellcheck="true">#llen  获取集合长度</span>
+127.0.0.1:6379<span class="token operator">></span> llen list  <span class="token comment" spellcheck="true">#获取指定集合的元素长度，相当于java中的length或者size</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 3
+
+<span class="token comment" spellcheck="true"># lrem 根据value移除指定的值</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+127.0.0.1:6379<span class="token operator">></span> lrem list 1 v2  <span class="token comment" spellcheck="true">#移除集合list中的元素是v2的元素1个</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+127.0.0.1:6379<span class="token operator">></span> lrem list 0 v3 <span class="token comment" spellcheck="true">#移除集合list中的元素是v2的元素1个,这里的0和1效果是一致的</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+127.0.0.1:6379<span class="token operator">></span> lpush list  v3 v2 v2 v2
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+5<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+127.0.0.1:6379<span class="token operator">></span> lrem list 3 v2  <span class="token comment" spellcheck="true">#移除集合list中元素为v2 的‘3’个，这里的参数数量，如果实际中集合元素数量不达标，不会报错，全部移除后返回成功移除后的数量值</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 3
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+
+<span class="token comment" spellcheck="true">#ltrim 截取元素</span>
+127.0.0.1:6379<span class="token operator">></span> lpush list v1 v2 v3 v4
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+127.0.0.1:6379<span class="token operator">></span> ltrim list 1 2  <span class="token comment" spellcheck="true">#通过下标截取指定的长度，这个list已经被改变了，只剩下我们所指定截取后的元素</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+<span class="token comment" spellcheck="true">################</span>
+<span class="token comment" spellcheck="true">#rpoplpush 移除指定集合中最后一个元素到一个新的集合中</span>
+127.0.0.1:6379<span class="token operator">></span> lpush list v1 v2 v3 v4 v5
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 5
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+5<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+127.0.0.1:6379<span class="token operator">></span> rpoplpush list newlist  <span class="token comment" spellcheck="true">#移除list集合中的最后一个元素到新的集合newlist中，返回值是移除的最后一个元素值</span>
+<span class="token string">"v1"</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE newlist 0 -1  <span class="token comment" spellcheck="true">#确实存在该newlist集合并且有刚刚移除的元素，证明成功</span>
+1<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+
+
+<span class="token comment" spellcheck="true">#lset 更新</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+127.0.0.1:6379<span class="token operator">></span> 
+127.0.0.1:6379<span class="token operator">></span> lset list 1 newV5  <span class="token comment" spellcheck="true">#更新list集合中下标为‘1’的元素为‘newV5’</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1  <span class="token comment" spellcheck="true">#查看证明更新成功</span>
+1<span class="token punctuation">)</span> <span class="token string">"v5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"newV5"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+<span class="token comment" spellcheck="true">##注意点：</span>
+127.0.0.1:6379<span class="token operator">></span> lset list1 0 vvvv  <span class="token comment" spellcheck="true">#如果指定的‘集合’不存在，报错</span>
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> ERR no such key
+127.0.0.1:6379<span class="token operator">></span> lset list 8 vvv  <span class="token comment" spellcheck="true">#如果集合存在，但是指定的‘下标’不存在，报错</span>
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> ERR index out of range
+<span class="token comment" spellcheck="true">########################</span>
+<span class="token comment" spellcheck="true">#linsert</span>
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"newV5"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+127.0.0.1:6379<span class="token operator">></span> LINSERT list after v3 insertv3  <span class="token comment" spellcheck="true">#在集合中的‘v3’元素 ‘(after)之后’ 加上一个元素</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 5
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"newV5"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"insertv3"</span>
+5<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+127.0.0.1:6379<span class="token operator">></span> LINSERT list before v3 insertv3  <span class="token comment" spellcheck="true">#在集合中的‘v3’元素 ‘(before)之前’ 加上一个元素</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 6
+127.0.0.1:6379<span class="token operator">></span> LRANGE list 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v5"</span>
+2<span class="token punctuation">)</span> <span class="token string">"newV5"</span>
+3<span class="token punctuation">)</span> <span class="token string">"insertv3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+5<span class="token punctuation">)</span> <span class="token string">"insertv3"</span>
+6<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+
+
+<span class="token comment" spellcheck="true"># 实际上是一个链表，before Node after ， left，right 都可以插入值</span>
+<span class="token comment" spellcheck="true"># 如果key 不存在，创建新的链表</span>
+<span class="token comment" spellcheck="true"># 如果key存在，新增内容</span>
+<span class="token comment" spellcheck="true"># 如果移除了所有值，空链表，也代表不存在！</span>
+<span class="token comment" spellcheck="true"># 在两边插入或者改动值，效率最高！ 中间元素，相对来说效率会低一点~</span>
+<span class="token comment" spellcheck="true"># 消息排队！消息队列 （Lpush Rpop）， 栈（ Lpush Lpop）！</span>
+</code></pre>
+<h4 id="Set-集合"><a href="#Set-集合" class="headerlink" title="Set 集合"></a>Set 集合</h4><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#set中所有的元素都是唯一的不重复的！</span>
+127.0.0.1:6379<span class="token operator">></span> sadd set1 ding da mian tiao  <span class="token comment" spellcheck="true">#添加set集合（可批量可单个，写法一致，不再赘述）</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS set1  <span class="token comment" spellcheck="true">#查看set中所有元素</span>
+1<span class="token punctuation">)</span> <span class="token string">"mian"</span>
+2<span class="token punctuation">)</span> <span class="token string">"da"</span>
+3<span class="token punctuation">)</span> <span class="token string">"tiao"</span>
+4<span class="token punctuation">)</span> <span class="token string">"ding"</span>
+127.0.0.1:6379<span class="token operator">></span> SISMEMBER set1 da  <span class="token comment" spellcheck="true">#判断某个值在不在set中，在返回1</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> SISMEMBER set1 da1  <span class="token comment" spellcheck="true">#不在返回0</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> SCARD set1  <span class="token comment" spellcheck="true">#查看集合的长度，相当于size、length</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4
+127.0.0.1:6379<span class="token operator">></span> srem set1 da  <span class="token comment" spellcheck="true">#移除set中指定的元素</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS set1  <span class="token comment" spellcheck="true">#移除成功</span>
+1<span class="token punctuation">)</span> <span class="token string">"mian"</span>
+2<span class="token punctuation">)</span> <span class="token string">"tiao"</span>
+3<span class="token punctuation">)</span> <span class="token string">"ding"</span>
+<span class="token comment" spellcheck="true">######################</span>
+127.0.0.1:6379<span class="token operator">></span> sadd myset 1 2 3 4 5 6 7  <span class="token comment" spellcheck="true">#在set中添加7个元素</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 7
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS myset
+1<span class="token punctuation">)</span> <span class="token string">"1"</span>
+2<span class="token punctuation">)</span> <span class="token string">"2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"4"</span>
+5<span class="token punctuation">)</span> <span class="token string">"5"</span>
+6<span class="token punctuation">)</span> <span class="token string">"6"</span>
+7<span class="token punctuation">)</span> <span class="token string">"7"</span>
+127.0.0.1:6379<span class="token operator">></span> SRANDMEMBER myset 1  <span class="token comment" spellcheck="true">#随机抽取myset中1个元素返回</span>
+1<span class="token punctuation">)</span> <span class="token string">"4"</span>
+127.0.0.1:6379<span class="token operator">></span> SRANDMEMBER myset 1  <span class="token comment" spellcheck="true">#随机抽取myset中1个元素返回</span>
+1<span class="token punctuation">)</span> <span class="token string">"1"</span>
+127.0.0.1:6379<span class="token operator">></span> SRANDMEMBER myset 1  <span class="token comment" spellcheck="true">#随机抽取myset中1个元素返回</span>
+1<span class="token punctuation">)</span> <span class="token string">"5"</span>
+127.0.0.1:6379<span class="token operator">></span> SRANDMEMBER myset  <span class="token comment" spellcheck="true">#不填后参数，默认抽1个值，但是下面返回不会带序号值</span>
+<span class="token string">"3"</span>
+127.0.0.1:6379<span class="token operator">></span> SRANDMEMBER myset 3  <span class="token comment" spellcheck="true">#随机抽取myset中3个元素返回</span>
+1<span class="token punctuation">)</span> <span class="token string">"1"</span>
+2<span class="token punctuation">)</span> <span class="token string">"2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"3"</span>
+127.0.0.1:6379<span class="token operator">></span> SRANDMEMBER myset 3  <span class="token comment" spellcheck="true">#随机抽取myset中3个元素返回</span>
+1<span class="token punctuation">)</span> <span class="token string">"6"</span>
+2<span class="token punctuation">)</span> <span class="token string">"3"</span>
+3<span class="token punctuation">)</span> <span class="token string">"5"</span>
+<span class="token comment" spellcheck="true">######################</span>
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS myset
+1<span class="token punctuation">)</span> <span class="token string">"1"</span>
+2<span class="token punctuation">)</span> <span class="token string">"2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"4"</span>
+5<span class="token punctuation">)</span> <span class="token string">"5"</span>
+6<span class="token punctuation">)</span> <span class="token string">"6"</span>
+7<span class="token punctuation">)</span> <span class="token string">"7"</span>
+127.0.0.1:6379<span class="token operator">></span> spop myset  <span class="token comment" spellcheck="true">#随机删除1个元素，不指定参数值即删除1个</span>
+<span class="token string">"2"</span>
+127.0.0.1:6379<span class="token operator">></span> spop myset 1  <span class="token comment" spellcheck="true">#随机删除1个元素</span>
+1<span class="token punctuation">)</span> <span class="token string">"7"</span>
+127.0.0.1:6379<span class="token operator">></span> spop myset 2  <span class="token comment" spellcheck="true">#随机删除2个元素</span>
+1<span class="token punctuation">)</span> <span class="token string">"3"</span>
+2<span class="token punctuation">)</span> <span class="token string">"5"</span>
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS myset  <span class="token comment" spellcheck="true">#查询删除后的结果</span>
+1<span class="token punctuation">)</span> <span class="token string">"1"</span>
+2<span class="token punctuation">)</span> <span class="token string">"4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"6"</span>
+127.0.0.1:6379<span class="token operator">></span> smove myset myset2 1  <span class="token comment" spellcheck="true">#移动指定set中的指定元素到新的set中</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS myset  <span class="token comment" spellcheck="true">#查询原来的set集合</span>
+1<span class="token punctuation">)</span> <span class="token string">"4"</span>
+2<span class="token punctuation">)</span> <span class="token string">"6"</span>
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS myset2  <span class="token comment" spellcheck="true">#查询新的set集合，如果新的set存在，即往后加，如果不存在，则自动创建set并且加入进去</span>
+1<span class="token punctuation">)</span> <span class="token string">"1"</span>
+
+
+127.0.0.1:6379<span class="token operator">></span> sadd myset1 1 2 3 4 5
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 5
+127.0.0.1:6379<span class="token operator">></span> sadd myset2 3 4 5 6 7
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 5
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS myset1
+1<span class="token punctuation">)</span> <span class="token string">"1"</span>
+2<span class="token punctuation">)</span> <span class="token string">"2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"4"</span>
+5<span class="token punctuation">)</span> <span class="token string">"5"</span>
+127.0.0.1:6379<span class="token operator">></span> SMEMBERS myset2
+1<span class="token punctuation">)</span> <span class="token string">"3"</span>
+2<span class="token punctuation">)</span> <span class="token string">"4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"5"</span>
+4<span class="token punctuation">)</span> <span class="token string">"6"</span>
+5<span class="token punctuation">)</span> <span class="token string">"7"</span>
+127.0.0.1:6379<span class="token operator">></span> SDIFF myset1 myset2  <span class="token comment" spellcheck="true">#查询指定的set之间的差集，可以是多个set</span>
+1<span class="token punctuation">)</span> <span class="token string">"1"</span>
+2<span class="token punctuation">)</span> <span class="token string">"2"</span>
+127.0.0.1:6379<span class="token operator">></span> SINTER myset1 myset2  <span class="token comment" spellcheck="true">#查询指定的set之间的交集，可以是多个set</span>
+1<span class="token punctuation">)</span> <span class="token string">"3"</span>
+2<span class="token punctuation">)</span> <span class="token string">"4"</span>
+3<span class="token punctuation">)</span> <span class="token string">"5"</span>
+127.0.0.1:6379<span class="token operator">></span> sunion myset1 myset2  <span class="token comment" spellcheck="true">#查询指定的set之间的并集，可以是多个set</span>
+1<span class="token punctuation">)</span> <span class="token string">"1"</span>
+2<span class="token punctuation">)</span> <span class="token string">"2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"4"</span>
+5<span class="token punctuation">)</span> <span class="token string">"5"</span>
+6<span class="token punctuation">)</span> <span class="token string">"6"</span>
+7<span class="token punctuation">)</span> <span class="token string">"7"</span>
+
+<span class="token comment" spellcheck="true"># 总结：可实现共同好友、共同关注等需求。</span>
+</code></pre>
+<h4 id="Hash-哈希"><a href="#Hash-哈希" class="headerlink" title="Hash 哈希"></a>Hash 哈希</h4><pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> hset myhash name dingdada age 23  <span class="token comment" spellcheck="true">#添加hash，可多个，即批量</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 2
+127.0.0.1:6379<span class="token operator">></span> hget myhash name  <span class="token comment" spellcheck="true">#获取hash中key是name的值</span>
+<span class="token string">"dingdada"</span>
+127.0.0.1:6379<span class="token operator">></span> hget myhash age  <span class="token comment" spellcheck="true">#获取hash中key是age的值</span>
+<span class="token string">"23"</span>
+127.0.0.1:6379<span class="token operator">></span> hgetall myhash  <span class="token comment" spellcheck="true">#获取hash中所有的值，包含key</span>
+1<span class="token punctuation">)</span> <span class="token string">"name"</span>
+2<span class="token punctuation">)</span> <span class="token string">"dingdada"</span>
+3<span class="token punctuation">)</span> <span class="token string">"age"</span>
+4<span class="token punctuation">)</span> <span class="token string">"23"</span>
+127.0.0.1:6379<span class="token operator">></span> hset myhash del <span class="token function">test</span>  <span class="token comment" spellcheck="true">#添加</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> hgetall myhash
+1<span class="token punctuation">)</span> <span class="token string">"name"</span>
+2<span class="token punctuation">)</span> <span class="token string">"dingdada"</span>
+3<span class="token punctuation">)</span> <span class="token string">"age"</span>
+4<span class="token punctuation">)</span> <span class="token string">"23"</span>
+5<span class="token punctuation">)</span> <span class="token string">"del"</span>
+6<span class="token punctuation">)</span> <span class="token string">"test"</span>
+127.0.0.1:6379<span class="token operator">></span> hdel myhash del age  <span class="token comment" spellcheck="true">#删除指定hash中的key（可多个），key删除后对应的value也会被删除</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 2
+127.0.0.1:6379<span class="token operator">></span> hgetall myhash
+1<span class="token punctuation">)</span> <span class="token string">"name"</span>
+2<span class="token punctuation">)</span> <span class="token string">"dingdada"</span>
+127.0.0.1:6379<span class="token operator">></span> hlen myhash  <span class="token comment" spellcheck="true">#获取指定hash的长度，相当于length、size</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> HEXISTS myhash name  <span class="token comment" spellcheck="true">#判断key是否存在于指定的hash，存在返回1</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> HEXISTS myhash age  <span class="token comment" spellcheck="true">#判断key是否存在于指定的hash，不存在返回0</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+
+127.0.0.1:6379<span class="token operator">></span> hset myhash age 23 high 173
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 2
+127.0.0.1:6379<span class="token operator">></span> hgetall myhash
+1<span class="token punctuation">)</span> <span class="token string">"name"</span>
+2<span class="token punctuation">)</span> <span class="token string">"dingdada"</span>
+3<span class="token punctuation">)</span> <span class="token string">"age"</span>
+4<span class="token punctuation">)</span> <span class="token string">"23"</span>
+5<span class="token punctuation">)</span> <span class="token string">"high"</span>
+6<span class="token punctuation">)</span> <span class="token string">"173"</span>
+127.0.0.1:6379<span class="token operator">></span> hkeys myhash  <span class="token comment" spellcheck="true">#获取指定hash中的所有key</span>
+1<span class="token punctuation">)</span> <span class="token string">"name"</span>
+2<span class="token punctuation">)</span> <span class="token string">"age"</span>
+3<span class="token punctuation">)</span> <span class="token string">"high"</span>
+127.0.0.1:6379<span class="token operator">></span> hvals myhash   <span class="token comment" spellcheck="true">#获取指定hash中的所有value</span>
+1<span class="token punctuation">)</span> <span class="token string">"dingdada"</span>
+2<span class="token punctuation">)</span> <span class="token string">"23"</span>
+3<span class="token punctuation">)</span> <span class="token string">"173"</span>
+127.0.0.1:6379<span class="token operator">></span> hincrby myhash age 2  <span class="token comment" spellcheck="true">#让hash中age的value指定+2(自增)</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 25
+127.0.0.1:6379<span class="token operator">></span> hincrby myhash age -1  <span class="token comment" spellcheck="true">#让hash中age的value指定-1(自减)</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 24
+127.0.0.1:6379<span class="token operator">></span> hsetnx myhash nokey novalue  <span class="token comment" spellcheck="true">#添加不存在就新增返回新增成功的数量（只能单个增加哦）</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1 
+127.0.0.1:6379<span class="token operator">></span> hsetnx myhash name miaotiao  <span class="token comment" spellcheck="true">#添加存在则失败返回0</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">></span> hgetall myhash
+1<span class="token punctuation">)</span> <span class="token string">"name"</span>
+2<span class="token punctuation">)</span> <span class="token string">"dingdada"</span>
+3<span class="token punctuation">)</span> <span class="token string">"age"</span>
+4<span class="token punctuation">)</span> <span class="token string">"24"</span>
+5<span class="token punctuation">)</span> <span class="token string">"high"</span>
+6<span class="token punctuation">)</span> <span class="token string">"173"</span>
+7<span class="token punctuation">)</span> <span class="token string">"nokey"</span>
+8<span class="token punctuation">)</span> <span class="token string">"novalue"</span>
+
+<span class="token comment" spellcheck="true"># 总结：比String更加适合存对象~</span>
+</code></pre>
+<h4 id="zSet-有序集合"><a href="#zSet-有序集合" class="headerlink" title="zSet 有序集合"></a>zSet 有序集合</h4><pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> zadd myzset 1 one 2 two 3 three  <span class="token comment" spellcheck="true">#添加zset值，可多个</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 3
+127.0.0.1:6379<span class="token operator">></span> ZRANGE myzset 0 -1  <span class="token comment" spellcheck="true">#查询所有的值</span>
+1<span class="token punctuation">)</span> <span class="token string">"one"</span>
+2<span class="token punctuation">)</span> <span class="token string">"two"</span>
+3<span class="token punctuation">)</span> <span class="token string">"three"</span>
+<span class="token comment" spellcheck="true">#-inf 负无穷  +inf 正无穷</span>
+127.0.0.1:6379<span class="token operator">></span> ZRANGEBYSCORE myzset -inf +inf  <span class="token comment" spellcheck="true">#将zset的值根据key来从小到大排序并输出</span>
+1<span class="token punctuation">)</span> <span class="token string">"one"</span>
+2<span class="token punctuation">)</span> <span class="token string">"two"</span>
+3<span class="token punctuation">)</span> <span class="token string">"three"</span>
+127.0.0.1:6379<span class="token operator">></span> ZRANGEBYSCORE myzset 0 1  <span class="token comment" spellcheck="true">#只查询key&lt;=1的值并且排序从小到大</span>
+1<span class="token punctuation">)</span> <span class="token string">"one"</span>
+127.0.0.1:6379<span class="token operator">></span> ZREVRANGE myzset 1 -1  <span class="token comment" spellcheck="true">#从大到小排序输出</span>
+1<span class="token punctuation">)</span> <span class="token string">"two"</span>
+2<span class="token punctuation">)</span> <span class="token string">"one"</span>
+127.0.0.1:6379<span class="token operator">></span> ZRANGEBYSCORE myzset -inf +inf withscores  <span class="token comment" spellcheck="true">#查询指定zset的所有值，包含序号的值</span>
+1<span class="token punctuation">)</span> <span class="token string">"one"</span>
+2<span class="token punctuation">)</span> <span class="token string">"1"</span>
+3<span class="token punctuation">)</span> <span class="token string">"two"</span>
+4<span class="token punctuation">)</span> <span class="token string">"2"</span>
+5<span class="token punctuation">)</span> <span class="token string">"three"</span>
+6<span class="token punctuation">)</span> <span class="token string">"3"</span>
+
+127.0.0.1:6379<span class="token operator">></span> zadd myset 1 v1 2 v2 3 v3 4 v4
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4
+127.0.0.1:6379<span class="token operator">></span> ZRANGE myset 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v3"</span>
+4<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+127.0.0.1:6379<span class="token operator">></span> zrem myset v3  <span class="token comment" spellcheck="true">#移除指定的元素，可多个</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> ZRANGE myset 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"v1"</span>
+2<span class="token punctuation">)</span> <span class="token string">"v2"</span>
+3<span class="token punctuation">)</span> <span class="token string">"v4"</span>
+127.0.0.1:6379<span class="token operator">></span> zcard myset  <span class="token comment" spellcheck="true">#查看zset的元素个数，相当于长度，size。</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 3
+127.0.0.1:6379<span class="token operator">></span> zcount myset 0 100  <span class="token comment" spellcheck="true">#查询指定区间内的元素个数</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 3
+127.0.0.1:6379<span class="token operator">></span> zcount myset 0 2  <span class="token comment" spellcheck="true">#查询指定区间内的元素个数</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 2
+
+<span class="token comment" spellcheck="true"># 总结：成绩表排序，工资表排序，年龄排序等需求可以用zset来实现！</span>
+</code></pre>
+<h4 id="特殊类型"><a href="#特殊类型" class="headerlink" title="特殊类型"></a>特殊类型</h4><p>地理、基数、位Geospatial： </p>
+<p>地理位置城市经纬度查询： 经纬度查询</p>
+<p>注意点1：两极无法直接添加，我们一般会下载城市数据，直接通过java程序一次性导入！</p>
+<p>注意点2：有效的经度从-180度到180度。</p>
+<p>注意点3：有效的纬度从-85.05112878度到85.05112878度。注意点4：m 为米。km 为千米。mi 为英里。ft 为英尺。127.0.0.1:6379&gt; geoadd city 118.8921 31.32751 nanjing 197.30794 31.79322  </p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#当经纬度其中一个或者两个超过界限值，报错，信息如下：</span>
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> ERR syntax error. Try GEOADD key <span class="token punctuation">[</span>x1<span class="token punctuation">]</span> <span class="token punctuation">[</span>y1<span class="token punctuation">]</span> <span class="token punctuation">[</span>name1<span class="token punctuation">]</span> <span class="token punctuation">[</span>x2<span class="token punctuation">]</span> <span class="token punctuation">[</span>y2<span class="token punctuation">]</span> <span class="token punctuation">[</span>name2<span class="token punctuation">]</span> <span class="token punctuation">..</span>.
+<span class="token comment" spellcheck="true">#添加城市经纬度 语法格式： geoadd key 经度 纬度 name +++可多个添加</span>
+<span class="token comment" spellcheck="true">#添加成功后返回添加成功的数量值</span>
+127.0.0.1:6379<span class="token operator">></span> geoadd city 118.8921 31.32751 nanjing 117.30794 31.79322 hefei 102.82147 24.88554 kunming 91.13775 29.65262 lasa 116.23128 40.22077 beijing 106.54041 29.40268 chongqing  
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 6
+127.0.0.1:6379<span class="token operator">></span> ZRANGE city 0 -1  <span class="token comment" spellcheck="true">#注意：geo的查看方式和zset的命令是一致的，</span>
+<span class="token comment" spellcheck="true">#由此可知，geo本质上还是个集合，不过Redis官方对其进行了二次封装</span>
+1<span class="token punctuation">)</span> <span class="token string">"lasa"</span>
+2<span class="token punctuation">)</span> <span class="token string">"kunming"</span>
+3<span class="token punctuation">)</span> <span class="token string">"chongqing"</span>
+4<span class="token punctuation">)</span> <span class="token string">"hefei"</span>
+5<span class="token punctuation">)</span> <span class="token string">"nanjing"</span>
+6<span class="token punctuation">)</span> <span class="token string">"beijing"</span>
+127.0.0.1:6379<span class="token operator">></span> geopos city nanjing  <span class="token comment" spellcheck="true">#查看看指定城市的经纬度信息</span>
+1<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"118.89209836721420288"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"31.32750976275760735"</span>
+127.0.0.1:6379<span class="token operator">></span> geopos city nanjing beijing  <span class="token comment" spellcheck="true">#查看看多个城市的经纬度信息</span>
+1<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"118.89209836721420288"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"31.32750976275760735"</span>
+2<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"116.23128265142440796"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"40.22076905438526495"</span>
+127.0.0.1:6379<span class="token operator">></span> geodist city nanjing beijing   <span class="token comment" spellcheck="true">#计算南京到北京之间的距离，默认返回单位是m</span>
+<span class="token string">"1017743.1413"</span>
+127.0.0.1:6379<span class="token operator">></span> geodist city nanjing beijing km  <span class="token comment" spellcheck="true">#km  千米</span>
+<span class="token string">"1017.7431"</span>
+127.0.0.1:6379<span class="token operator">></span> geodist city nanjing beijing mi  <span class="token comment" spellcheck="true">#mi  英里</span>
+<span class="token string">"632.3978"</span>
+127.0.0.1:6379<span class="token operator">></span> geodist city nanjing beijing ft  <span class="token comment" spellcheck="true">#ft  英尺</span>
+<span class="token string">"3339052.3010"</span>
+
+
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> ZRANGE city 0 -1  <span class="token comment" spellcheck="true">#查看城市</span>
+1<span class="token punctuation">)</span> <span class="token string">"lasa"</span>
+2<span class="token punctuation">)</span> <span class="token string">"kunming"</span>
+3<span class="token punctuation">)</span> <span class="token string">"chongqing"</span>
+4<span class="token punctuation">)</span> <span class="token string">"hefei"</span>
+5<span class="token punctuation">)</span> <span class="token string">"nanjing"</span>
+6<span class="token punctuation">)</span> <span class="token string">"beijing"</span>
+<span class="token comment" spellcheck="true">#查看指定位置的1000公里范围内有哪些城市</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> georadius city 120 38 1000 km  
+1<span class="token punctuation">)</span> <span class="token string">"beijing"</span>
+2<span class="token punctuation">)</span> <span class="token string">"hefei"</span>
+3<span class="token punctuation">)</span> <span class="token string">"nanjing"</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> georadius city 120 38 400 km  <span class="token comment" spellcheck="true">#查看指定位置的400公里范围内有哪些城市</span>
+<span class="token punctuation">(</span>empty array<span class="token punctuation">)</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> georadius city 120 38 550 km  <span class="token comment" spellcheck="true">#查看指定位置的550公里范围内有哪些城市</span>
+1<span class="token punctuation">)</span> <span class="token string">"beijing"</span>
+<span class="token comment" spellcheck="true">#查看指定位置的550公里范围内有哪些城市,withcoord指定返回城市的name</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> georadius city 120 38 1000 km withcoord
+1<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"beijing"</span>
+   2<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"116.23128265142440796"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"40.22076905438526495"</span>
+2<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"hefei"</span>
+   2<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"117.30793744325637817"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"31.79321915080526395"</span>
+3<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"nanjing"</span>
+   2<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"118.89209836721420288"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"31.32750976275760735"</span>
+<span class="token comment" spellcheck="true">#查看指定位置的550公里范围内有哪些城市,withdist指定返回城市的’经纬度‘值</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> georadius city 120 38 1000 km withcoord withdist
+1<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"beijing"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"408.3496"</span>
+   3<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"116.23128265142440796"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"40.22076905438526495"</span>
+2<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"hefei"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"732.6371"</span>
+   3<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"117.30793744325637817"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"31.79321915080526395"</span>
+3<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"nanjing"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"749.0265"</span>
+   3<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"118.89209836721420288"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"31.32750976275760735"</span>
+<span class="token comment" spellcheck="true">#查看指定位置的550公里范围内有哪些城市,withhash指定返回城市的’经纬度‘的hash值</span>
+<span class="token comment" spellcheck="true">#如果两个城市的hash值越’像‘，证明城市距离越近！</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> georadius city 120 38 1000 km withcoord withdist withhash
+1<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"beijing"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"408.3496"</span>
+   3<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4069896088584598
+   4<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"116.23128265142440796"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"40.22076905438526495"</span>
+2<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"hefei"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"732.6371"</span>
+   3<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4052763834193093
+   4<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"117.30793744325637817"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"31.79321915080526395"</span>
+3<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"nanjing"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"749.0265"</span>
+   3<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4054278565840695
+   4<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"118.89209836721420288"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"31.32750976275760735"</span>
+<span class="token comment" spellcheck="true">#查看指定位置的550公里范围内有哪些城市,count num 指定返回’num‘个城市数据量</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> georadius city 120 38 1000 km withcoord withdist withhash count 2
+1<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"beijing"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"408.3496"</span>
+   3<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4069896088584598
+   4<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"116.23128265142440796"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"40.22076905438526495"</span>
+2<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"hefei"</span>
+   2<span class="token punctuation">)</span> <span class="token string">"732.6371"</span>
+   3<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4052763834193093
+   4<span class="token punctuation">)</span> 1<span class="token punctuation">)</span> <span class="token string">"117.30793744325637817"</span>
+      2<span class="token punctuation">)</span> <span class="token string">"31.79321915080526395"</span>
+
+<span class="token comment" spellcheck="true">#查询南京 500公里范围有哪些城市</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> georadiusbymember city nanjing 500 km
+1<span class="token punctuation">)</span> <span class="token string">"hefei"</span>
+2<span class="token punctuation">)</span> <span class="token string">"nanjing"</span>
+<span class="token comment" spellcheck="true">#查询重庆 1500公里范围有哪些城市</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> georadiusbymember city chongqing 1500 km
+1<span class="token punctuation">)</span> <span class="token string">"lasa"</span>
+2<span class="token punctuation">)</span> <span class="token string">"kunming"</span>
+3<span class="token punctuation">)</span> <span class="token string">"chongqing"</span>
+4<span class="token punctuation">)</span> <span class="token string">"hefei"</span>
+5<span class="token punctuation">)</span> <span class="token string">"nanjing"</span>
+6<span class="token punctuation">)</span> <span class="token string">"beijing"</span>
+<span class="token comment" spellcheck="true">#返回北京和南京的经纬度的 hash值</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> geohash city beijing nanjing
+1<span class="token punctuation">)</span> <span class="token string">"wx4sucvncn0"</span>
+2<span class="token punctuation">)</span> <span class="token string">"wtsd1qyxfx0"</span>
+<span class="token comment" spellcheck="true">#查看所有城市name</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> ZRANGE city 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"lasa"</span>
+2<span class="token punctuation">)</span> <span class="token string">"kunming"</span>
+3<span class="token punctuation">)</span> <span class="token string">"chongqing"</span>
+4<span class="token punctuation">)</span> <span class="token string">"hefei"</span>
+5<span class="token punctuation">)</span> <span class="token string">"nanjing"</span>
+6<span class="token punctuation">)</span> <span class="token string">"beijing"</span>
+<span class="token comment" spellcheck="true">#根据geo中的name删除g元素</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> ZREM city lasa
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+<span class="token comment" spellcheck="true">#删除成功</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> ZRANGE city 0 -1
+1<span class="token punctuation">)</span> <span class="token string">"kunming"</span>
+2<span class="token punctuation">)</span> <span class="token string">"chongqing"</span>
+3<span class="token punctuation">)</span> <span class="token string">"hefei"</span>
+4<span class="token punctuation">)</span> <span class="token string">"nanjing"</span>
+5<span class="token punctuation">)</span> <span class="token string">"beijing"</span>
+</code></pre>
+<p>总结：实际需求中，我们可以用来查询附近的人、计算两人之间的距离等。</p>
+<p>当然，那些所需的经纬度我们肯定要结合java代码来一次导入，手动查询和录入太过于浪费时间！</p>
+<h4 id="Hyperloglog：-基数"><a href="#Hyperloglog：-基数" class="headerlink" title="Hyperloglog： 基数"></a>Hyperloglog： 基数</h4><p>再数学层面上：两个数据集中不重复的元素~但是再Redis中，可能会有一定的误差性。 官方给出的误差率是0.81%</p>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> pfadd dataList 1 2 3 4 5 6 7  <span class="token comment" spellcheck="true">#添加数据集</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> pfcount dataList  <span class="token comment" spellcheck="true">#统计数据集中的元素</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 7
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> pfadd dataList1 4 5 6 7 8 9 10  <span class="token comment" spellcheck="true">#添加数据集</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> pfcount dataList1  <span class="token comment" spellcheck="true">#统计数据集中的元素</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 7
+<span class="token comment" spellcheck="true">#将dataList 和dataList1  两个数据集合并成一个新的 newdata数据集，并且自动去重</span>
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> pfmerge newdata dataList dataList1  
+OK
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> pfcount newdata
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 10
+</code></pre>
+<p>总结：如果在实际业务中，允许一定的误差值，我们可以使用基数统计来计算~效率非常高！</p>
+<p>比如：网站的访问量，就可以利用Hyperloglog来进行计算统计！Bitmap： 位存储 Bitmap 位图，数据结构！ 都是操作二进制位来进行记录，就只有0 和 1 两个状态</p>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> setbit login 1 1   <span class="token comment" spellcheck="true">#添加周一已登陆 为1</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> setbit login 2 1
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> setbit login 3 1
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> setbit login 4 0  <span class="token comment" spellcheck="true">#添加周四已登陆 为0</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> setbit login 5 0
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> setbit login 6 1
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> setbit login 7 0
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> getbit login 1  <span class="token comment" spellcheck="true">#获取周一是否登录</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> getbit login 4  <span class="token comment" spellcheck="true">#获取周四是否登陆</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 0
+127.0.0.1:6379<span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> bitcount login  <span class="token comment" spellcheck="true">#统计这周登陆的天数</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 4
+</code></pre>
+<p>总结：实际需求中，可能需要我们统计用户的登陆信息，员工的打卡信息等等</p>
+<p>只要是事务的只有两个状态的，我们都可以用Bitmap来进行操作</p>
+<h3 id="事务和乐观锁"><a href="#事务和乐观锁" class="headerlink" title="事务和乐观锁"></a>事务和乐观锁</h3><h4 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h4><ol>
+<li>原子性（atomicity）：一个事务是一个不可分割的工作单位，事务中包括的操作要么都做，要么都不做</li>
+<li>一致性（consistency）：事务必须是使数据库从一个一致性状态变到另一个一致性状态。一致性与原子性是密切相关的</li>
+<li>隔离性（isolation）：一个事务的执行不能被其他事务干扰。即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，并发执行的各个事务之间不能互相干扰</li>
+<li>持久性（durability）：持久性也称永久性（permanence），指一个事务一旦提交，它对数据库中数据的改变就应该是永久性的。接下来的其他操作或故障不应该对其有任何影响</li>
+</ol>
+<p>在Redis事务没有没有隔离级别的概念（好像数据库之间的数据是隔离的？是这种隔离吗）</p>
+<p>在Redis单条命令式保证原子性的，但是事务不保证原子性</p>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> multi  <span class="token comment" spellcheck="true">#开启事务</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> name dingyongjun  <span class="token comment" spellcheck="true">#添加数据</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> age 26  <span class="token comment" spellcheck="true">#添加数据</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> high 172  <span class="token comment" spellcheck="true">#添加数据</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">exec</span>  执行事务
+1<span class="token punctuation">)</span> OK
+2<span class="token punctuation">)</span> OK
+3<span class="token punctuation">)</span> OK
+127.0.0.1:6379<span class="token operator">></span> get name  <span class="token comment" spellcheck="true">#获取数据成功，证明事务执行成功</span>
+<span class="token string">"dingyongjun"</span>
+127.0.0.1:6379<span class="token operator">></span> get age
+<span class="token string">"26"</span>
+<span class="token comment" spellcheck="true">#############</span>
+127.0.0.1:6379<span class="token operator">></span> multi  <span class="token comment" spellcheck="true">#开启事务</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> name dingyongjun  <span class="token comment" spellcheck="true">#添加数据</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> age 26  <span class="token comment" spellcheck="true">#添加数据</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> discard  <span class="token comment" spellcheck="true">#放弃事务</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> get name  <span class="token comment" spellcheck="true">#不会执行事务里面的添加操作</span>
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 编译时异常，代码有问题，或者命令有问题，所有的命令都不会被执行</span>
+127.0.0.1:6379<span class="token operator">></span> multi  <span class="token comment" spellcheck="true">#开启事务</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> name dingyongjun  <span class="token comment" spellcheck="true">#添加数据</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> age 23  <span class="token comment" spellcheck="true">#添加数据</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> getset name  <span class="token comment" spellcheck="true">#输入一个错误的命令，这时候已经报错了，但是这个还是进入了事务的队列当中</span>
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> ERR wrong number of arguments <span class="token keyword">for</span> <span class="token string">'getset'</span> <span class="token function">command</span>
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> high 173  <span class="token comment" spellcheck="true">#添加数据</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">exec</span>  <span class="token comment" spellcheck="true">#执行事务，报错，并且所有的命令都不会执行</span>
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> EXECABORT Transaction discarded because of previous errors.
+127.0.0.1:6379<span class="token operator">></span> get name  <span class="token comment" spellcheck="true">#获取数据为空，证明没有执行</span>
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 运行时异常，除了语法错误不会被执行且抛出异常后，其他的正确命令可以正常执行</span>
+127.0.0.1:6379<span class="token operator">></span> multi  <span class="token comment" spellcheck="true">#开启事务</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> name dingyongjun  <span class="token comment" spellcheck="true">#添加字符串数据</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> incr name  <span class="token comment" spellcheck="true">#对字符串数据进行自增操作</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> age 23  <span class="token comment" spellcheck="true">#添加数据</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> get age  <span class="token comment" spellcheck="true">#获取数据</span>
+QUEUED 
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">exec</span>  <span class="token comment" spellcheck="true">#执行事务。虽然对字符串数据进行自增操作报错了，但是其他的命令还是可以正常执行的</span>
+1<span class="token punctuation">)</span> OK
+2<span class="token punctuation">)</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> ERR value is not an integer or out of range
+3<span class="token punctuation">)</span> OK
+4<span class="token punctuation">)</span> <span class="token string">"23"</span>
+127.0.0.1:6379<span class="token operator">></span> get age  <span class="token comment" spellcheck="true">#获取数据成功</span>
+<span class="token string">"23"</span>
+
+<span class="token comment" spellcheck="true"># 总结：由以上可以得出结论，Redis是支持单条命令事务的，但是事务并不能保证原子性！</span>
+</code></pre>
+<h4 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h4><ol>
+<li>当程序中可能出现并发的情况时，就需要保证在并发情况下数据的准确性，以此确保当前用户和其他用户一起操作时，所得到的结果和他单独操作时的结果是一样的。</li>
+<li>没有做好并发控制，就可能导致脏读、幻读和不可重复读等问题</li>
+</ol>
+<p>在Redis是可以实现乐观锁的</p>
+<h5 id="watch-监视"><a href="#watch-监视" class="headerlink" title="watch 监视"></a>watch 监视</h5><pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> money 100  <span class="token comment" spellcheck="true">#添加金钱100</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> cost 0  <span class="token comment" spellcheck="true">#添加花费0</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">watch</span> money  <span class="token comment" spellcheck="true">#监控金钱</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> multi  <span class="token comment" spellcheck="true">#开启事务</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> DECRBY money 30  <span class="token comment" spellcheck="true">#金钱-30</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> incrby cost 30  <span class="token comment" spellcheck="true">#花费+30</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">exec</span>  <span class="token comment" spellcheck="true">#执行事务，成功！这时候数据没有发生变动才可以成功</span>
+1<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 70
+2<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 30
+</code></pre>
+<h5 id="多线程测试-watch"><a href="#多线程测试-watch" class="headerlink" title="多线程测试 watch"></a>多线程测试 watch</h5><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#线程1</span>
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> money 100  <span class="token comment" spellcheck="true">#添加金钱100</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> cost 0  <span class="token comment" spellcheck="true">#添加花费0</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">watch</span> money  <span class="token comment" spellcheck="true">#开启监视（乐观锁）</span>
+OK 
+127.0.0.1:6379<span class="token operator">></span> multi  <span class="token comment" spellcheck="true">#开启事务</span>
+OK
+127.0.0.1:6379<span class="token operator">></span> DECRBY money 20  <span class="token comment" spellcheck="true">#金钱-20</span>
+QUEUED
+127.0.0.1:6379<span class="token operator">></span> INCRBY cost 20   <span class="token comment" spellcheck="true">#花费+20</span>
+QUEUED
+<span class="token comment" spellcheck="true">#这里先不要执行，先执行线程2来修改被监视的值</span>
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">exec</span>  <span class="token comment" spellcheck="true">#执行报错，因为我们监视了money这个值，如果事务要对这个值进行操作前</span>
+<span class="token comment" spellcheck="true">#监视器会判断这个值是否正常，如果发生改变，事务执行失败！</span>
+<span class="token punctuation">(</span>nil<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#线程2，这个在事务执行前操作执行</span>
+127.0.0.1:6379<span class="token operator">></span> INCRBY money 20  <span class="token comment" spellcheck="true">#金钱+20</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 120
+</code></pre>
+<p>总结：乐观锁和悲观锁的区别。<br><strong>悲观锁：</strong> 什么时候都会出问题，所以一直监视着，没有执行当前步骤完成前，不让任何线程执行，十分浪费性能！一般不使用！<br><strong>乐观锁：</strong> 只有更新数据的时候去判断一下，在此期间是否有人修改过被监视的这个数据，没有的话正常执行事务，反之执行失败</p>
+<h3 id="redis-config-配置文件"><a href="#redis-config-配置文件" class="headerlink" title="redis.config 配置文件"></a>redis.config 配置文件</h3><ul>
+<li> Redis配置对大小写不敏感</li>
+<li> 搭建Redis集群时，可以使用includes包含其他配置文件</li>
+</ul>
+<h4 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h4><pre class=" language-bash"><code class="language-bash">bind 127.0.0.1 <span class="token comment" spellcheck="true"># 绑定的ip </span>
+protected-mode <span class="token function">yes</span> <span class="token comment" spellcheck="true"># 保护模式 </span>
+port 6379 <span class="token comment" spellcheck="true"># 端口设置</span>
+</code></pre>
+<h4 id="GENERAL"><a href="#GENERAL" class="headerlink" title="GENERAL"></a>GENERAL</h4><pre class=" language-bash"><code class="language-bash">daemonize <span class="token function">yes</span> <span class="token comment" spellcheck="true"># 以守护进程的方式运行，默认是 no，我们需要自己开启为yes</span>
+pidfile /var/run/redis_6379.pid <span class="token comment" spellcheck="true"># 如果以后台的方式运行，我们就需要指定一个 pid 文件！ </span>
+<span class="token comment" spellcheck="true"># 日志 </span>
+<span class="token comment" spellcheck="true"># Specify the server verbosity level. </span>
+<span class="token comment" spellcheck="true"># This can be one of:</span>
+<span class="token comment" spellcheck="true"># debug (a lot of information, useful for development/testing) </span>
+<span class="token comment" spellcheck="true"># verbose (many rarely useful info, but not a mess like the debug level) </span>
+<span class="token comment" spellcheck="true"># notice (moderately verbose, what you want in production probably) 生产环境 </span>
+<span class="token comment" spellcheck="true"># warning (only very important / critical messages are logged)</span>
+loglevel notice 
+logfile <span class="token string">""</span> <span class="token comment" spellcheck="true"># 日志的文件位置名 </span>
+databases 16 <span class="token comment" spellcheck="true"># 数据库的数量，默认是 16 个数据库 </span>
+always-show-logo <span class="token function">yes</span> <span class="token comment" spellcheck="true"># 是否总是显示LOGO</span>
+</code></pre>
+<h4 id="快照（RDB）"><a href="#快照（RDB）" class="headerlink" title="快照（RDB）"></a>快照（RDB）</h4><p>持久化，在规定的时间内，执行了多少次操作则会持久化到文件 .rdb .aof文件<br><strong>Redis是内存数据库，如果没有持久化，那么数据断电即失</strong></p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 如果900s内，如果至少有一个1 key进行了修改，我们及进行持久化操作 </span>
+save 900 1 
+<span class="token comment" spellcheck="true"># 如果300s内，如果至少10 key进行了修改，我们及进行持久化操作 </span>
+save 300 10 
+<span class="token comment" spellcheck="true"># 如果60s内，如果至少10000 key进行了修改，我们及进行持久化操作 </span>
+save 60 10000 
+<span class="token comment" spellcheck="true"># 我们之后学习持久化，会自己定义这个测试！</span>
+</code></pre>
+<h4 id="SECURITY"><a href="#SECURITY" class="headerlink" title="SECURITY"></a>SECURITY</h4><p>设置密码：</p>
+<ol>
+<li>配置文件设置：<code># requirepass foobared</code>这一行，将其前面的注释符号 # 去除；将 foobared 更换成自定义的密码，比如 mypassword；</li>
+<li>命令行设置：</li>
+</ol>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> config get requirepass  <span class="token comment" spellcheck="true">#获取Redis的密码</span>
+1<span class="token punctuation">)</span> <span class="token string">"requirepass"</span>
+2<span class="token punctuation">)</span> <span class="token string">""</span>
+127.0.0.1:6379<span class="token operator">></span> config <span class="token keyword">set</span> requirepass <span class="token string">"123456"</span>  <span class="token comment" spellcheck="true">#设置Redis的密码为123456</span>
+OK
+<span class="token comment" spellcheck="true"># Ctrl+C 退出当前连接</span>
+<span class="token punctuation">[</span>root@dyjcomputer bin<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># redis-cli -p 6379  #重新连接</span>
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">ping</span>  <span class="token comment" spellcheck="true">#测试ping，失败，所有的命令都显示无权限</span>
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> NOAUTH Authentication required.  
+127.0.0.1:6379<span class="token operator">></span> <span class="token keyword">set</span> k1 v1  <span class="token comment" spellcheck="true">#失败，所有的命令都显示无权限</span>
+<span class="token punctuation">(</span>error<span class="token punctuation">)</span> NOAUTH Authentication required.  
+127.0.0.1:6379<span class="token operator">></span> auth 123456  <span class="token comment" spellcheck="true">#auth + 密码  登陆上去</span>
+OK 
+127.0.0.1:6379<span class="token operator">></span> <span class="token function">ping</span>  <span class="token comment" spellcheck="true">#正常</span>
+PONG
+127.0.0.1:6379<span class="token operator">></span> config get requirepass  <span class="token comment" spellcheck="true">#获取密码，正常</span>
+1<span class="token punctuation">)</span> <span class="token string">"requirepass"</span>
+2<span class="token punctuation">)</span> <span class="token string">"123456"</span>
+
+<span class="token comment" spellcheck="true"># 使用密码</span>
+$ redis-cli -h host -p port -a password <span class="token comment" spellcheck="true"># 会有密码不安全警告,取消有两种方式</span>
+<span class="token comment" spellcheck="true"># 1、</span>
+$ redis-cli -a password --no-auth-warning 
+<span class="token comment" spellcheck="true"># 2、</span>
+$ redis-cli -h host -p -port
+$ auth password  <span class="token comment" spellcheck="true"># 进来之后再输入</span>
+
+root@77e5c14c7de9:/data <span class="token comment" spellcheck="true"># redis-cli -a 123456  # -a 属性是密码，没有密码就不用填写</span>
+127.0.0.1:6379<span class="token operator">></span> auth 123456 <span class="token comment" spellcheck="true"># 同样可以输入密码</span>
+</code></pre>
+<h4 id="限制CLIENTS"><a href="#限制CLIENTS" class="headerlink" title="限制CLIENTS"></a>限制CLIENTS</h4><pre class=" language-bash"><code class="language-bash">maxclients 10000   <span class="token comment" spellcheck="true">#设置能连接上redis的最大客户端的数量 </span>
+maxmemory <span class="token operator">&lt;</span>bytes<span class="token operator">></span>  <span class="token comment" spellcheck="true">#redis 配置最大的内存容量 </span>
+maxmemory-policy noeviction  <span class="token comment" spellcheck="true">#内存到达上限之后的处理策略 </span>
+1、volatile-lru：只对设置了过期时间的key进行LRU（默认值） 
+2、allkeys-lru ： 删除lru算法的key 
+3、volatile-random：随机删除即将过期key 
+4、allkeys-random：随机删除 
+5、volatile-ttl ： 删除即将过期的 
+6、noeviction ： 永不过期，返回错误
+</code></pre>
+<h4 id="APPEND-ONLY-模式-aof配置（持久化保存）"><a href="#APPEND-ONLY-模式-aof配置（持久化保存）" class="headerlink" title="APPEND ONLY 模式 aof配置（持久化保存）"></a>APPEND ONLY 模式 aof配置（持久化保存）</h4><pre class=" language-bash"><code class="language-bash">appendonly no  <span class="token comment" spellcheck="true">#默认是不开启aof模式的，默认是使用rdb方式持久化的，在大部分所有的情况下,rdb完全够用！ </span>
+appendfilename <span class="token string">"appendonly.aof"</span>  <span class="token comment" spellcheck="true">#持久化的文件的名字 </span>
+<span class="token comment" spellcheck="true"># appendfsync always # 每次修改都会 sync。消耗性能 </span>
+appendfsync everysec <span class="token comment" spellcheck="true"># 每秒执行一次 sync，可能会丢失这1s的数据！ </span>
+<span class="token comment" spellcheck="true"># appendfsync no  #不执行 sync，这个时候操作系统自己同步数据，速度最快！</span>
+</code></pre>
+<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><p> 默认redis是没有启动日志，需要在配置文件redis.conf中设置 </p>
+<p><code>#logfile "/usr/local/redis5/redis_log.log"</code> redis.conf文件中</p>
+<p>配置完，<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E9%87%8D%E5%90%AFRedis&amp;spm=1001.2101.3001.7020">重启Redis</a>的过程，将会把启动过程中的日志信息写入日志文件（包括启动错误日志信息，运行日志，bgsave备份日志等等 ）</p>
+<h4 id="redis-慢日志"><a href="#redis-慢日志" class="headerlink" title="redis 慢日志"></a>redis 慢日志</h4><pre><code>slowlog-log-slower-than
+</code></pre>
+<p>设定执行时间，单位是毫秒，执行时长超过该时间的命令将会被记入log。-1表示不记录slow log; 0强制记录所有命令。 </p>
+<pre><code>slowlog-max-len
+</code></pre>
+<p>slow log的长度。最小值为0。如果日志队列已超出最大长度，则最早的记录会被从队列中清除。 </p>
+<p> 可以通过编辑redis.conf文件配置以上两个参数。对运行中的redis, 可以通过config get, config set命令动态改变上述两个参数</p>
+<p>\1. 列出所有 slow log</p>
+<pre class=" language-bash"><code class="language-bash">$ 127.0.0.1:6379<span class="token operator">></span> slowlog get
+<span class="token punctuation">(</span>empty list or set<span class="token punctuation">)</span>
+</code></pre>
+<p>\2. 列出最近10条 slow log</p>
+<pre><code>slowlog get 10
+</code></pre>
+<p>说明：slow log是记录在内存中的，所以即使你记录所有的命令（将slowlog-log-slower-than设为0），对性能的影响也很小。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="Redis-持久化"><a href="#Redis-持久化" class="headerlink" title="Redis 持久化"></a>Redis 持久化</h3><p>Redis 是内存数据库，如果不将内存中的数据库状态保存到磁盘，那么一旦服务器进程退出，服务器中的数据库状态也会消失。所以 Redis 提供了持久化功能</p>
+<h4 id="RDB（Redis-DataBase）"><a href="#RDB（Redis-DataBase）" class="headerlink" title="RDB（Redis DataBase）"></a>RDB（Redis DataBase）</h4><p>/usr/local/bin/dump.rdb 文件就是持久化保存的文件</p>
+<p>在 SNAPSHOTTING 配置</p>
+<pre class=" language-yaml"><code class="language-yaml">save 60 5  <span class="token comment" spellcheck="true"># 60s内进行5次操作，即写入rdb文件中进行持久化保存</span>
+</code></pre>
+<p>触发条件：</p>
+<ol>
+<li>达到保存条件，如 60s 操作 5 次</li>
+<li>flushall</li>
+<li>shutdown</li>
+</ol>
+<h5 id="恢复rdb文件"><a href="#恢复rdb文件" class="headerlink" title="恢复rdb文件"></a>恢复rdb文件</h5><p>1、只需将备份的rdb文件放在我们的redis启动目录即可，Redis启动的时候会自动检查dump.rdb文件并恢复其中的数据</p>
+<p>2、查找文件位置的命令：</p>
+<pre class=" language-yaml"><code class="language-yaml">127.0.0.1<span class="token punctuation">:</span>6379<span class="token punctuation">></span> config get dir
+1) "dir"
+2) "/usr/local/bin"  <span class="token comment" spellcheck="true"># 如果在这个目录下存在 dump.rdb 文件，启动就会自动恢复其中的数据</span>
+</code></pre>
+<h5 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h5><ol>
+<li><p>优点</p>
+</li>
+<li><ol>
+<li>适合大规模的数据恢复</li>
+<li>对数据的完整性要求不高</li>
+</ol>
+</li>
+<li><p>缺点</p>
+</li>
+<li><ol>
+<li>需要一定的时间间隔进程操作！如果redis意外宕机了，这个最后一次修改数据就没有的了</li>
+<li>fork进程的时候，会占用一定的内容空间！</li>
+</ol>
+</li>
+</ol>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>Redis会单独创建（fork）一个子进程来进行持久化，会先将数据写入到一个临时文件中，待持久化过程都结束了，再用这个临时文件替换上次持久化好的文件。整个过程中，主进程是不进行任何IO操作的。</p>
+<p>这就确保了极高的性能。如果需要进行大规模数据的恢复，且对于数据恢复的完整性不是非常敏感，那RDB方式要比AOF方式更加的高效。RDB的缺点是最后一次持久化后的数据可能丢失。我们默认的就是RDB，一般情况下不需要修改这个配置</p>
+<p>在生产环境我们会将这个文件进行备份</p>
+<h4 id="AOF（Append-Only-File）"><a href="#AOF（Append-Only-File）" class="headerlink" title="AOF（Append Only File）"></a>AOF（Append Only File）</h4><p>Redis默认使用的是RDB模式，所以需要手动开启AOF模式</p>
+<h5 id="手动开启-AOF"><a href="#手动开启-AOF" class="headerlink" title="手动开启 AOF"></a>手动开启 AOF</h5><p>在配置文件 APPEND ONLY MODE 部分，找到 appebdonly no 位置，改为 yes</p>
+<p>重启服务</p>
+<p>可以看到多出 /usr/local/bin/appendonly.aof 文件</p>
+<p>打开appendonly.aof文件，里面存储的就是先前操作的命令</p>
+<h5 id="修复-aof-文件"><a href="#修复-aof-文件" class="headerlink" title="修复 aof 文件"></a>修复 aof 文件</h5><p>如果 aof 损坏，重启服务会失败</p>
+<p>使用redis-check-aof文件来进行修复</p>
+<pre class=" language-bash"><code class="language-bash">redis-check-aof --fix appendonly.aof  <span class="token comment" spellcheck="true">#修复appendonly.aof文件</span>
+</code></pre>
+<p>虽然错误的内容少了，但是正确的也有一定的丢失。所以这个修复无法做到百分百修复</p>
+<h5 id="AOF重写规则"><a href="#AOF重写规则" class="headerlink" title="AOF重写规则"></a>AOF重写规则</h5><p>aof 默认的就是文件的无限追加，在配置文件中可以设置文件的大小</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># redis.config</span>
+<span class="token comment" spellcheck="true"># appendfsync always # 每次修改都会 sync。消耗性能 </span>
+appendfsync everysec <span class="token comment" spellcheck="true"># 每秒执行一次 sync，可能会丢失这1s的数据！ # appendfsync no # 不执行 sync，这个时候操作系统自己同步数据，速度最快！</span>
+
+appendfilename <span class="token string">"appendonly.aof"</span> <span class="token comment" spellcheck="true"># 持久化的文件的名字</span>
+appendonly no <span class="token comment" spellcheck="true"># 默认是不开启aof模式的，默认是使用rdb方式持久化的，在大部分所有的情况下， rdb完全够用！</span>
+
+auto-aof-rewrite-percentage 100  <span class="token comment" spellcheck="true"># 写入百分比</span>
+auto-aof-rewrite-min-size 64mb  <span class="token comment" spellcheck="true"># 写入的文件最大值是多少，一般在实际工作中我们会将其设置为5gb左右！</span>
+</code></pre>
+<h5 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h5><p>优点：</p>
+<ol>
+<li>每一次修改都同步，文件的完整性会更加好！</li>
+<li>每秒同步一次，最多会丢失一秒的数据！</li>
+<li>从不同步，效率最高的！</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>相对于数据文件来说，aof 远远大于 rdb，修复的速度也比 rdb慢</li>
+<li>Aof 运行效率也要比 rdb 慢，所以我们redis默认的配置就是rdb持久化！</li>
+</ol>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><ol>
+<li><p>RDB 持久化方式能够在指定的时间间隔内对你的数据进行快照存储</p>
+</li>
+<li><p>AOF 持久化方式记录每次对服务器写的操作，当服务器重启的时候会重新执行这些命令来恢复原始的数据，AOF 命令以Redis 协议追加保存每次写的操作到文件末尾，Redis还能对AOF文件进行后台重写，使得AOF文件的体积不至于过大。</p>
+</li>
+<li><p>只做缓存，如果你只希望你的数据在服务器运行的时候存在，你也可以不使用任何持久化</p>
+</li>
+<li><p>同时开启两种持久化方式</p>
+</li>
+<li><ol>
+<li>在这种情况下，当redis重启的时候会优先载入AOF文件来恢复原始的数据，因为在通常情况下AOF文件保存的数据集要比RDB文件保存的数据集要完整</li>
+<li>RDB 的数据不实时，同时使用两者时服务器重启也只会找AOF文件，那要不要只使用AOF呢？建议不要，因为RDB更适合用于备份数据库（AOF在不断变化不好备份），快速重启，而且不会有AOF可能潜在的Bug，留着作为一个万一的手段</li>
+</ol>
+</li>
+<li><p>性能建议</p>
+</li>
+<li><ol>
+<li>因为RDB文件只用作后备用途，建议只在Slave上持久化RDB文件，而且只要15分钟备份一次就够了，只保留 save 900 1 这条规则</li>
+<li>如果Enable AOF ，好处是在最恶劣情况下也只会丢失不超过两秒数据，启动脚本较简单只load自己的AOF文件就可以了，代价一是带来了持续的IO，二是AOF rewrite 的最后将 rewrite 过程中产生的新数据写到新文件造成的阻塞几乎是不可避免的。只要硬盘许可，应该尽量减少AOF rewrite的频率，AOF重写的基础大小默认值64M太小了，可以设到5G以上，默认超过原大小100%大小重写可以改到适当的数值</li>
+<li>如果不Enable AOF ，仅靠 Master-Slave Repllcation 实现高可用性也可以，能省掉一大笔IO，也减少了rewrite时带来的系统波动。代价是如果Master/Slave 同时倒掉，会丢失十几分钟的数据，启动脚本也要比较两个 Master/Slave 中的 RDB文件，载入较新的那个，微博就是这种架构</li>
+</ol>
+</li>
+</ol>
+<h3 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h3><p><strong>Redis发布订阅（pub/sub）是一种消息通信模式：发送者（pub）发送消息，订阅者（sub）接受消息。</strong><br>Redis客户端可以订阅任意数量的频道</p>
+<p>这些命令被广泛用于构建即时通信应用，比如网络聊天室(chatroom)和实时广播、实时提醒等</p>
+<h4 id="订阅端"><a href="#订阅端" class="headerlink" title="订阅端"></a>订阅端</h4><pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> <span class="token function">ping</span>
+PONG
+127.0.0.1:6379<span class="token operator">></span> SUBSCRIBE dingdada  <span class="token comment" spellcheck="true">#订阅名字为 dingdada 的频道</span>
+Reading messages<span class="token punctuation">..</span>. <span class="token punctuation">(</span>press Ctrl-C to quit<span class="token punctuation">)</span>
+1<span class="token punctuation">)</span> <span class="token string">"subscribe"</span>
+2<span class="token punctuation">)</span> <span class="token string">"dingdada"</span>
+3<span class="token punctuation">)</span> <span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+<span class="token comment" spellcheck="true">#等待推送的信息</span>
+1<span class="token punctuation">)</span> <span class="token string">"message"</span>  <span class="token comment" spellcheck="true">#消息</span>
+2<span class="token punctuation">)</span> <span class="token string">"dingdada"</span>  <span class="token comment" spellcheck="true">#来自哪个频道的消息</span>
+3<span class="token punctuation">)</span> <span class="token string">"hello world\xef\xbc\x81"</span>  <span class="token comment" spellcheck="true"># 消息的具体内容</span>
+1<span class="token punctuation">)</span> <span class="token string">"message"</span>
+2<span class="token punctuation">)</span> <span class="token string">"dingdada"</span>
+3<span class="token punctuation">)</span> <span class="token string">"my name is dyj\x81"</span>
+</code></pre>
+<h4 id="发送端"><a href="#发送端" class="headerlink" title="发送端"></a>发送端</h4><pre class=" language-bash"><code class="language-bash">127.0.0.1:6379<span class="token operator">></span> <span class="token function">ping</span>
+PONG
+127.0.0.1:6379<span class="token operator">></span> PUBLISH dingdada <span class="token string">"hello world！"</span>  <span class="token comment" spellcheck="true">#发送消息到dingdada 频道</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+127.0.0.1:6379<span class="token operator">></span> PUBLISH dingdada <span class="token string">"my name is dyj"</span>  <span class="token comment" spellcheck="true">#发送消息到dingdada 频道</span>
+<span class="token punctuation">(</span>integer<span class="token punctuation">)</span> 1
+</code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># PSUBSCRIBE # 订阅指定频道  </span>
+PSUBSCRIBE + 频道 <span class="token comment" spellcheck="true"># 订阅给定的模式，可多个</span>
+
+<span class="token comment" spellcheck="true"># PUBLISH # 发送消息至指定频道</span>
+PUBLISH + 频道 +消息  <span class="token comment" spellcheck="true">#将信息 message 发送到指定的频道 channel</span>
+
+<span class="token comment" spellcheck="true"># PUNSUBSCRIBE 退订</span>
+<span class="token comment" spellcheck="true"># 指示客户端退订指定模式，若果没有提供模式则退出所有模式。</span>
+
+<span class="token comment" spellcheck="true"># SUBSCRIBE 订阅，同上</span>
+<span class="token comment" spellcheck="true"># UNSUBSCRIBE 退订，同上</span>
+</code></pre>
+<h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><p>Pub/Sub 从字面上理解就是发布（Publish）与订阅（Subscribe），在Redis中，你可以设定对某一个key值进行消息发布及消息订阅，当一个key值上进行了消息发布后，所有订阅它的客户端都会收到相应的消息。这一功能最明显的用法就是用作实时消息系统，比如普通的即时聊天，群聊等功能。</p>
+<h3 id="远程连接"><a href="#远程连接" class="headerlink" title="远程连接"></a>远程连接</h3><p>修改配置文件redis.config</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、</span>
+bind 127.0.0.1 ::1  <span class="token comment" spellcheck="true"># 注释掉</span>
+
+<span class="token comment" spellcheck="true"># 2、</span>
+<span class="token comment" spellcheck="true"># redis3.2版本以上的，保护模式修改成no</span>
+protected-mode <span class="token function">yes</span>
+</code></pre>
+<h4 id="使用-go-连接"><a href="#使用-go-连接" class="headerlink" title="使用 go 连接"></a>使用 go 连接</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/corruptwww/article/details/126047077">https://blog.csdn.net/corruptwww/article/details/126047077</a></p>
+<h4 id="Go-批量写入-HASH"><a href="#Go-批量写入-HASH" class="headerlink" title="Go 批量写入 HASH"></a>Go 批量写入 HASH</h4><pre class=" language-go"><code class="language-go"><span class="token keyword">package</span> redis_util
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"fmt"</span>
+    <span class="token string">"github.com/gomodule/redigo/redis"</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">func</span> <span class="token function">WriteRedis</span><span class="token punctuation">(</span>RD_DSN <span class="token builtin">string</span><span class="token punctuation">,</span> RD_PWD <span class="token builtin">string</span><span class="token punctuation">,</span> data <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    c<span class="token punctuation">,</span> err <span class="token operator">:=</span> redis<span class="token punctuation">.</span><span class="token function">Dial</span><span class="token punctuation">(</span><span class="token string">"tcp"</span><span class="token punctuation">,</span> RD_DSN<span class="token punctuation">,</span>
+        redis<span class="token punctuation">.</span><span class="token function">DialPassword</span><span class="token punctuation">(</span>RD_PWD<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">defer</span> c<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    dataArgs <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
+    dataArgs <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>dataArgs<span class="token punctuation">,</span> <span class="token string">"thread_info"</span><span class="token punctuation">)</span>
+    
+    <span class="token comment" spellcheck="true">// 数量不大的情况的一次性插入：</span>
+    <span class="token comment" spellcheck="true">// for k, v := range data {</span>
+    <span class="token comment" spellcheck="true">//     dataArgs = append(dataArgs, k, fmt.Sprintf("%d", v))</span>
+    <span class="token comment" spellcheck="true">// }</span>
+
+    <span class="token comment" spellcheck="true">// fmt.Println("dataArgs is already")</span>
+
+    <span class="token comment" spellcheck="true">// _, err = c.Do("HSET", dataArgs...)</span>
+    <span class="token comment" spellcheck="true">// if err != nil {</span>
+    <span class="token comment" spellcheck="true">//     fmt.Println("Error:", err)</span>
+    <span class="token comment" spellcheck="true">// }</span>
+
+    <span class="token comment" spellcheck="true">// 数量很大使用分批插入，可以测试分批大小为多少是最优：</span>
+    i <span class="token operator">:=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token operator">:=</span> <span class="token keyword">range</span> data <span class="token punctuation">{</span>
+        dataArgs <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>dataArgs<span class="token punctuation">,</span> k<span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> v<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        i<span class="token operator">++</span>
+        <span class="token keyword">if</span> i <span class="token operator">%</span> <span class="token number">100000</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+            fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"dataArgs is already"</span><span class="token punctuation">)</span>
+            <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">Do</span><span class="token punctuation">(</span><span class="token string">"HSET"</span><span class="token punctuation">,</span> dataArgs<span class="token operator">...</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+                fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Error:"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+            dataArgs <span class="token operator">=</span> dataArgs<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">// 重置dataArgs，只保留 "thread_info"</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>dataArgs<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">1</span> <span class="token punctuation">{</span>
+        <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">Do</span><span class="token punctuation">(</span><span class="token string">"HSET"</span><span class="token punctuation">,</span> dataArgs<span class="token operator">...</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Error:"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><h4 id="内存使用问题"><a href="#内存使用问题" class="headerlink" title="内存使用问题"></a>内存使用问题</h4><p>问题：设置了 maxmemory 但是 used_memory 依旧不会改变</p>
+<pre class=" language-go"><code class="language-go"><span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">6379</span><span class="token operator">></span> info memory
+# Memory
+used_memory<span class="token punctuation">:</span><span class="token number">171388424</span>
+used_memory_human<span class="token punctuation">:</span><span class="token number">163.</span>45M
+used_memory_rss<span class="token punctuation">:</span><span class="token number">178491392</span>
+used_memory_rss_human<span class="token punctuation">:</span><span class="token number">170.</span>22M
+used_memory_peak<span class="token punctuation">:</span><span class="token number">171409472</span>
+used_memory_peak_human<span class="token punctuation">:</span><span class="token number">163.</span>47M
+used_memory_peak_perc<span class="token punctuation">:</span><span class="token number">99.99</span><span class="token operator">%</span>
+used_memory_overhead<span class="token punctuation">:</span><span class="token number">830656</span>
+used_memory_startup<span class="token punctuation">:</span><span class="token number">810048</span>
+used_memory_dataset<span class="token punctuation">:</span><span class="token number">170557768</span>
+used_memory_dataset_perc<span class="token punctuation">:</span><span class="token number">99.99</span><span class="token operator">%</span>
+allocator_allocated<span class="token punctuation">:</span><span class="token number">171411480</span>
+allocator_active<span class="token punctuation">:</span><span class="token number">171687936</span>
+allocator_resident<span class="token punctuation">:</span><span class="token number">176910336</span>
+total_system_memory<span class="token punctuation">:</span><span class="token number">3861655552</span>
+total_system_memory_human<span class="token punctuation">:</span><span class="token number">3.</span>60G
+used_memory_lua<span class="token punctuation">:</span><span class="token number">37888</span>
+used_memory_lua_human<span class="token punctuation">:</span><span class="token number">37.</span>00K
+used_memory_scripts<span class="token punctuation">:</span><span class="token number">0</span>
+used_memory_scripts_human<span class="token punctuation">:</span>0B
+number_of_cached_scripts<span class="token punctuation">:</span><span class="token number">0</span>
+maxmemory<span class="token punctuation">:</span><span class="token number">524288000</span>
+maxmemory_human<span class="token punctuation">:</span><span class="token number">500.</span>00M
+maxmemory_policy<span class="token punctuation">:</span>noeviction
+allocator_frag_ratio<span class="token punctuation">:</span><span class="token number">1.00</span>
+allocator_frag_bytes<span class="token punctuation">:</span><span class="token number">276456</span>
+allocator_rss_ratio<span class="token punctuation">:</span><span class="token number">1.03</span>
+allocator_rss_bytes<span class="token punctuation">:</span><span class="token number">5222400</span>
+rss_overhead_ratio<span class="token punctuation">:</span><span class="token number">1.01</span>
+rss_overhead_bytes<span class="token punctuation">:</span><span class="token number">1581056</span>
+mem_fragmentation_ratio<span class="token punctuation">:</span><span class="token number">1.04</span>
+mem_fragmentation_bytes<span class="token punctuation">:</span><span class="token number">7143984</span>
+mem_not_counted_for_evict<span class="token punctuation">:</span><span class="token number">0</span>
+mem_replication_backlog<span class="token punctuation">:</span><span class="token number">0</span>
+mem_clients_slaves<span class="token punctuation">:</span><span class="token number">0</span>
+mem_clients_normal<span class="token punctuation">:</span><span class="token number">20504</span>
+mem_aof_buffer<span class="token punctuation">:</span><span class="token number">0</span>
+mem_allocator<span class="token punctuation">:</span>jemalloc<span class="token number">-5.1</span><span class="token punctuation">.</span><span class="token number">0</span>
+active_defrag_running<span class="token punctuation">:</span><span class="token number">0</span>
+lazyfree_pending_objects<span class="token punctuation">:</span><span class="token number">0</span>
+lazyfreed_objects<span class="token punctuation">:</span><span class="token number">0</span>
+</code></pre>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Nico</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://sainthood2077.github.io/2023/11/15/redis/">https://sainthood2077.github.io/2023/11/15/redis/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Nico</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/NoSQL/">
+                                    <span class="chip bg-color">NoSQL</span>
+                                </a>
+                            
+                                <a href="/tags/redis/">
+                                    <span class="chip bg-color">redis</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/11/17/syslog-xie-yi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Syslog协议">
+                        
+                        <span class="card-title">Syslog协议</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/linux/" class="post-category">
+                                    linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/syslog/">
+                        <span class="chip bg-color">syslog</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/10/06/vue-js/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Vue.js">
+                        
+                        <span class="card-title">Vue.js</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/vue/" class="post-category">
+                                    vue
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Vue/">
+                        <span class="chip bg-color">Vue</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: NicoCode<br />'
+            + '文章作者: Nico<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者Nico所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2024</span>
+            
+            <a href="/about" target="_blank">Nico</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">89.3k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+    
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "09";
+                        var startDate = "27";
+                        var startHour = "18";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+    
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+    
+                    calcSiteTime();
+                </script>
+                <script src="/js/prism/prism.js" async></script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,0"
+        pointColor="0,0,0" opacity='0.7'
+        zIndex="-1" count="299"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
